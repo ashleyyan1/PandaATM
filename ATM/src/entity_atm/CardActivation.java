@@ -2,19 +2,21 @@ package entity_atm;
 
 import java.time.LocalDateTime;
 
+import database.Database;
+
 public class CardActivation {
 	
-	private int cardNumber;
+	private long cardNumber;
 	private int accountNumber;
 	private LocalDateTime dateTimeActivated;
 	
-	public CardActivation(int cN, int aN, LocalDateTime dTA) {
+	public CardActivation(long cN, int aN, LocalDateTime dTA) {
 		this.cardNumber = cN;
 		this.accountNumber = aN;
 		this.dateTimeActivated = dTA;
 	}
 
-	public int getCardNumber() {
+	public long getCardNumber() {
 		return cardNumber;
 	}
 
@@ -34,7 +36,7 @@ public class CardActivation {
 	public String toString() {
 		String str = "Card Number: " + this.cardNumber
 				   + "\nAccount Number: " + this.accountNumber
-				   + "\nActivation Date: " + this.dateTimeActivated + "\n";
+				   + "\nActivation Date: " + this.dateTimeActivated.format(Database.getTimeFormat()) + "\n";
 		return str;
 	}
 }//end CardActivation

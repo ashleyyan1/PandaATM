@@ -5,73 +5,90 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import database.Database;
 import entity_atm.DebitCard;
 
-public class DebitCardDA 
-{
-    private Database db;
-    private PreparedStatement psGetDebitCardInfo;
-    private PreparedStatement psInsertDebitCard;
-    
-    public DebitCardDA(Database database) throws SQLException{
-        this.db = database;
-        generateStatements();
-    }
-    
-    private void generateStatements() throws SQLException {
-        psGetDebitCardInfo = db.getDatabase().prepareStatement("SELECT `cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`,"
-                     	   + "`customerID`, `branchNumber` FROM `DebitCard` WHERE `cardNumber` = ? LIMIT 1;");
-        psInsertDebitCard = db.getDatabase().prepareStatement("INSERT INTO `` (`cardHolderName`, `cardExpDate`, `pinNumber`, `customerID`, `branchNumber`) "
-        				  + "VALUES (?, ?, ?, ?, ?);");
-    }
-    
-    public DebitCard getDebitCardInfo(int cardNumber){
-        DebitCard d = null;
-        try {
-            psGetDebitCardInfo.setInt(1, cardNumber);
-            ResultSet set = db.executeQuery(psGetDebitCardInfo, true);
-            if(set.next())
-            {
-                d = new DebitCard(set.getInt(1), set.getString(2), set.getTimestamp(3).toLocalDateTime(), set.getInt(4), set.getInt(5),
-                        set.getInt(6));
-            }
-            set.close();
-        }
-        catch(SQLException e)
-        {
-            System.out.println(e);            
-        }
-        return d;
-    }//end getDebitCardInfo
-    
-    public int insertDebitCardInfo(String cardHolderName, LocalDateTime cardExpDate, int pin, int customerID, int branchNumber) {
-		ResultSet set;
-		int primaryKey = 0;
-		db.lock();
-		
+public class DebitCardDA {
+	private Database db;
+	private Random r = new Random();
+	private PreparedStatement psGetDebitCardInfo;
+	private PreparedStatement psInsertDebitCard;
+
+	public DebitCardDA(Database database) throws SQLException {
+		this.db = database;
+		generateStatements();
+	}
+
+	private void generateStatements() throws SQLException {
+		psGetDebitCardInfo = db.getDatabase()
+				.prepareStatement("SELECT `cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`,"
+						+ "`customerID`, `branchNumber` FROM `DebitCard` WHERE `cardNumber` = ? LIMIT 1;");
+		psInsertDebitCard = db.getDatabase().prepareStatement(
+				"INSERT INTO `DebitCard` (`cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`, `customerID`, `branchNumber`) "
+						+ "VALUES (?, ?, ?, ?, ?, ?);");
+	}
+
+	public DebitCard getDebitCardInfo(long cardNumber) {
+		DebitCard d = null;
 		try {
-			psInsertDebitCard.setString(1, cardHolderName);
-			psInsertDebitCard.setTimestamp(2, Timestamp.valueOf(cardExpDate));
-			psInsertDebitCard.setInt(3, pin);
-			psInsertDebitCard.setInt(4, customerID);
-			psInsertDebitCard.setInt(5, branchNumber);
-			db.executeStatement(psInsertDebitCard, false);
-			set = psInsertDebitCard.getGeneratedKeys();
-			if(set.next()) {
-				primaryKey = set.getInt(1);
-			}
-			else {
-				System.out.println("ERROR: Failed to Retrieve Primary Key.");
+			psGetDebitCardInfo.setLong(1, cardNumber);
+			ResultSet set = db.executeQuery(psGetDebitCardInfo, true);
+			if (set.next()) {
+				d = new DebitCard(set.getLong(1), set.getString(2), set.getTimestamp(3).toLocalDateTime(), set.getInt(4),
+						set.getInt(5), set.getInt(6));
 			}
 			set.close();
-		}
-		catch(SQLException e)
-		{
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
-		db.unlock();
+		return d;
+	}// end getDebitCardInfo
+
+	public long insertDebitCard(String cardHolderName, LocalDateTime cardExpDate, int pin, int customerID,
+			int branchNumber) {
+		long primaryKey = 0;
+		boolean unique = false;
+		
+		//Loops to ensure there are no duplicate card numbers
+		while (!unique) {
+			primaryKey = generateCardNumber();
+			try {
+				psInsertDebitCard.setLong(1, primaryKey);
+				psInsertDebitCard.setString(2, cardHolderName);
+				psInsertDebitCard.setTimestamp(3, Timestamp.valueOf(cardExpDate));
+				psInsertDebitCard.setInt(4, pin);
+				psInsertDebitCard.setInt(5, customerID);
+				psInsertDebitCard.setInt(6, branchNumber);
+				db.executeStatement(psInsertDebitCard, true);
+
+				unique = true;
+			} catch (SQLException e) {
+				System.out.println(e);
+				//Error code for duplicate primary key (Code 19)
+				if (e.getErrorCode() == 19) {
+					System.out.println("Duplicate Card Number Generated. Trying Again...");
+				} else {
+					System.out.println("Fatal Exception Occurred.");
+					System.exit(20);
+				}
+			}
+		} // end while
 		return primaryKey;
-	}//end insertDebitCard
-}//end DebitCardDA
+	}// end insertDebitCard
+
+	private long generateCardNumber() {
+		int counter = 2;
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append("4");// First digit of card is same (since it is one bank)
+		// 4 is the digit for VISA
+		while (counter <= 16) {
+			int generate = r.nextInt(9);
+			stringBuffer.append(generate);
+			counter++;
+		}
+		String card_digits = stringBuffer.toString();
+		return Long.parseLong(card_digits);
+	}// end generateCardNumber
+}// end DebitCardDA

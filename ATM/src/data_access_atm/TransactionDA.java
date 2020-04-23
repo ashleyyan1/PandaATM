@@ -3,6 +3,8 @@ package data_access_atm;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import database.Database;
 import entity_atm.Transaction;
@@ -11,7 +13,7 @@ public class TransactionDA {
 
 	private Database db;
 	private PreparedStatement psGetTransactionInfo;
-	private PreparedStatement psInsertWithdrawlTransaction;// 0
+	private PreparedStatement psInsertWithdrawalTransaction;// 0
 	private PreparedStatement psInsertDepositTransaction;// 1
 	private PreparedStatement psInsertTransferTransaction;// 2
 
@@ -21,17 +23,17 @@ public class TransactionDA {
 	}
 
 	private void generateStatements() throws SQLException {
-		psGetTransactionInfo = db.getDatabase().prepareStatement("SELECT `transactionID`, `timeDateOfTrans`, `transactionType`"
-							 + "`amount`, `targetAccNumber`, `sessionID`, `accountNumber` FROM Transaction WHERE `transactionID` = ? LIMIT 1;");
+		psGetTransactionInfo = db.getDatabase().prepareStatement("SELECT `transactionID`, `timeDateOfTrans`, `transactionType`, "
+							 + "`amount`, `targetAccNumber`, `sessionID`, `accountNumber` FROM `Transaction` WHERE `transactionID` = ? LIMIT 1;");
 
-		psInsertWithdrawlTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateofTrans`, `transactionType`, "
-									 + " `amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (DateTime('now'),0, ?, null, ?, ? );");
+		psInsertWithdrawalTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateofTrans`, `transactionType`, "
+									 + " `amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (?,0, ?, null, ?, ? );");
 
 		psInsertDepositTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateofTrans`, `transactionType`, "
-								   + " `amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (DateTime('now'),1, ?, null, ?, ? );");
+								   + " `amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (?,1, ?, null, ?, ? );");
 
 		psInsertTransferTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateOfTrans`, `transactionType`,"
-									+ "`amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (DateTime('now'), 2, ?, ?, ?, ?);");
+									+ "`amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (?, 2, ?, ?, ?, ?);");
 
 	}
 
@@ -52,64 +54,69 @@ public class TransactionDA {
 		return trans;
 	}
 
-	public int InsertWithdrawlTransaction(int amount, int sessionID, int accountNumber) {
+	public int insertWithdrawalTransaction(int amount, int sessionID, int accountNumber) {
 		
 		ResultSet set;
-		int withdrawlKey = 0;
+		int primaryKey = 0;
 		db.lock(); // Lock other threads out of the DB until we unlock it
 		try {
-			psInsertWithdrawlTransaction.setInt(1, amount);
-			psInsertWithdrawlTransaction.setInt(2, sessionID);
-			psInsertWithdrawlTransaction.setInt(3, accountNumber);
-
-			set = db.executeQuery(psInsertTransferTransaction, false);
+			psInsertWithdrawalTransaction.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+			psInsertWithdrawalTransaction.setInt(2, amount);
+			psInsertWithdrawalTransaction.setInt(3, sessionID);
+			psInsertWithdrawalTransaction.setInt(4, accountNumber);
+			db.executeStatement(psInsertWithdrawalTransaction, false);
+			set = psInsertWithdrawalTransaction.getGeneratedKeys();
 			if (set.next()) {
-				withdrawlKey = set.getInt(1);
+				primaryKey = set.getInt(1);
 			}
 		} catch (SQLException e) {
 			System.out.println("ERROR: Failed to Retrieve the Primary Key");
 		}
-		return withdrawlKey;
+		return primaryKey;
 	}
 
-	public int InsertDepositTransaction(int amount, int sessionID, int accountNumber) {
+	public int insertDepositTransaction(int amount, int sessionID, int accountNumber) {
 		
 		ResultSet set;
-		int depositKey = 0;
+		int primaryKey = 0;
 		db.lock(); // Lock other threads out of the DB until we unlock it
 		try {
-			psInsertDepositTransaction.setInt(1, amount);
-			psInsertDepositTransaction.setInt(2, sessionID);
-			psInsertDepositTransaction.setInt(3, accountNumber);
-			set = db.executeQuery(psInsertTransferTransaction, false);
+			psInsertDepositTransaction.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+			psInsertDepositTransaction.setInt(2, amount);
+			psInsertDepositTransaction.setInt(3, sessionID);
+			psInsertDepositTransaction.setInt(4, accountNumber);
+			db.executeStatement(psInsertDepositTransaction, false);
+			set = psInsertDepositTransaction.getGeneratedKeys();
 			if (set.next()) {
-				depositKey = set.getInt(1);
+				primaryKey = set.getInt(1);
 			}
 		} catch (SQLException e) {
 			System.out.println("ERROR: Failed to Retrieve the Primary Key");
 		}
 		db.unlock();
-		return depositKey;
+		return primaryKey;
 	}
 
-	public int InsertTransferTransaction(int amount, int targetAccNumber, int sessionID, int accountNumber) {
+	public int insertTransferTransaction(int amount, int targetAccNumber, int sessionID, int accountNumber) {
 		
 		ResultSet set;
-		int transferKey = 0;
+		int primaryKey = 0;
 		db.lock(); // Lock other threads out of the DB until we unlock it
 		try {
-			psInsertTransferTransaction.setInt(1, amount);
-			psInsertTransferTransaction.setInt(2, targetAccNumber);
-			psInsertTransferTransaction.setInt(3, sessionID);
-			psInsertTransferTransaction.setInt(4, accountNumber);
-			set = db.executeQuery(psInsertTransferTransaction, false);
+			psInsertTransferTransaction.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+			psInsertTransferTransaction.setInt(2, amount);
+			psInsertTransferTransaction.setInt(3, targetAccNumber);
+			psInsertTransferTransaction.setInt(4, sessionID);
+			psInsertTransferTransaction.setInt(5, accountNumber);
+			db.executeStatement(psInsertTransferTransaction, false);
+			set = psInsertTransferTransaction.getGeneratedKeys();
 			if (set.next()) {
-				transferKey = set.getInt(1);
+				primaryKey = set.getInt(1);
 			}
 		} catch (SQLException e) {
 			System.out.println("ERROR: Failed to Retrieve the Primary Key");
 		}
 		db.unlock();
-		return transferKey;
+		return primaryKey;
 	}
 }//end TransactionDA

@@ -2,6 +2,8 @@ package entity_atm;
 
 import java.time.LocalDateTime;
 
+import database.Database;
+
 public class AccountOpening {
 
 	private int customerID;
@@ -28,7 +30,7 @@ public class AccountOpening {
 	
 	@Override
 	public String toString() {
-		String str = "Account Opening Date: " + this.dateTimeOpened
+		String str = "Account Opening Date: " + this.dateTimeOpened.format(Database.getTimeFormat())
 				   + "\nAccount Number: " + this.accountNumber 
 				   + "\nCustomer ID: " + this.customerID + "\n";
 		return str;

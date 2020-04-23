@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.sqlite.SQLiteConfig;
@@ -14,6 +15,7 @@ import org.sqlite.SQLiteConfig;
 public class Database {
 
 	private Connection connection;
+	private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MM/dd/YYYY hh:mm:ss a") ;
 	private ReentrantLock lock;
 	
 	public Database() {
@@ -41,7 +43,8 @@ public class Database {
 		
 		try (Statement stmt = connection.createStatement();)
 		{
-		    generateTablesAndTriggers(stmt);
+		    generateTables(stmt);
+		    generateTriggers(stmt);
 		    connection.commit();
 		    System.out.println("Database Initalized");
 		}
@@ -73,7 +76,7 @@ public class Database {
 		
 	}//end Constructor
 	
-	private static void generateTablesAndTriggers(Statement stmt) throws SQLException {
+	private static void generateTables(Statement stmt) throws SQLException {
 		//ATM Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `ATM` (" + 
 							"  `machineID` INTEGER NOT NULL," + 
@@ -99,7 +102,7 @@ public class Database {
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `AccountOpening` (" + 
 							"  `customerID` INTEGER NOT NULL," + 
 							"  `accountNumber` INTEGER NOT NULL," + 
-							"  `dateTimeOpening` DATETIME NOT NULL," + 
+							"  `dateTimeOpening` TIMESTAMP NOT NULL," + 
 							"  PRIMARY KEY (`customerID`, `accountNumber`)," +  
 							"  CONSTRAINT `AccountOpening_Client`" + 
 							"    FOREIGN KEY (`customerID`)" + 
@@ -125,11 +128,11 @@ public class Database {
 		//ATMSession Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `ATMSession` (" + 
 							"  `sessionID` INTEGER NOT NULL," + 
-							"  `sessionStartTime` DATETIME NULL," + 
-							"  `sessionEndTime` DATETIME NULL," + 
+							"  `sessionStartTime` TIMESTAMP NOT NULL," + 
+							"  `sessionEndTime` TIMESTAMP NULL," + 
 							"  `sessionActive` TINYINT NOT NULL," + 
 							"  `machineID` INTEGER NOT NULL," + 
-							"  `cardNumber` INTEGER NULL," + 
+							"  `cardNumber` BIGINT NULL," + 
 							"  PRIMARY KEY (`sessionID`)," + 
 							"  CONSTRAINT `ATMSession_ATM`" + 
 							"    FOREIGN KEY (`machineID`)" + 
@@ -150,9 +153,9 @@ public class Database {
 		
 		//CardActivation Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `CardActivation` (" + 
-							"  `cardNumber` INTEGER NULL," + 
+							"  `cardNumber` BIGINT NULL," + 
 							"  `accountNumber` INTEGER NULL," + 
-							"  `dateTimeActivated` DATETIME NOT NULL," + 
+							"  `dateTimeActivated` TIMESTAMP NOT NULL," + 
 							"  PRIMARY KEY (`cardNumber`, `accountNumber`)," + 
 							"  CONSTRAINT `CardActivation_DebitCard`" + 
 							"    FOREIGN KEY (`cardNumber`)" + 
@@ -171,7 +174,7 @@ public class Database {
 							"  `customerName` VARCHAR(45) NOT NULL," + 
 							"  `customerAddress` VARCHAR(45) NOT NULL," + 
 							"  `customerTel` VARCHAR(45) NOT NULL," + 
-							"  `customerDob` DATETIME NOT NULL," + 
+							"  `customerDob` TIMESTAMP NOT NULL," + 
 							"  `branchNumber` INTEGER NOT NULL," + 
 							"  PRIMARY KEY (`customerID`)," + 
 							"  CONSTRAINT `Client_BankBranch`" + 
@@ -182,9 +185,9 @@ public class Database {
 		
 		//DebitCard Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `DebitCard` (" + 
-							"  `cardNumber` INTEGER NOT NULL," + 
+							"  `cardNumber` BIGINT NOT NULL," + 
 							"  `cardHolderName` VARCHAR(45) NOT NULL," + 
-							"  `cardExpDate` DATETIME NOT NULL," + 
+							"  `cardExpDate` TIMESTAMP NOT NULL," + 
 							"  `pinNumber` INTEGER NOT NULL," + 
 							"  `customerID` INTEGER NOT NULL," + 
 							"  `branchNumber` INTEGER NOT NULL," + 
@@ -203,7 +206,7 @@ public class Database {
 		//Transaction Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `Transaction` (" + 
 							"  `transactionID` INTEGER NOT NULL," + 
-							"  `timeDateOfTrans` DATETIME NOT NULL," + 
+							"  `timeDateOfTrans` TIMESTAMP NOT NULL," + 
 							"  `transactionType` INTEGER NOT NULL," + 
 							"  `amount` DOUBLE NOT NULL," + 
 							"  `targetAccNumber` INTEGER NULL," + 
@@ -221,6 +224,13 @@ public class Database {
 							"    ON DELETE RESTRICT" + 
 							"    ON UPDATE CASCADE);");
 	}//end generateTablesAndTriggers
+	
+	//Automatically performs updates on tables when executing certain statements on certain tables
+	private static void generateTriggers(Statement stmt) throws SQLException {
+		
+		
+		
+	}//end generateTriggers
 	
 	public ResultSet executeQuery(PreparedStatement stmt, boolean useLock) throws SQLException {
 		
@@ -262,16 +272,15 @@ public class Database {
 		return this.connection;
 	}
 	
+	public static DateTimeFormatter getTimeFormat() {
+		return timeFormatter;
+	}
+	
 	public void lock() {
 		this.lock.lock();
 	}
 	
 	public void unlock() {
 		this.lock.unlock();
-	}
-	
-	//Main Method to Test Entire Database
-	public static void main(String[] args) throws SQLException {
-		
 	}
 }//end Database

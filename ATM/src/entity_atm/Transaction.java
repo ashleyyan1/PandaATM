@@ -2,6 +2,8 @@ package entity_atm;
 
 import java.time.LocalDateTime;
 
+import database.Database;
+
 public class Transaction {
 
 	private int transactionID;
@@ -95,7 +97,7 @@ public class Transaction {
 	public String toString() {
 		String str = new String();
 		str = "Transaction ID: " + this.transactionID
-		    + "\nTransaction Date/Time: " + this.timeDateOfTrans
+		    + "\nTransaction Date/Time: " + this.timeDateOfTrans.format(Database.getTimeFormat())
 		    + "\nAmount: " + this.amount
 		    + "\nSession ID: " + this.sessionID
 		    + "\nSource Account Number: " + this.accountNumber;
