@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/logoName"
+        android:layout_width="56dp"
+        android:layout_height="10dp"
+        app:srcCompat="@drawable/mutant_bamboo"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="55dp" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="75dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/pandalogo2"
+        tools:layout_editor_absoluteX="-8dp"
+        tools:layout_editor_absoluteY="-27dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/mothers_room_map__1_"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please select an ATM location to continue."
+        android:textColor="#111111"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="95dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:background="#E8D422"
+        android:text="BSC"
+        android:textColor="#111111"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="390dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:background="#E8D422"
+        android:text="Library"
+        android:textColor="#111111"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:background="#E8D422"
+        android:text="Marketplace"
+        android:textColor="#111111"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:background="#E8D422"
+        android:text="Building 17"
+        android:textColor="#111111"
+        tools:layout_editor_absoluteX="226dp"
+        tools:layout_editor_absoluteY="167dp"
+        />
+
+    <ImageButton
+        android:id="@+id/libATM"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/atm_512"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="192dp"
+        android:text="Button - Drawable Stroke / Border"
+        />
+
+    <ImageButton
+        android:id="@+id/mktplaceATM"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/atm_512"
+        tools:layout_editor_absoluteX="146dp"
+        tools:layout_editor_absoluteY="304dp" />
+
+    <ImageButton
+        android:id="@+id/bscATM"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/atm_512"
+        tools:layout_editor_absoluteX="252dp"
+        tools:layout_editor_absoluteY="415dp" />
+
+    <ImageButton
+        android:id="@+id/bldg1ATM"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/atm_512"
+        tools:layout_editor_absoluteX="244dp"
+        tools:layout_editor_absoluteY="304dp" />
+
+    <ImageButton
+        android:id="@+id/bldg17ATM"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/atm_512"
+        tools:layout_editor_absoluteX="235dp"
+        tools:layout_editor_absoluteY="190dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:background="#E8D422"
+        android:text="Building 1"
+        android:textColor="#111111"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="170dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Cal Poly Pomona's Panda ATM Services."
+        android:textColor="#111111"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/pandagif"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="435dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

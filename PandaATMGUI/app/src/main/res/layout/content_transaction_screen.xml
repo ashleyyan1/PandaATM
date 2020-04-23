@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cute_panda_paws_up_wall_panda_face_cartoon_icon_42750_498"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
+        android:background="#B12525"
+        android:text="Cancel"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="304dp" />
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome,"
+        android:textColor="#111111"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="75dp" />
+
+    <TextView
+        android:id="@+id/atmLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ATM Location:"
+        android:textColor="#111111"
+        android:textSize="10sp"
+        tools:layout_editor_absoluteX="286dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+    <ImageView
+        android:id="@+id/logo3"
+        android:layout_width="75dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/pandalogo2"
+        tools:layout_editor_absoluteX="-8dp"
+        tools:layout_editor_absoluteY="-27dp" />
+
+    <ImageView
+        android:id="@+id/logoName3"
+        android:layout_width="56dp"
+        android:layout_height="10dp"
+        app:srcCompat="@drawable/mutant_bamboo"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="55dp" />
+
+    <Button
+        android:id="@+id/depositButton"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
+        android:background="#33CC33"
+        android:text="Deposit"
+        android:textColor="@android:color/black"
+        tools:layout_editor_absoluteX="223dp"
+        tools:layout_editor_absoluteY="109dp" />
+
+    <Button
+        android:id="@+id/withdrawButton"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
+        android:background="#33CC33"
+        android:text="Withdraw"
+        android:textColor="@android:color/black"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="109dp" />
+
+    <Button
+        android:id="@+id/transferButton"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
+        android:background="#33CC33"
+        android:text="Transfer"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+    <Button
+        android:id="@+id/balanceButton"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
+        android:background="#266A0A"
+        android:text="Balance"
+        tools:layout_editor_absoluteX="223dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+    <TextView
+        android:id="@+id/acctNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Number:"
+        android:textColor="#111111"
+        android:textSize="10sp"
+        tools:layout_editor_absoluteX="273dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
