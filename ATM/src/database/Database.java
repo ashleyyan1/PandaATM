@@ -44,6 +44,7 @@ public class Database {
 		try (Statement stmt = connection.createStatement();)
 		{
 		    generateTables(stmt);
+		    connection.commit();
 		    generateTriggers(stmt);
 		    connection.commit();
 		    System.out.println("Database Initalized");
@@ -229,7 +230,13 @@ public class Database {
 	//Automatically performs updates on tables when executing certain statements on certain tables
 	private static void generateTriggers(Statement stmt) throws SQLException {
 		
-		
+		//Trigger to keep ATM Session Status in Sync with ATMSession Table (Part 1)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS sessionActiveTrigger AFTER INSERT ON `ATMSession` BEGIN " +
+							"UPDATE `ATM` SET `sessionActive` = 1 WHERE `machineID` = new.machineID; END");
+		//Trigger to keep ATM Session Status in Sync with ATMSession Table (Part 2)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS sessionInactiveTrigger AFTER UPDATE ON `ATMSession` WHEN " +
+							"new.sessionActive = 0 BEGIN UPDATE `ATM` SET `sessionActive` = 0 WHERE `machineID` " +
+							"= new.machineID; END");
 		
 	}//end generateTriggers
 	

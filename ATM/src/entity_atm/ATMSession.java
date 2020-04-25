@@ -53,6 +53,7 @@ public class ATMSession {
 		String str = "Session ID: " + this.sessionID
 				   + "\nStart Time: " + this.sessionStartTime.format(Database.getTimeFormat())
 				   + "\nEnd Time: " + endTime
+				   + "\nSession Active: " + this.sessionActive
 				   + "\nCard Number: " + this.cardNumber + "\n";
 		return str;
 	}

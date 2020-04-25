@@ -23,9 +23,9 @@ public class ATMSessionDA
     }
     private void generateStatements() throws SQLException{
         psGetATMSessionInfo = db.getDatabase().prepareStatement("Select `sessionID`, `sessionStartTime`, `sessionEndTime`,"
-        			+ "`sessionActive`, `machineID`, `cardNumber` FROM ATMSession WHERE `sessionID` = ? LIMIT 1;");
-        psInsertATMSession = db.getDatabase().prepareStatement("INSERT INTO `ATMSession` (`sessionStartTime`, `sessionEndTime`, " + 
-        		"`sessionActive`, `machineID`, `cardNumber`) VALUES (?, null, 1, ?, ?);");
+        				    + "`sessionActive`, `machineID`, `cardNumber` FROM ATMSession WHERE `sessionID` = ? LIMIT 1;");
+        psInsertATMSession = db.getDatabase().prepareStatement("INSERT INTO `ATMSession` (`sessionStartTime`, `sessionEndTime`, " 
+        				   + "`sessionActive`, `machineID`, `cardNumber`) VALUES (?, null, 1, ?, ?);");
         psTerminateSession = db.getDatabase().prepareStatement("UPDATE `ATMSession` SET `sessionEndTime` = ?, `sessionActive` = 0 WHERE"
         				   + " `sessionID` = ?;");
     }

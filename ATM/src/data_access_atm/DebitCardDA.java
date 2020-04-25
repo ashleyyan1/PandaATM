@@ -11,10 +11,12 @@ import database.Database;
 import entity_atm.DebitCard;
 
 public class DebitCardDA {
+	
 	private Database db;
 	private Random r = new Random();
 	private PreparedStatement psGetDebitCardInfo;
 	private PreparedStatement psInsertDebitCard;
+	private PreparedStatement psLockDebitCard;
 
 	public DebitCardDA(Database database) throws SQLException {
 		this.db = database;
@@ -22,12 +24,11 @@ public class DebitCardDA {
 	}
 
 	private void generateStatements() throws SQLException {
-		psGetDebitCardInfo = db.getDatabase()
-				.prepareStatement("SELECT `cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`,"
-						+ "`customerID`, `locked`, `branchNumber` FROM `DebitCard` WHERE `cardNumber` = ? LIMIT 1;");
-		psInsertDebitCard = db.getDatabase().prepareStatement(
-				"INSERT INTO `DebitCard` (`cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`, `customerID`, `locked`, `branchNumber`) "
-						+ "VALUES (?, ?, ?, ?, ?, 0, ?);");
+		psGetDebitCardInfo = db.getDatabase().prepareStatement("SELECT `cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`,"
+						   + "`customerID`, `locked`, `branchNumber` FROM `DebitCard` WHERE `cardNumber` = ? LIMIT 1;");
+		psInsertDebitCard = db.getDatabase().prepareStatement("INSERT INTO `DebitCard` (`cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`, `customerID`, `locked`, `branchNumber`) "
+						  + "VALUES (?, ?, ?, ?, ?, 0, ?);");
+		psLockDebitCard = db.getDatabase().prepareStatement("UPDATE `DebitCard` SET `locked` = 1 WHERE `cardNumber` = ?;");
 	}
 
 	public DebitCard getDebitCardInfo(long cardNumber) {
@@ -78,6 +79,16 @@ public class DebitCardDA {
 		return primaryKey;
 	}// end insertDebitCard
 
+	public void lockDebitCard(long cardNumber) {
+		try {
+    		psLockDebitCard.setLong(1, cardNumber);
+    		db.executeStatement(psLockDebitCard, true);
+    	}
+    	catch(SQLException e) {
+    		System.out.println(e);
+    	}
+	}//end lockDebitCard
+	
 	private long generateCardNumber() {
 		int counter = 2;
 		StringBuffer stringBuffer = new StringBuffer();

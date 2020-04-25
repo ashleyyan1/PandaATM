@@ -13,6 +13,7 @@ import data_access_atm.ClientDA;
 import data_access_atm.DebitCardDA;
 import data_access_atm.TransactionDA;
 import database.Database;
+import entity_atm.ATMSession;
 import entity_atm.Client;
 
 public class DatabaseUnitTest {
@@ -83,7 +84,13 @@ public class DatabaseUnitTest {
 		System.out.println("Starting an ATM Session...");
 		ATMSessionDA atmSessionTestDA = new ATMSessionDA(testDB);
 		int atm_session_one = atmSessionTestDA.insertATMSession(atm_one, debit_card_one);
-		System.out.println("Session Info (Active): " + atmSessionTestDA.getATMSessionInfo(atm_session_one));
+		ATMSession atmSession = atmSessionTestDA.getATMSessionInfo(atm_session_one);
+		System.out.println("Session Info (Active): " + atmSession);
+		
+		//Tests Trigger to keep Session Active Status Synced
+		System.out.println("******************************************");
+		System.out.println("ATM Session Active Status: " + atmTestDA.getATMInfo(atmSession.getMachineID()).isSessionActive());
+		System.out.println("******************************************");
 		
 		//Testing ATM Session Termination
 		try {
@@ -94,6 +101,11 @@ public class DatabaseUnitTest {
 		}
 		atmSessionTestDA.terminateSession(atm_session_one);
 		System.out.println("Session Info (Terminated): " + atmSessionTestDA.getATMSessionInfo(atm_session_one));
+		
+		//Tests Trigger to keep Session Active Status Synced
+		System.out.println("******************************************");
+		System.out.println("ATM Session Active Status: " + atmTestDA.getATMInfo(atmSession.getMachineID()).isSessionActive());
+		System.out.println("******************************************");
 		
 		//Testing Transaction Data Access/Entity
 		TransactionDA transactionTestDA = new TransactionDA(testDB);
@@ -110,5 +122,6 @@ public class DatabaseUnitTest {
 		System.out.println("Processing Transfer Transaction...");
 		int transfer_transaction_number = transactionTestDA.insertTransferTransaction(365, checking_acc, atm_session_one, savings_acc);
 		System.out.println("Transfer Transaction Details: " + transactionTestDA.getTransactionInfo(transfer_transaction_number));
+		
 	}//end main
 }//end DatabaseTest
