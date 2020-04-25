@@ -161,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/pandagif"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="435dp" />
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="453dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
