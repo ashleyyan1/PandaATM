@@ -24,10 +24,10 @@ public class DebitCardDA {
 	private void generateStatements() throws SQLException {
 		psGetDebitCardInfo = db.getDatabase()
 				.prepareStatement("SELECT `cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`,"
-						+ "`customerID`, `branchNumber` FROM `DebitCard` WHERE `cardNumber` = ? LIMIT 1;");
+						+ "`customerID`, `locked`, `branchNumber` FROM `DebitCard` WHERE `cardNumber` = ? LIMIT 1;");
 		psInsertDebitCard = db.getDatabase().prepareStatement(
-				"INSERT INTO `DebitCard` (`cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`, `customerID`, `branchNumber`) "
-						+ "VALUES (?, ?, ?, ?, ?, ?);");
+				"INSERT INTO `DebitCard` (`cardNumber`, `cardHolderName`, `cardExpDate`, `pinNumber`, `customerID`, `locked`, `branchNumber`) "
+						+ "VALUES (?, ?, ?, ?, ?, 0, ?);");
 	}
 
 	public DebitCard getDebitCardInfo(long cardNumber) {
@@ -37,7 +37,7 @@ public class DebitCardDA {
 			ResultSet set = db.executeQuery(psGetDebitCardInfo, true);
 			if (set.next()) {
 				d = new DebitCard(set.getLong(1), set.getString(2), set.getTimestamp(3).toLocalDateTime(), set.getInt(4),
-						set.getInt(5), set.getInt(6));
+						set.getInt(5), set.getBoolean(6), set.getInt(7));
 			}
 			set.close();
 		} catch (SQLException e) {

@@ -11,15 +11,17 @@ public class DebitCard {
 	private LocalDateTime cardExpDate;
 	private int pinNumber;
 	private int customerID;
+	private boolean locked;
 	private int branchNumber;
 	
 	public DebitCard(long cN, String cHN, LocalDateTime cED, int pN,
-						int cID, int bN) {
+						int cID, boolean l, int bN) {
 		this.cardNumber = cN;
 		this.cardHolderName = cHN;
 		this.cardExpDate = cED;
 		this.pinNumber = pN;
 		this.customerID = cID;
+		this.locked = l;
 		this.branchNumber = bN;
 	}
 
@@ -43,6 +45,10 @@ public class DebitCard {
 		return customerID;
 	}
 
+	public boolean isLocked() {
+		return locked;
+	}
+	
 	public int getBranchNumber() {
 		return branchNumber;
 	}
@@ -52,7 +58,8 @@ public class DebitCard {
 		String str = "Card Number: " + this.cardNumber
 				   + "\nCustomer ID: " + this.customerID
 				   + "\nCard Exp. Date: " + this.cardExpDate.format(Database.getTimeFormat())
-				   + "\nCard Pin Number: " + this.pinNumber + "\n";
+				   + "\nCard Pin Number: " + this.pinNumber
+				   + "\nLocked: " + this.locked + "\n";
 		return str;
 	}
 }//end DebitCard

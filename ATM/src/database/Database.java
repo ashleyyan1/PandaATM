@@ -190,6 +190,7 @@ public class Database {
 							"  `cardExpDate` TIMESTAMP NOT NULL," + 
 							"  `pinNumber` INTEGER NOT NULL," + 
 							"  `customerID` INTEGER NOT NULL," + 
+							"  `locked` TINYINT NOT NULL," + 
 							"  `branchNumber` INTEGER NOT NULL," + 
 							"  PRIMARY KEY (`cardNumber`)," + 
 							"  CONSTRAINT `DebitCard_Client`" + 
