@@ -3,8 +3,11 @@ package data_access_atm;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import database.Database;
 import entity_atm.Account;
+import entity_atm.DebitCard;
 
 public class AccountDA {
 	
@@ -12,6 +15,7 @@ public class AccountDA {
 	private PreparedStatement psGetAccountInfo;
 	private PreparedStatement psInsertSavings;
 	private PreparedStatement psInsertChecking;
+	private PreparedStatement psGetAvailableAccounts;
 	
 	public AccountDA(Database database) throws SQLException {
 		this.db = database;
@@ -20,13 +24,14 @@ public class AccountDA {
 	
 	private void generateStatements() throws SQLException {
 		
-		 psGetAccountInfo = db.getDatabase().prepareStatement("SELECT `accountNumber`, `accountStatus`, "
+		 psGetAccountInfo = db.getDatabase().prepareStatement("SELECT `accountNumber`, `accountName`, `accountStatus`, "
 		 				  										+ "`accountBal`, `accountType`, `interestRate`, `minReqBalance` "
 		 				  										+ "FROM Account WHERE `accountNumber` = ? LIMIT 1;");
-		 psInsertSavings = db.getDatabase().prepareStatement("INSERT INTO `Account` (`accountStatus`, `accountBal`, `accountType`, `interestRate`)"
-		 														+ "VALUES(1, 0.0, 0, 0.5);");
-		 psInsertChecking = db.getDatabase().prepareStatement("INSERT INTO `Account` (`accountStatus`,`accountBal`,`accountType`,`minReqBalance`) "
-		 														+ "VALUES(1, 0.0, 1, 100.0);");
+		 psInsertSavings = db.getDatabase().prepareStatement("INSERT INTO `Account` (`accountName`, `accountStatus`, `accountBal`, `accountType`, `interestRate`)"
+		 														+ "VALUES(?, 1, 0.0, 0, 0.5);");
+		 psInsertChecking = db.getDatabase().prepareStatement("INSERT INTO `Account` (`accountName`, `accountStatus`,`accountBal`,`accountType`,`minReqBalance`) "
+		 														+ "VALUES(?, 1, 0.0, 1, 100.0);");
+		 psGetAvailableAccounts = db.getDatabase().prepareStatement("SELECT * FROM `CardActivation` WHERE `cardNumber` = ?;");
 	}
 	
 	public Account getAccountInfo(int accountNumber) {
@@ -38,8 +43,8 @@ public class AccountDA {
 			ResultSet set = db.executeQuery(psGetAccountInfo, true);
 			
 			if(set.next()) {
-				acc = new Account(set.getInt(1), set.getBoolean(2), set.getDouble(3), set.getInt(4),
-									set.getDouble(5), set.getDouble(6));
+				acc = new Account(set.getInt(1), set.getString(2), set.getBoolean(3), set.getDouble(4), set.getInt(5),
+									set.getDouble(6), set.getDouble(7));
 			}
 			set.close();
 		}
@@ -49,13 +54,14 @@ public class AccountDA {
 		return acc;
 	}//end getAccountInfo
 	
-	public int insertCheckingAcc() {
+	public int insertCheckingAcc(String name) {
 		
 		ResultSet set;
 		int primaryKey = 0;
 		db.lock();
 		
 		try {
+			psInsertChecking.setString(1, name);
 			db.executeStatement(psInsertChecking, false);
 			set = psInsertChecking.getGeneratedKeys();
 			if(set.next()) {
@@ -74,13 +80,14 @@ public class AccountDA {
 		return primaryKey;
 	}//end insertCheckingAcc
 	
-	public int insertSavingsAcc() {
+	public int insertSavingsAcc(String name) {
 		
 		ResultSet set;
 		int primaryKey = 0;
 		db.lock();
 		
 		try {
+			psInsertSavings.setString(1, name);
 			db.executeStatement(psInsertSavings, false);
 			set = psInsertSavings.getGeneratedKeys();
 			if(set.next()) {
@@ -98,4 +105,25 @@ public class AccountDA {
 		db.unlock();
 		return primaryKey;
 	}//end insertCheckingAcc
+	
+	public ArrayList<Account> getAvailableAccounts(DebitCard debitCard) {
+		
+		ArrayList<Account> availableAccounts = new ArrayList<Account>();
+		ResultSet set;
+		
+		try {
+			psGetAvailableAccounts.setLong(1, debitCard.getCardNumber());
+			set = db.executeQuery(psGetAvailableAccounts, true);
+			db.getDatabase().setAutoCommit(false);
+			while(set.next()) {
+				availableAccounts.add(this.getAccountInfo(set.getInt(1)));
+			}//end
+			db.getDatabase().commit();
+			db.getDatabase().setAutoCommit(true);
+		}
+		catch(SQLException e) {
+			System.out.println(e);
+		}
+		return availableAccounts;
+	}//end getAvailableAccounts
 }//end AccountDA

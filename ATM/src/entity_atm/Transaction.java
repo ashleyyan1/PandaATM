@@ -53,46 +53,6 @@ public class Transaction {
 		return accountNumber;
 	}
 	
-	/*
-	 * This function performs a withdrawal transaction.
-	 * @param amt - The desired amount to withdraw
-	 * @param srcAcc - The account to withdraw money from
-	 * @return - True or false if transaction was successful
-	 * 
-	 * This function should also assign a value to timeDateOfTrans
-	 * This function should also assign a value to transactionType
-	 */
-	public boolean withdraw(int amt, int srcAcc) {
-		return false;
-	}
-	
-	/*
-	 * This function performs a deposit transaction.
-	 * @param amt - The amount of money deposited
-	 * @param targAcc - The target account to deposit money into
-	 * @return - True or false if transaction was successful
-	 * 
-	 * This function should also assign a value to timeDateOfTrans
-	 * This function should also assign a value to transactionType
-	 */
-	public boolean deposit(int amt, int targAcc) {
-		return false;
-	}
-	
-	/*
-	 * This function performs a transfer transaction.
-	 * @param amt - The amount of money to be transferred
-	 * @param srcAcc - The source account to withdraw money from
-	 * @param targAcc - The target account to despoit money into
-	 * @return - True or false if transaction was successful
-	 * 
-	 * This function should also assign a value to timeDateOfTrans
-	 * This function should also assign a value to transactionType
-	 */
-	public boolean transfer(int amt, int srcAcc, int targAcc) {
-		return false;
-	}
-	
 	@Override
 	public String toString() {
 		String str = new String();

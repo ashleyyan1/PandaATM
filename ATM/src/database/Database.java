@@ -119,6 +119,7 @@ public class Database {
 		//Account Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `Account` (" + 
 							"  `accountNumber` INTEGER NOT NULL," + 
+							"  `accountName` VARCHAR(45) NOT NULL," +
 							"  `accountStatus` TINYINT NULL," + 
 							"  `accountBal` DOUBLE NOT NULL," + 
 							"  `accountType` INTEGER NOT NULL," + 

@@ -72,5 +72,5 @@ public class AccountOpeningDA {
 		}
 		db.unlock();
 		return primaryKey;
-	}//end insertAccountOpenning
+	}//end insertAccountOpening
 }//end AccountOpeningDA

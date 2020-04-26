@@ -21,8 +21,10 @@ public class CardActivationDA {
     }
     
     private void generateStatements() throws SQLException {
-        psGetCardActivationInfo = db.getDatabase().prepareStatement("SELECT `cardNumber`, `accountNumber`, `dateTimeActivated` FROM `CardActivation` WHERE `cardNumber` = ? AND `accountNumber` = ? LIMIT 1;");
-        psInsertCardActivation = db.getDatabase().prepareStatement("INSERT INTO `CardActivation` (`cardNumber`, `accountNumber`, `dateTimeActivated`) VALUES (?, ?, ?);");
+        psGetCardActivationInfo = db.getDatabase().prepareStatement("SELECT `cardNumber`, `accountNumber`, `dateTimeActivated` "
+        						+ "FROM `CardActivation` WHERE `cardNumber` = ? AND `accountNumber` = ? LIMIT 1;");
+        psInsertCardActivation = db.getDatabase().prepareStatement("INSERT INTO `CardActivation` (`cardNumber`, "
+        					   + "`accountNumber`, `dateTimeActivated`) VALUES (?, ?, ?);");
     }
     
     public CardActivation getCardActivationInfo(long cardNumber, int accountNumber){

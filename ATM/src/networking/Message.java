@@ -5,14 +5,22 @@ import java.util.ArrayList;
 public class Message {
 
 	/*
-	 * 0 = Logout Cancel 
-	 * 1 = Logout Timeout 
-	 * 2 = Login Request 
-	 * 3 = Session Access Denied 
-	 * 4 = Card Locked
-	 * 5 = Main Menu Info
-	 * 6 = ATM Access Request
-	 * 7 = Communication Error
+	 * 0  = Logout Request (Cancel Button)
+	 * 1  = Logout Timeout
+	 * 2  = Login Request 
+	 * 3  = Session Access Denied 
+	 * 4  = Card Locked
+	 * 5  = Main Menu Info
+	 * 6  = ATM Access Request
+	 * 7  = Communication Error
+	 * 8  = ATM Access Denied
+	 * 9  = Initiate Withdrawal Transaction
+	 * 10 = Initiate Deposit Transaction
+	 * 11 = Initiate Transfer Transaction
+	 * 12 = Transaction Successful
+	 * 13 = Transaction Error
+	 * 14 = View Balance (Account Inquiry)
+	 * 15 = Prepared Accounts' Info
 	 */
 	private int flag;
 	private ArrayList<Integer> intMessages;
@@ -25,7 +33,7 @@ public class Message {
 		textMessages = new ArrayList<String>();
 	}
 
-	public int addintegerM(int data) {
+	public int addIntegerM(int data) {
 		intMessages.add(data);
 		return intMessages.size() - 1;
 	}

@@ -45,10 +45,10 @@ public class DatabaseUnitTest {
 		//Testing Account Data Access/Entity
 		AccountDA accountTestDA = new AccountDA(testDB);
 		System.out.println("Creating Checking... ");
-		int checking_acc = accountTestDA.insertCheckingAcc();
+		int checking_acc = accountTestDA.insertCheckingAcc("Kenny's Checking SPENDY BOI");
 		System.out.println("Checking Info: " + accountTestDA.getAccountInfo(checking_acc));
 		System.out.println("Creating Savings... ");
-		int savings_acc = accountTestDA.insertSavingsAcc();
+		int savings_acc = accountTestDA.insertSavingsAcc("Kenny's College Fund");
 		System.out.println("Savings Info: " + accountTestDA.getAccountInfo(savings_acc));
 		
 		//Testing AccountOpening Data Access/Entity

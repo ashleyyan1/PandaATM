@@ -3,20 +3,26 @@ package entity_atm;
 public class Account {
 
 	private int accountNumber;
+	private String accountName;
 	private boolean accountStatus;
 	private double accountBal;
 	private int accountType;
 	private double interestRate;
 	private double minReqBalance;
 	
-	public Account(int aN, boolean aS, double aB, int aT,
+	public Account(int aN, String aName, boolean aS, double aB, int aT,
 					double iR, double mRB) {
 		this.accountNumber = aN;
+		this.accountName = aName;
 		this.accountStatus = aS;
 		this.accountBal = aB;
 		this.accountType = aT;
 		this.interestRate = iR;
 		this.minReqBalance = mRB;
+	}
+
+	public String getAccountName() {
+		return accountName;
 	}
 
 	public int getAccountNumber() {
@@ -47,6 +53,7 @@ public class Account {
 	public String toString() {
 		String str = new String();
 		str = "Account Number: " + this.accountNumber
+			+ "\nAccount Name: " + this.accountName
 		    + "\nAccount Status: " + this.accountStatus
 		    + "\nAccount Balance: $" + this.accountBal
 		    + "\nAccount Type: " + this.accountType;
