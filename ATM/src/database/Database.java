@@ -238,7 +238,20 @@ public class Database {
 		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS sessionInactiveTrigger AFTER UPDATE ON `ATMSession` WHEN " +
 							"new.sessionActive = 0 BEGIN UPDATE `ATM` SET `sessionActive` = 0 WHERE `machineID` " +
 							"= new.machineID; END");
-		
+		//Trigger to keep Account Balance & Bill Count in Sync with each Successful Transaction Made (Withdrawal)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS withdrawalSuccessfulTrigger AFTER INSERT ON `Transaction` WHEN " +
+				            "new.transactionType = 0 BEGIN UPDATE `Account` SET `accountBal` = `accountBal` - new.amount WHERE " +
+				            "`accountNumber` = new.accountNumber; UPDATE `ATM` SET `withdrawalBillsRemaining` = `withdrawalBillsRemaining` - " +
+							"new.amount / 20 WHERE `machineID` = (SELECT `machineID` FROM `ATMSession` WHERE `sessionID` = new.sessionID); END");
+		//Trigger to keep Account Balance in Sync with each Successful Transaction Made (Deposit)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS depositSuccessfulTrigger AFTER INSERT ON `Transaction` WHEN " +
+	            			"new.transactionType = 1 BEGIN UPDATE `Account` SET `accountBal` = `accountBal` + new.amount WHERE " +
+	            			"`accountNumber` = new.accountNumber; END");
+		//Trigger to keep Account Balance in Sync with each Successful Transaction Made (Transfer)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS transferSuccessfulTrigger AFTER INSERT ON `Transaction` WHEN " +
+			    			"new.transactionType = 2 BEGIN UPDATE `Account` SET `accountBal` = `accountBal` + new.amount WHERE " +
+			    			"`accountNumber` = new.targetAccNumber; UPDATE `Account` SET `accountBal` = `accountBal` - new.amount WHERE " +
+			    			"`accountNumber` = new.accountNumber; END");
 	}//end generateTriggers
 	
 	public ResultSet executeQuery(PreparedStatement stmt, boolean useLock) throws SQLException {

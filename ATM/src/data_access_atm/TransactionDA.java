@@ -26,14 +26,14 @@ public class TransactionDA {
 		psGetTransactionInfo = db.getDatabase().prepareStatement("SELECT `transactionID`, `timeDateOfTrans`, `transactionType`, "
 							 + "`amount`, `targetAccNumber`, `sessionID`, `accountNumber` FROM `Transaction` WHERE `transactionID` = ? LIMIT 1;");
 
-		psInsertWithdrawalTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateofTrans`, `transactionType`, "
+		psInsertWithdrawalTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateofTrans`, `transactionType`,"
 									 + " `amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (?,0, ?, null, ?, ? );");
 
-		psInsertDepositTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateofTrans`, `transactionType`, "
+		psInsertDepositTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateofTrans`, `transactionType`,"
 								   + " `amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (?,1, ?, null, ?, ? );");
 
 		psInsertTransferTransaction = db.getDatabase().prepareStatement("INSERT INTO `Transaction` (`timeDateOfTrans`, `transactionType`,"
-									+ "`amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (?, 2, ?, ?, ?, ?);");
+									+ " `amount`, `targetAccNumber`, `sessionID`, `accountNumber`) VALUES (?, 2, ?, ?, ?, ?);");
 
 	}
 
@@ -54,14 +54,14 @@ public class TransactionDA {
 		return trans;
 	}
 
-	public int insertWithdrawalTransaction(int amount, int sessionID, int accountNumber) {
+	public int insertWithdrawalTransaction(double amount, int sessionID, int accountNumber, boolean useLock) {
 		
 		ResultSet set;
 		int primaryKey = 0;
-		db.lock(); // Lock other threads out of the DB until we unlock it
+		if(useLock) {db.lock();}
 		try {
 			psInsertWithdrawalTransaction.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-			psInsertWithdrawalTransaction.setInt(2, amount);
+			psInsertWithdrawalTransaction.setDouble(2, amount);
 			psInsertWithdrawalTransaction.setInt(3, sessionID);
 			psInsertWithdrawalTransaction.setInt(4, accountNumber);
 			db.executeStatement(psInsertWithdrawalTransaction, false);
@@ -72,17 +72,18 @@ public class TransactionDA {
 		} catch (SQLException e) {
 			System.out.println("ERROR: Failed to Retrieve the Primary Key");
 		}
+		if(useLock) {db.unlock();}
 		return primaryKey;
 	}
 
-	public int insertDepositTransaction(int amount, int sessionID, int accountNumber) {
+	public int insertDepositTransaction(double amount, int sessionID, int accountNumber, boolean useLock) {
 		
 		ResultSet set;
 		int primaryKey = 0;
-		db.lock(); // Lock other threads out of the DB until we unlock it
+		if(useLock) {db.lock();}
 		try {
 			psInsertDepositTransaction.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-			psInsertDepositTransaction.setInt(2, amount);
+			psInsertDepositTransaction.setDouble(2, amount);
 			psInsertDepositTransaction.setInt(3, sessionID);
 			psInsertDepositTransaction.setInt(4, accountNumber);
 			db.executeStatement(psInsertDepositTransaction, false);
@@ -93,18 +94,18 @@ public class TransactionDA {
 		} catch (SQLException e) {
 			System.out.println("ERROR: Failed to Retrieve the Primary Key");
 		}
-		db.unlock();
+		if(useLock) {db.unlock();}
 		return primaryKey;
 	}
 
-	public int insertTransferTransaction(int amount, int targetAccNumber, int sessionID, int accountNumber) {
+	public int insertTransferTransaction(double amount, int targetAccNumber, int sessionID, int accountNumber, boolean useLock) {
 		
 		ResultSet set;
 		int primaryKey = 0;
-		db.lock(); // Lock other threads out of the DB until we unlock it
+		if(useLock) {db.lock();}
 		try {
 			psInsertTransferTransaction.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-			psInsertTransferTransaction.setInt(2, amount);
+			psInsertTransferTransaction.setDouble(2, amount);
 			psInsertTransferTransaction.setInt(3, targetAccNumber);
 			psInsertTransferTransaction.setInt(4, sessionID);
 			psInsertTransferTransaction.setInt(5, accountNumber);
@@ -116,7 +117,7 @@ public class TransactionDA {
 		} catch (SQLException e) {
 			System.out.println("ERROR: Failed to Retrieve the Primary Key");
 		}
-		db.unlock();
+		if(useLock) {db.unlock();}
 		return primaryKey;
 	}
 }//end TransactionDA

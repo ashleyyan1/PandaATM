@@ -59,7 +59,8 @@ public class SessionHandler implements Runnable {
 
 					try {
 						boolean sessionActive = true;
-						TransactionHandler transHandler = new TransactionHandler(db, accountData, atmSession, sessionTimer, dataInput, dataOutput, debitCard);
+						TransactionHandler transHandler = new TransactionHandler(db, accountData, atmData, 
+								atmSession, sessionTimer, dataInput, dataOutput, debitCard, atm);
 						
 						while (sessionActive) {
 							
@@ -89,7 +90,9 @@ public class SessionHandler implements Runnable {
 								break;
 
 							case 14:// View Balance (Account Inquiry)
-
+								transHandler.initiateBalanceInquiry();
+								break;
+								
 							default:// Communication Error
 								Message unexpectedRequest = new Message(7);
 								unexpectedRequest

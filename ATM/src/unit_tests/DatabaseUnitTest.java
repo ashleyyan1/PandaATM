@@ -13,7 +13,9 @@ import data_access_atm.ClientDA;
 import data_access_atm.DebitCardDA;
 import data_access_atm.TransactionDA;
 import database.Database;
+import entity_atm.ATM;
 import entity_atm.ATMSession;
+import entity_atm.Account;
 import entity_atm.Client;
 
 public class DatabaseUnitTest {
@@ -112,16 +114,50 @@ public class DatabaseUnitTest {
 		
 		//Testing Deposit Functionality
 		System.out.println("Processing Deposit Transaction...");
-		int deposit_transaction_number = transactionTestDA.insertDepositTransaction(2000, atm_session_one, savings_acc);
-		System.out.println("Deposit Transaction Details: " + transactionTestDA.getTransactionInfo(deposit_transaction_number));
+		int deposit_transaction_one = transactionTestDA.insertDepositTransaction(2000, atm_session_one, savings_acc, true);
+		System.out.println("Deposit Transaction Details: " + transactionTestDA.getTransactionInfo(deposit_transaction_one));
+		//Assuming the User Deposited all $20 Bills
+		atmTestDA.updateDepositBillCount(100, atm_one);
+		
+		//Testing Deposit Functionality (2nd Transaction to Test DEPOSIT BILL COUNT UPDATE)
+		System.out.println("Processing Deposit Transaction...");
+		int deposit_transaction_two = transactionTestDA.insertDepositTransaction(1000, atm_session_one, savings_acc, true);
+		System.out.println("Deposit Transaction Details: " + transactionTestDA.getTransactionInfo(deposit_transaction_two));
+		//Assuming the User Deposited all $5 Bills
+		atmTestDA.updateDepositBillCount(200, atm_one);
+		
+		//Tests Trigger to update Account Balance on Deposit Transaction
+		System.out.println("******************************************");
+		Account testSavingsAcc = accountTestDA.getAccountInfo(savings_acc);
+		System.out.println("Updated Account Balance: " + testSavingsAcc.getAccountBal());
+		ATM testATM = atmTestDA.getATMInfo(atm_one);
+		System.out.println("ATM Deposit Bill Box Count: " + testATM.getDepositBillCount());
+		System.out.println("******************************************");
+		
 		//Testing Withdrawal Functionality
 		System.out.println("Processing Withdrawal Transaction...");
-		int withdrawal_transaction_number = transactionTestDA.insertWithdrawalTransaction(500, atm_session_one, savings_acc);
+		int withdrawal_transaction_number = transactionTestDA.insertWithdrawalTransaction(500, atm_session_one, savings_acc, true);
 		System.out.println("Withdrawal Transaction Details: " + transactionTestDA.getTransactionInfo(withdrawal_transaction_number));
+		
+		//Tests Trigger to update Account Balance & ATM Bill Count on Withdrawal Transaction
+		System.out.println("******************************************");
+		testSavingsAcc = accountTestDA.getAccountInfo(savings_acc);
+		System.out.println("Updated Account Balance: " + testSavingsAcc.getAccountBal());
+		testATM = atmTestDA.getATMInfo(atm_one);
+		System.out.println("ATM Withdrawal Bills Remaining: " + testATM.getWithdrawalBillsRemaining());
+		System.out.println("******************************************");
+		
 		//Testing Transfer Functionality
 		System.out.println("Processing Transfer Transaction...");
-		int transfer_transaction_number = transactionTestDA.insertTransferTransaction(365, checking_acc, atm_session_one, savings_acc);
+		int transfer_transaction_number = transactionTestDA.insertTransferTransaction(365, checking_acc, atm_session_one, savings_acc, true);
 		System.out.println("Transfer Transaction Details: " + transactionTestDA.getTransactionInfo(transfer_transaction_number));
 		
+		//Tests Trigger to update Account Balances on Source and Target Accounts for Transfer Transaction
+		Account  testCheckingAcc = accountTestDA.getAccountInfo(checking_acc);
+		testSavingsAcc = accountTestDA.getAccountInfo(savings_acc);
+		System.out.println("******************************************");	
+		System.out.println("Updated Savings Account Balance: " + testSavingsAcc.getAccountBal());
+		System.out.println("Updated Checking Account Balance: " + testCheckingAcc.getAccountBal());
+		System.out.println("******************************************");
 	}//end main
 }//end DatabaseTest

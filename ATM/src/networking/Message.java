@@ -21,9 +21,16 @@ public class Message {
 	 * 13 = Transaction Error
 	 * 14 = View Balance (Account Inquiry)
 	 * 15 = Prepared Accounts' Info
+	 * 16 = Transaction Account Selected
+	 * 17 = Cancel Transaction Request
+	 * 18 = Transaction Amount
+	 * 19 = Transaction Confirmation (Yes)
+	 * 20 = Account Balance Insufficient
+	 * 21 = Insufficient Withdrawal Bills
 	 */
 	private int flag;
 	private ArrayList<Integer> intMessages;
+	private ArrayList<Double> doubleMessages;
 	private ArrayList<String> textMessages;
 	private long cardNumber;
 
@@ -36,6 +43,11 @@ public class Message {
 	public int addIntegerM(int data) {
 		intMessages.add(data);
 		return intMessages.size() - 1;
+	}
+	
+	public int addDoubleM(double data) {
+		doubleMessages.add(data);
+		return doubleMessages.size() - 1;
 	}
 
 	public int addStringM(String data) {
@@ -57,6 +69,10 @@ public class Message {
 
 	public ArrayList<String> getTextMessages() {
 		return textMessages;
+	}
+	
+	public ArrayList<Double> getDoubleMessages(){
+		return doubleMessages;
 	}
 
 	public long getCardNumber() {
