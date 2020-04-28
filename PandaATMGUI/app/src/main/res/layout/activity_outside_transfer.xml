@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".outsideTransfer">
@@ -14,39 +13,47 @@
         android:layout_marginTop="120dp"
         android:src="@drawable/cute_panda_paws_up_wall_panda_face_cartoon_icon_42750_498"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bambooback" />
 
     <RadioButton
         android:id="@+id/savingsRadio"
-        android:layout_width="95dp"
+        android:layout_width="0dp"
         android:layout_height="23dp"
         android:layout_marginTop="29dp"
-        android:layout_marginEnd="99dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="38dp"
         android:text="Savings"
         android:textColor="#111111"
+        app:layout_constraintBottom_toTopOf="@+id/enterButton3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/checkingRadio"
         app:layout_constraintTop_toBottomOf="@+id/amountTransfer" />
 
     <ImageView
         android:id="@+id/logoName8"
-        android:layout_width="68dp"
+        android:layout_width="0dp"
         android:layout_height="28dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="@+id/logo7"
         app:layout_constraintStart_toStartOf="@+id/logo7"
-        app:layout_constraintTop_toTopOf="@+id/logo7"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mutant_bamboo" />
 
     <ImageView
         android:id="@+id/logo7"
         android:layout_width="94dp"
-        android:layout_height="95dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="9dp"
         android:background="@drawable/newpandalogo"
+        app:layout_constraintBottom_toTopOf="@+id/backgroundImage9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,84 +64,103 @@
         android:background="#B12525"
         android:text="Clear"
         android:textColor="#111111"
-        tools:layout_editor_absoluteX="96dp"
-        tools:layout_editor_absoluteY="425dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enterButton3"
+        app:layout_constraintEnd_toStartOf="@+id/previous3"
+        app:layout_constraintStart_toStartOf="@+id/previous3"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/enterButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="199dp"
+        android:layout_marginBottom="200dp"
         android:background="#33CC33"
         android:text="Enter"
         android:textColor="#111111"
-        tools:layout_editor_absoluteX="224dp"
-        tools:layout_editor_absoluteY="425dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dateTxt8"
+        app:layout_constraintEnd_toEndOf="@+id/previous3"
+        app:layout_constraintStart_toEndOf="@+id/previous3"
+        app:layout_constraintTop_toTopOf="@+id/acctNum"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/previous3"
         android:layout_width="128dp"
         android:layout_height="36dp"
+        android:layout_marginTop="137dp"
+        android:layout_marginBottom="136dp"
         android:background="#FFFFFF"
         android:text="Previous"
         android:textColor="#111111"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="501dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dateTxt8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkingRadio"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/dateTxt8"
-        android:layout_width="142dp"
+        android:layout_width="0dp"
         android:layout_height="31dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="59dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="58dp"
         android:text="Date"
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/enterButton3" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="44dp"
         android:text="Enter account number and amount to transfer."
         android:textColor="#111111"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="164dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backgroundImage9"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/acctNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
         android:ems="10"
         android:hint="Account Number"
         android:inputType="number"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="226dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/amountTransfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
         android:ems="10"
         android:hint="Amount"
         android:inputType="number"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="290dp"
+        app:layout_constraintStart_toStartOf="@+id/acctNum"
+        app:layout_constraintTop_toBottomOf="@+id/acctNum"
         tools:ignore="MissingConstraints" />
 
     <RadioButton
         android:id="@+id/checkingRadio"
-        android:layout_width="95dp"
+        android:layout_width="0dp"
         android:layout_height="23dp"
         android:layout_marginStart="96dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginEnd="27dp"
         android:text="Checking"
         android:textColor="#111111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amountTransfer" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/savingsRadio"
+        app:layout_constraintEnd_toStartOf="@+id/savingsRadio"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

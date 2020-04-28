@@ -11,8 +11,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".withdrawDiffAmt"
-            android:label="@string/title_activity_withdraw_diffAmt_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_withdraw_diff_amt"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".transactionScreenn"
             android:label="@string/title_activity_transaction_screen"
@@ -22,8 +22,8 @@
             android:label="@string/title_activity_balance_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".splashScreen"
-            android:label="@string/title_activity_splash_screen"
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".outsideTransfer"
@@ -46,10 +46,6 @@
             android:label="@string/title_activity_withdraw_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".mainScreen"
-            android:label="@string/title_activity_main_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".loginScreen"
             android:label="@string/title_activity_atm_login"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -57,8 +53,7 @@
             android:name=".checkDepositScreen"
             android:label="@string/title_activity_check_deposit_screen"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".MainActivity">
+        <activity android:name=".splashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
