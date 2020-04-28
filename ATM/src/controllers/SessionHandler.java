@@ -153,12 +153,15 @@ public class SessionHandler implements Runnable {
 				else {
 					while (pinAttemptCount < atm.getMaxPinEntryAttempts()) {
 						/*
-						 * Main Menu Info Message Consists of the following: 1. ATM's Physical Location
-						 * (Address) 2. Timer Limit to time out session (milliseconds)
+						 * Main Menu Info Message Consists of the following: 
+						 * 1. ATM's Physical Location(Address) 
+						 * 2. Card Holder Name (for a welcome message)
+						 * 3. Timer Limit to time out session (milliseconds)
 						 */
 						if (debitCard.getPinNumber() == pin) {
 							Message mainMenuInfo = new Message(5);
 							mainMenuInfo.addStringM(atm.getMachineAddress());
+							mainMenuInfo.addStringM(debitCard.getCardHolderName());
 							mainMenuInfo.addIntegerM(atm.getSessionTimeOut());
 							dataOutput.writeObject(mainMenuInfo);
 
