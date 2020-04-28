@@ -28,9 +28,9 @@ public class AccountDA {
 		 				  										+ "`accountBal`, `accountType`, `interestRate`, `minReqBalance` "
 		 				  										+ "FROM Account WHERE `accountNumber` = ? LIMIT 1;");
 		 psInsertSavings = db.getDatabase().prepareStatement("INSERT INTO `Account` (`accountName`, `accountStatus`, `accountBal`, `accountType`, `interestRate`)"
-		 														+ "VALUES(?, 1, 0.0, 0, 0.5);");
+		 														+ "VALUES(?, 1, ?, 0, 0.5);");
 		 psInsertChecking = db.getDatabase().prepareStatement("INSERT INTO `Account` (`accountName`, `accountStatus`,`accountBal`,`accountType`,`minReqBalance`) "
-		 														+ "VALUES(?, 1, 0.0, 1, 100.0);");
+		 														+ "VALUES(?, 1, ?, 1, 100.0);");
 		 psGetAvailableAccounts = db.getDatabase().prepareStatement("SELECT * FROM `CardActivation` WHERE `cardNumber` = ?;");
 	}
 	
@@ -54,7 +54,7 @@ public class AccountDA {
 		return acc;
 	}//end getAccountInfo
 	
-	public int insertCheckingAcc(String name) {
+	public int insertCheckingAcc(String name, double balance) {
 		
 		ResultSet set;
 		int primaryKey = 0;
@@ -62,6 +62,7 @@ public class AccountDA {
 		
 		try {
 			psInsertChecking.setString(1, name);
+			psInsertChecking.setDouble(2, balance);
 			db.executeStatement(psInsertChecking, false);
 			set = psInsertChecking.getGeneratedKeys();
 			if(set.next()) {
@@ -80,7 +81,7 @@ public class AccountDA {
 		return primaryKey;
 	}//end insertCheckingAcc
 	
-	public int insertSavingsAcc(String name) {
+	public int insertSavingsAcc(String name, double balance) {
 		
 		ResultSet set;
 		int primaryKey = 0;
@@ -88,6 +89,7 @@ public class AccountDA {
 		
 		try {
 			psInsertSavings.setString(1, name);
+			psInsertSavings.setDouble(2, balance);
 			db.executeStatement(psInsertSavings, false);
 			set = psInsertSavings.getGeneratedKeys();
 			if(set.next()) {

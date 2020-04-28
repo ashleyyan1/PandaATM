@@ -71,15 +71,15 @@ public class DataInitialization {
 		Client clientJonathanInfo = clientData.getClientInfo(clientJonathan);
 		
 		//Initiate Accounts - # of Accounts Varies from User to User
-		int kennyChecking = accountData.insertCheckingAcc("Kenny's Checking SPENDY BOI");
-		int ashleyChecking = accountData.insertCheckingAcc("Ashley's Checking");
-		int ashleySavings = accountData.insertSavingsAcc("Ashley's Savings");
-		int christianChecking = accountData.insertCheckingAcc("Christian's Checking");
-		int christianSavingsOne = accountData.insertSavingsAcc("Christian's Savings");
-		int christianSavingsTwo = accountData.insertSavingsAcc("Christian's College Fund");
-		int nickChecking = accountData.insertCheckingAcc("Nicholas's Checking");
-		int nickSavings = accountData.insertSavingsAcc("Nicholas's Savings");
-		int jonathanSavings = accountData.insertSavingsAcc("Jonathan's V-Bucks Allowance");
+		int kennyChecking = accountData.insertCheckingAcc("Kenny's Checking SPENDY BOI", 420.69);
+		int ashleyChecking = accountData.insertCheckingAcc("Ashley's Checking", 357);
+		int ashleySavings = accountData.insertSavingsAcc("Ashley's Savings", 6700);
+		int christianChecking = accountData.insertCheckingAcc("Christian's Checking", 0.01);
+		int christianSavingsOne = accountData.insertSavingsAcc("Christian's Savings", 3250);
+		int christianSavingsTwo = accountData.insertSavingsAcc("Christian's College Fund", 7400.42);
+		int nickChecking = accountData.insertCheckingAcc("Nicholas's Checking", 1270);
+		int nickSavings = accountData.insertSavingsAcc("Nicholas's Savings", 23567);
+		int jonathanSavings = accountData.insertSavingsAcc("Jonathan's V-Bucks Allowance", 100);
 		
 		//Initiate Account Openings - 1 for each Account
 		accountOpeningData.insertAccountOpening(clientKenny, kennyChecking);
