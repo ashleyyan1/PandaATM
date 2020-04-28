@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import data_access_atm.ATMDA;
 import data_access_atm.ATMSessionDA;
@@ -141,6 +142,12 @@ public class SessionHandler implements Runnable {
 					Message cardLocked = new Message(4);
 					cardLocked.addStringM("Card is Locked. Access Denied.");
 					dataOutput.writeObject(cardLocked);
+				}
+				//Card Expiration Date has passed (Expiration is before current time of access)
+				else if (debitCard.getCardExpDate().isBefore(LocalDateTime.now())) {
+					Message cardExpired = new Message(4);
+					cardExpired.addStringM("Card is Expired. Access Denied.");
+					dataOutput.writeObject(cardExpired);
 				}
 				// Card Number does exist in Database and is not locked
 				else {

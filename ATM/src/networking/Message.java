@@ -9,7 +9,7 @@ public class Message {
 	 * 1  = Logout Timeout
 	 * 2  = Login Request 
 	 * 3  = Session Access Denied 
-	 * 4  = Card Locked
+	 * 4  = Card Locked/Card Expired
 	 * 5  = Main Menu Info
 	 * 6  = ATM Access Request
 	 * 7  = Communication Error
