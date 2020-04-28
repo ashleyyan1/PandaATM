@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".depositChoiceScreen">
+
+    <ImageView
+        android:id="@+id/logo3"
+        android:layout_width="94dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="432dp"
+        android:background="@drawable/newpandalogo"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logoName4"
+        android:layout_width="68dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logo3"
+        app:srcCompat="@drawable/mutant_bamboo" />
+
+    <ImageView
+        android:id="@+id/backgroundImage3"
+        android:layout_width="0dp"
+        android:layout_height="663dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/cute_panda_paws_up_wall_panda_face_cartoon_icon_42750_498"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateTxt5"
+        android:layout_width="142dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="59dp"
+        android:text="Date"
+        android:textColor="#111111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/checkDeposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="354dp"
+        android:background="#0033CC"
+        android:text=" Check Deposit "
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cashDeposit"
+        android:layout_width="113dp"
+        android:layout_height="47dp"
+        android:background="#33CC33"
+        android:text="Cash Deposit"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/checkDeposit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="552dp"
+        android:text="Select a deposit type."
+        android:textColor="#111111"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cancelButton1"
+        android:layout_width="105dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="140dp"
+        android:background="#B12525"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dateTxt5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
