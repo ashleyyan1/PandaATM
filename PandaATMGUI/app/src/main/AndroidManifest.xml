@@ -10,22 +10,54 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".transactionScreen"
+            android:name=".withdrawDiffAmt"
+            android:label="@string/title_activity_withdraw_diffAmt_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".transactionScreenn"
             android:label="@string/title_activity_transaction_screen"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".balanceScreen"
+            android:label="@string/title_activity_balance_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".splashScreen"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".outsideTransfer"
+            android:label="@string/title_activity_outside_transfer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".transferType"
+            android:label="@string/title_activity_transfer_type"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".cashDepositScreen"
+            android:label="@string/title_activity_cash_deposit_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".depositChoiceScreen"
+            android:label="@string/title_activity_deposit_choice_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".withdrawScreen"
+            android:label="@string/title_activity_withdraw_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".mainScreen"
+            android:label="@string/title_activity_main_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".loginScreen"
+            android:label="@string/title_activity_atm_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".checkDepositScreen"
+            android:label="@string/title_activity_check_deposit_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".loginScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

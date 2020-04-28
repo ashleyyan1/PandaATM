@@ -7,6 +7,18 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="title_activity_atm_login">Sign in</string>
+    <string name="title_activity_main_screen">mainScreen</string>
+    <string name="title_activity_withdraw_screen">withdrawScreen</string>
+    <string name="title_activity_deposit_choice_screen">depositChoiceScreen</string>
+    <string name="title_activity_cash_deposit_screen">cashDepositScreen</string>
+    <string name="title_activity_check_deposit_screen">checkDepositScreen</string>
+    <string name="title_activity_transfer_type">transferType</string>
+    <string name="title_activity_outside_transfer">outsideTransfer</string>
+    <string name="title_activity_splash_screen">splashScreen</string>
+    <string name="title_activity_withdraw">withdraw</string>
+    <string name="title_activity_balance_screen">balanceScreen</string>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
