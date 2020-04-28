@@ -50,7 +50,7 @@
         app:srcCompat="@drawable/mutant_bamboo" />
 
     <Button
-        android:id="@+id/checkingAcct2"
+        android:id="@+id/savingsAcct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="58dp"
@@ -82,7 +82,7 @@
         android:background="#33CC33"
         android:text="Checking"
         android:textColor="#111111"
-        app:layout_constraintBaseline_toBaselineOf="@+id/checkingAcct2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/savingsAcct"
         app:layout_constraintStart_toStartOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cashDepositScreen">
+    tools:context=".withdrawDiffAmt">
 
     <ImageView
         android:id="@+id/backgroundImage7"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/bambooback" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/previous2"
         android:layout_width="128dp"
         android:layout_height="36dp"
         android:layout_marginBottom="228dp"
@@ -32,17 +32,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/clearButton4"
+        android:id="@+id/clearButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="42dp"
         android:background="#B12525"
         android:text="Clear"
         android:textColor="#111111"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/enterButton2"
+        app:layout_constraintEnd_toStartOf="@+id/enterButton2" />
 
     <TextView
         android:id="@+id/textView2"
@@ -55,34 +53,31 @@
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage7"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="209dp"
         android:ems="10"
         android:hint="Amount"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage7" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enterButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="31dp"
         android:background="#33CC33"
         android:text="Enter"
         android:textColor="#111111"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/clearButton3" />
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <ImageView
         android:id="@+id/logo5"

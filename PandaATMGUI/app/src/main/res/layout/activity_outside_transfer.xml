@@ -51,34 +51,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/clearButton4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#B12525"
         android:text="Clear"
         android:textColor="#111111"
         tools:layout_editor_absoluteX="96dp"
-        tools:layout_editor_absoluteY="425dp" />
+        tools:layout_editor_absoluteY="425dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/enterButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#33CC33"
         android:text="Enter"
         android:textColor="#111111"
         tools:layout_editor_absoluteX="224dp"
-        tools:layout_editor_absoluteY="425dp" />
+        tools:layout_editor_absoluteY="425dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/previous3"
         android:layout_width="128dp"
         android:layout_height="36dp"
         android:background="#FFFFFF"
         android:text="Previous"
         android:textColor="#111111"
         tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="501dp" />
+        tools:layout_editor_absoluteY="501dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/dateTxt8"
@@ -99,7 +102,8 @@
         android:textColor="#111111"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="164dp" />
+        tools:layout_editor_absoluteY="164dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/acctNum"
@@ -109,7 +113,8 @@
         android:hint="Account Number"
         android:inputType="number"
         tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="226dp" />
+        tools:layout_editor_absoluteY="226dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/amountTransfer"
@@ -119,7 +124,8 @@
         android:hint="Amount"
         android:inputType="number"
         tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="290dp" />
+        tools:layout_editor_absoluteY="290dp"
+        tools:ignore="MissingConstraints" />
 
     <RadioButton
         android:id="@+id/checkingRadio"

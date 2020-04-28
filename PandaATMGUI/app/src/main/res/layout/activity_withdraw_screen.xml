@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayout10"
+    android:id="@+id/withdrawDiffAmt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".withdrawScreen">
@@ -149,7 +149,7 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/diffAmt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="456dp"
@@ -161,5 +161,17 @@
         app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/cancelButton2"
+        android:layout_width="121dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginBottom="227dp"
+        android:background="#B12525"
+        android:text="cancel"
+        android:textColor="#111111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

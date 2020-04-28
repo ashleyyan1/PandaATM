@@ -54,7 +54,7 @@
         android:id="@+id/backgroundImage2"
         android:layout_width="0dp"
         android:layout_height="663dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/cute_panda_paws_up_wall_panda_face_cartoon_icon_42750_498"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,6 +83,17 @@
         android:textColor="#111111"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backgroundImage2" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:background="#B12525"
+        android:text="Cancel"
+        android:textColor="#111111"
+        app:layout_constraintBaseline_toBaselineOf="@+id/balanceBtn"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/balanceBtn"
@@ -140,18 +151,5 @@
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/acctNum"
         app:layout_constraintTop_toBottomOf="@+id/acctNum" />
-
-    <Button
-        android:id="@+id/cancelBtn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:background="#B12525"
-        android:text="Cancel"
-        android:textColor="#111111"
-        app:layout_constraintEnd_toStartOf="@+id/balanceBtn"
-        app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeTxt2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
