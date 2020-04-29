@@ -26,15 +26,15 @@ public class DataInitialization {
 	private DataInitialization(Database db) throws SQLException {
 		//Erases all data in Database
 		Statement stmt = db.getDatabase().createStatement();
-		stmt.executeUpdate("DELETE FROM `BankBranch`");
-		stmt.executeUpdate("DELETE FROM `Client`");
-		stmt.executeUpdate("DELETE FROM `Account`");
-		stmt.executeUpdate("DELETE FROM `AccountOpening`");
-		stmt.executeUpdate("DELETE FROM `ATM`");
-		stmt.executeUpdate("DELETE FROM `ATMSession`");
-		stmt.executeUpdate("DELETE FROM `DebitCard`");
 		stmt.executeUpdate("DELETE FROM `Transaction`");
+		stmt.executeUpdate("DELETE FROM `ATMSession`");
 		stmt.executeUpdate("DELETE FROM `CardActivation`");
+		stmt.executeUpdate("DELETE FROM `DebitCard`");
+		stmt.executeUpdate("DELETE FROM `AccountOpening`");
+		stmt.executeUpdate("DELETE FROM `Account`");
+		stmt.executeUpdate("DELETE FROM `Client`");
+		stmt.executeUpdate("DELETE FROM `ATM`");
+		stmt.executeUpdate("DELETE FROM `BankBranch`");
 		stmt.close();
 		
 		//Initialize all Data Access Classes
