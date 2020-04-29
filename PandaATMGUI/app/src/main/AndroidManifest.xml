@@ -10,11 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".withdrawDiffAmt"
-            android:label="@string/title_activity_withdraw_diff_amt"
+            android:name=".selectAccountTransfer"
+            android:label="@string/title_activity_select_account_transfer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".transactionScreenn"
+            android:name=".selectAccountDeposit"
+            android:label="@string/title_activity_select_account_deposit"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".selectAccountWithdraw"
+            android:label="@string/title_activity_select_account_withdraw"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".withdrawDiffAmt"
+            android:label="@string/title_activity_withdraw_diff_amt"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".transactionScreen"
             android:label="@string/title_activity_transaction_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -30,16 +42,8 @@
             android:label="@string/title_activity_outside_transfer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".transferType"
-            android:label="@string/title_activity_transfer_type"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".cashDepositScreen"
             android:label="@string/title_activity_cash_deposit_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".depositChoiceScreen"
-            android:label="@string/title_activity_deposit_choice_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".withdrawScreen"
@@ -48,10 +52,6 @@
         <activity
             android:name=".loginScreen"
             android:label="@string/title_activity_atm_login"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".checkDepositScreen"
-            android:label="@string/title_activity_check_deposit_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".splashScreen">
             <intent-filter>

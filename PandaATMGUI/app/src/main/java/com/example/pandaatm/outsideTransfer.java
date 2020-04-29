@@ -14,16 +14,16 @@ public class outsideTransfer extends AppCompatActivity {
 
 
         //initialize click listeners
-        findViewById(R.id.clearButton4).setOnClickListener(buttonClickListener);
-        findViewById(R.id.enterButton3).setOnClickListener(buttonClickListener);
-        findViewById(R.id.previous3).setOnClickListener(buttonClickListener);
+        findViewById(R.id.clearButton2).setOnClickListener(buttonClickListener);
+//        findViewById(R.id.enterButton2).setOnClickListener(buttonClickListener);
+        findViewById(R.id.cancelButton3).setOnClickListener(buttonClickListener);
 
     }
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.clearButton4:     //if clear button is clicked, clear text fields
+                case R.id.clearButton2:     //if clear button is clicked, clear text fields
                     EditText acctNum = findViewById(R.id.acctNum);
                     EditText amountTransfer = findViewById(R.id.amountTransfer);
                     acctNum.getText().clear();
@@ -33,7 +33,7 @@ public class outsideTransfer extends AppCompatActivity {
 //                    Intent login = new Intent(
 //
 //                    break;
-                case R.id.previous3:        //if previous button is clicked, go to transfer type screen
+                case R.id.cancelButton3:        //if previous button is clicked, go to transfer type screen
                     finish();
                     break;
             }

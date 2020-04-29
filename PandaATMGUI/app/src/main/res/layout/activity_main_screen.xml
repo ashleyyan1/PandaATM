@@ -52,6 +52,7 @@
         android:id="@+id/welcomeTxt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="179dp"
         android:layout_marginBottom="440dp"
         android:fontFamily="casual"
         android:text="Please select an ATM location to continue."
@@ -59,22 +60,25 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcomeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="26dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="571dp"
         android:fontFamily="casual"
         android:text="Welcome to Cal Poly Pomona's Panda ATM Services."
         android:textColor="#111111"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/mktplace"

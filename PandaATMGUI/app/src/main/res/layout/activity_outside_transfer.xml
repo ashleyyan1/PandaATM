@@ -17,20 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bambooback" />
 
-    <RadioButton
-        android:id="@+id/savingsRadio"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="98dp"
-        android:layout_marginBottom="38dp"
-        android:text="Savings"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toTopOf="@+id/enterButton3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkingRadio"
-        app:layout_constraintTop_toBottomOf="@+id/amountTransfer" />
-
     <ImageView
         android:id="@+id/logoName8"
         android:layout_width="0dp"
@@ -58,19 +44,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/clearButton4"
+        android:id="@+id/clearButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#B12525"
         android:text="Clear"
         android:textColor="#111111"
-        app:layout_constraintBaseline_toBaselineOf="@+id/enterButton3"
-        app:layout_constraintEnd_toStartOf="@+id/previous3"
-        app:layout_constraintStart_toStartOf="@+id/previous3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enterButton2"
+        app:layout_constraintEnd_toStartOf="@+id/cancelButton3"
+        app:layout_constraintStart_toStartOf="@+id/cancelButton3"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/enterButton3"
+        android:id="@+id/enterButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="199dp"
@@ -79,24 +65,22 @@
         android:text="Enter"
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="@+id/dateTxt8"
-        app:layout_constraintEnd_toEndOf="@+id/previous3"
-        app:layout_constraintStart_toEndOf="@+id/previous3"
+        app:layout_constraintEnd_toEndOf="@+id/cancelButton3"
+        app:layout_constraintStart_toEndOf="@+id/cancelButton3"
         app:layout_constraintTop_toTopOf="@+id/acctNum"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/previous3"
+        android:id="@+id/cancelButton3"
         android:layout_width="128dp"
         android:layout_height="36dp"
-        android:layout_marginTop="137dp"
         android:layout_marginBottom="136dp"
         android:background="#FFFFFF"
-        android:text="Previous"
+        android:text="Cancel"
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="@+id/dateTxt8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/checkingRadio"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -110,7 +94,7 @@
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/enterButton3" />
+        app:layout_constraintStart_toStartOf="@+id/enterButton2" />
 
     <TextView
         android:id="@+id/textView4"
@@ -150,17 +134,5 @@
         app:layout_constraintStart_toStartOf="@+id/acctNum"
         app:layout_constraintTop_toBottomOf="@+id/acctNum"
         tools:ignore="MissingConstraints" />
-
-    <RadioButton
-        android:id="@+id/checkingRadio"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginEnd="27dp"
-        android:text="Checking"
-        android:textColor="#111111"
-        app:layout_constraintBaseline_toBaselineOf="@+id/savingsRadio"
-        app:layout_constraintEnd_toStartOf="@+id/savingsRadio"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

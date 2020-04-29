@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".transactionScreenn">
+    tools:context=".transactionScreen">
 
     <ImageView
         android:id="@+id/logoName5"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toTopOf="@+id/backgroundImage2" />
 
     <Button
-        android:id="@+id/cancelBtn"
+        android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"

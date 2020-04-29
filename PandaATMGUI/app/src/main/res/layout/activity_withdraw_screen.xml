@@ -162,15 +162,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/cancelButton2"
+        android:id="@+id/cancelButton1"
         android:layout_width="121dp"
         android:layout_height="48dp"
         android:layout_marginStart="55dp"
+        android:layout_marginTop="456dp"
         android:layout_marginBottom="227dp"
         android:background="#B12525"
         android:text="cancel"
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

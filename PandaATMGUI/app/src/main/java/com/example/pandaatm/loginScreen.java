@@ -25,7 +25,7 @@ public class loginScreen extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.loginButton:      //if login button is clicked, go to transaction screen
-                    Intent login = new Intent(loginScreen.this, transactionScreenn.class);
+                    Intent login = new Intent(loginScreen.this, transactionScreen.class);
                     startActivity(login);
                     break;
                 case R.id.clearButton:      //if clean button is clicked, clear text fields
