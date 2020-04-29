@@ -13,7 +13,8 @@ public class withdrawScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw_screen);
 
-        findViewById(R.id.cancelButton2).setOnClickListener(buttonClickListener);
+        //initialize click listeners
+        findViewById(R.id.cancelButton1).setOnClickListener(buttonClickListener);
         findViewById(R.id.diffAmt).setOnClickListener(buttonClickListener);
 
     }
@@ -22,11 +23,11 @@ public class withdrawScreen extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.cancelButton2:
-                    Intent cancel = new Intent(withdrawScreen.this, MainActivity.class);
+                case R.id.cancelButton1:        //if cancel button is clicked, go to main screen
+                    Intent cancel = new Intent(withdrawScreen.this, transactionScreen.class);
                     startActivity(cancel);
                     break;
-                case R.id.diffAmt:
+                case R.id.diffAmt:              //if different amount is clicked, go to withdraw diffAmt class
                     Intent diffAmt = new Intent(withdrawScreen.this, withdrawDiffAmt.class);
                     startActivity(diffAmt);
                     break;

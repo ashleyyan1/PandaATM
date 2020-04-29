@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#95D8E3"
@@ -33,9 +32,10 @@
         android:id="@+id/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+        app:layout_constraintBottom_toTopOf="@+id/dateTxt3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo2"
         app:srcCompat="@drawable/map" />
 
     <ImageView
@@ -52,24 +52,33 @@
         android:id="@+id/welcomeTxt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="179dp"
+        android:layout_marginBottom="440dp"
         android:fontFamily="casual"
         android:text="Please select an ATM location to continue."
         android:textColor="#111111"
-        app:layout_constraintStart_toStartOf="@+id/welcomeTxt"
-        app:layout_constraintTop_toTopOf="@+id/map" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcomeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="571dp"
         android:fontFamily="casual"
         android:text="Welcome to Cal Poly Pomona's Panda ATM Services."
         android:textColor="#111111"
-        app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintStart_toStartOf="@+id/map" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/mktplace"
@@ -77,14 +86,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="141dp"
         android:layout_marginEnd="26dp"
+        android:layout_marginBottom="40dp"
         android:background="#EAD422"
         android:text="Marketplace"
         android:textColor="#111111"
-        app:layout_constraintBottom_toTopOf="@+id/libATM"
+        app:layout_constraintBottom_toBottomOf="@+id/mktplaceATM"
         app:layout_constraintEnd_toStartOf="@+id/libATM"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/libATM"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/bldg1ATM"
@@ -93,9 +101,7 @@
         android:layout_marginStart="102dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="90dp"
-        android:layout_marginBottom="94dp"
         android:background="@drawable/atmbw"
-        app:layout_constraintBottom_toBottomOf="@+id/libATM"
         app:layout_constraintEnd_toStartOf="@+id/bldg17ATM"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeTxt2" />
@@ -106,9 +112,7 @@
         android:layout_height="37dp"
         android:layout_marginTop="105dp"
         android:layout_marginEnd="129dp"
-        android:layout_marginBottom="104dp"
         android:background="@drawable/atmbw"
-        app:layout_constraintBottom_toBottomOf="@+id/libATM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bldg1ATM"
         app:layout_constraintTop_toTopOf="@+id/welcomeTxt2" />
@@ -118,12 +122,11 @@
         android:layout_width="45dp"
         android:layout_height="37dp"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="235dp"
+        android:layout_marginTop="256dp"
         android:layout_marginEnd="14dp"
-        android:layout_marginBottom="248dp"
         android:background="@drawable/atmbw"
-        app:layout_constraintBottom_toTopOf="@+id/dateTxt3"
         app:layout_constraintEnd_toEndOf="@+id/mktplace"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/bldg1ATM"
         app:layout_constraintTop_toTopOf="@+id/welcomeTxt" />
 
@@ -131,26 +134,22 @@
         android:id="@+id/bscATM"
         android:layout_width="45dp"
         android:layout_height="37dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="178dp"
-        android:layout_marginEnd="113dp"
-        android:layout_marginBottom="178dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="104dp"
         android:background="@drawable/atmbw"
-        app:layout_constraintBottom_toBottomOf="@+id/dateTxt3"
-        app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintStart_toStartOf="@+id/mktplace"
-        app:layout_constraintTop_toBottomOf="@+id/bldg17ATM" />
+        app:layout_constraintBottom_toTopOf="@+id/dateTxt3"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/libATM"
         android:layout_width="0dp"
         android:layout_height="37dp"
         android:layout_marginEnd="120dp"
+        android:layout_marginBottom="300dp"
         android:background="@drawable/atmbw"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mktplace"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/mktplace" />
 
     <TextView
         android:id="@+id/bldg1"
@@ -158,11 +157,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
         android:layout_marginEnd="76dp"
+        android:layout_marginBottom="12dp"
         android:background="#EAD422"
         android:text="Building 1"
         android:textColor="#111111"
         app:layout_constraintBottom_toTopOf="@+id/bldg1ATM"
         app:layout_constraintEnd_toStartOf="@+id/bldg17ATM"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -183,6 +184,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         android:background="#EAD422"
         android:text="BSC"
         android:textColor="#111111"
@@ -193,11 +195,11 @@
         android:id="@+id/lib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="120dp"
         android:background="#EAD422"
         android:text="Library"
         android:textColor="#111111"
-        app:layout_constraintBottom_toTopOf="@+id/mktplace"
-        app:layout_constraintStart_toStartOf="@+id/libATM"
-        app:layout_constraintTop_toTopOf="@+id/mktplace" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bldg17ATM" />
 </androidx.constraintlayout.widget.ConstraintLayout>

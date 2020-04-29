@@ -7,16 +7,13 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    //initialize ATM buttons
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        //
-
+        //initialize click listeners
         findViewById(R.id.bldg1ATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.bldg17ATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.bscATM).setOnClickListener(buttonClickListener);

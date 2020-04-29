@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".cashDepositScreen">
@@ -20,19 +19,19 @@
         app:srcCompat="@drawable/bambooback" />
 
     <Button
-        android:id="@+id/previous"
+        android:id="@+id/cancelButton"
         android:layout_width="128dp"
         android:layout_height="36dp"
         android:layout_marginBottom="228dp"
         android:background="#FFFFFF"
-        android:text="Previous"
+        android:text="Cancel"
         android:textColor="#111111"
         app:layout_constraintBottom_toTopOf="@+id/dateTxt6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/clearButton1"
+        android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="284dp"
@@ -53,12 +52,12 @@
         android:text="Enter cash amount to deposit."
         android:textColor="#111111"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.198" />
+        app:layout_constraintVertical_bias="0.202" />
 
     <EditText
         android:id="@+id/cashamt"

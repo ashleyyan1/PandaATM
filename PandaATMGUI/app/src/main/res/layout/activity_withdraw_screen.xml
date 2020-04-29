@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/withdrawDiffAmt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".withdrawScreen">
@@ -38,8 +37,7 @@
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/logo"
-        app:srcCompat="@drawable/mutant_bamboo"
-        />
+        app:srcCompat="@drawable/mutant_bamboo" />
 
     <Button
         android:id="@+id/twohundredbutton"
@@ -130,6 +128,7 @@
         android:text="Select an amount to withdraw."
         android:textColor="#111111"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundImage8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -163,15 +162,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/cancelButton2"
+        android:id="@+id/cancelButton1"
         android:layout_width="121dp"
         android:layout_height="48dp"
         android:layout_marginStart="55dp"
+        android:layout_marginTop="456dp"
         android:layout_marginBottom="227dp"
         android:background="#B12525"
         android:text="cancel"
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
