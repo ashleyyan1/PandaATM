@@ -12,6 +12,7 @@ public class ATMDA {
 	private Database db;
 	private PreparedStatement psGetATMInfo;
 	private PreparedStatement psInsertATM;
+	private PreparedStatement psUpdateDepositBillCount;
 
 	public ATMDA(Database database) throws SQLException {
 		this.db = database;
@@ -25,6 +26,7 @@ public class ATMDA {
 		psInsertATM = db.getDatabase().prepareStatement("INSERT INTO `ATM` (`machineAddress`,`sessionTimeOut`,`sessionActive`,`maxPinEntryAttempts`,"
 					+ "`withdrawalBillsRemaining`,`depositBillCount`,`minBillThreshold`,`maxBillThreshold`,`maxWithdrawalCapacity`,`maxDepositCapacity`,"
 			        + "`branchNumber`) VALUES(?, 45, 0, 5, 500, 0, 250, 750, 1000, 1000, ?);");
+		psUpdateDepositBillCount = db.getDatabase().prepareStatement("UPDATE `ATM` SET `depositBillCount` = (? + `depositBillCount`) WHERE `machineID` = ?;");
 	}
 	
 	public ATM getATMInfo(int machineID) {
@@ -73,4 +75,15 @@ public class ATMDA {
 		db.unlock();
 		return primaryKey;
 	}//end insertATM
+	
+	public void updateDepositBillCount(int depositBillCount, int machineID) {		
+		try {
+    		psUpdateDepositBillCount.setInt(1, depositBillCount);
+    		psUpdateDepositBillCount.setInt(2, machineID);
+    		db.executeStatement(psUpdateDepositBillCount, true);
+    	}
+    	catch(SQLException e) {
+    		System.out.println(e);
+    	}
+	}//end updateDepositBillCount
 }//end ATMDA

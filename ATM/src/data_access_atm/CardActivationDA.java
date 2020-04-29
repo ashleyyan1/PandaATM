@@ -3,6 +3,8 @@ package data_access_atm;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import database.Database;
 import entity_atm.CardActivation;
@@ -19,19 +21,21 @@ public class CardActivationDA {
     }
     
     private void generateStatements() throws SQLException {
-        psGetCardActivationInfo = db.getDatabase().prepareStatement("SELECT `cardNumber`, `accountNumber`, `dateTimeActivated` FROM `CardActivation` WHERE `cardNumber` = ? AND `accountNumber` = ? LIMIT 1;");
-        psInsertCardActivation = db.getDatabase().prepareStatement("INSERT INTO `CardActivation` (`cardNumber`, `accountNumber`, `dateTimeActivated`) VALUES (?, ?, DateTime('now'));");
+        psGetCardActivationInfo = db.getDatabase().prepareStatement("SELECT `cardNumber`, `accountNumber`, `dateTimeActivated` "
+        						+ "FROM `CardActivation` WHERE `cardNumber` = ? AND `accountNumber` = ? LIMIT 1;");
+        psInsertCardActivation = db.getDatabase().prepareStatement("INSERT INTO `CardActivation` (`cardNumber`, "
+        					   + "`accountNumber`, `dateTimeActivated`) VALUES (?, ?, ?);");
     }
     
-    public CardActivation getCardActivationInfo(int cardNumber, int accountNumber){
+    public CardActivation getCardActivationInfo(long cardNumber, int accountNumber){
         CardActivation cardAct = null;
         try {
-            psGetCardActivationInfo.setInt(1, cardNumber);
+            psGetCardActivationInfo.setLong(1, cardNumber);
             psGetCardActivationInfo.setInt(2, accountNumber);
             ResultSet set = db.executeQuery(psGetCardActivationInfo, true);
             if(set.next())
             {
-                cardAct = new CardActivation(set.getInt(1), set.getInt(2), set.getTimestamp(3).toLocalDateTime());
+                cardAct = new CardActivation(set.getLong(1), set.getInt(2), set.getTimestamp(3).toLocalDateTime());
             }
             set.close();
         }
@@ -42,14 +46,15 @@ public class CardActivationDA {
         return cardAct;
     }//end getCardActivationInfo
 	
-	public int insertCardActivation(int cardNumber, int accountNumber) {
+	public int insertCardActivation(long cardNumber, int accountNumber) {
 		ResultSet set;
 		int primaryKey = 0;
 		db.lock();
 		
 		try {
-			psInsertCardActivation.setInt(1, cardNumber);
+			psInsertCardActivation.setLong(1, cardNumber);
 			psInsertCardActivation.setInt(2, accountNumber);
+			psInsertCardActivation.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 			db.executeStatement(psInsertCardActivation, false);
 			set = psInsertCardActivation.getGeneratedKeys();
 			if(set.next()) {

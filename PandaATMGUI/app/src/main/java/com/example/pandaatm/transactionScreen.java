@@ -11,7 +11,7 @@ public class transactionScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transaction_screenn);
+        setContentView(R.layout.activity_transaction_screen);
 
         //initialize click listeners
         findViewById(R.id.withdrawBtn).setOnClickListener(buttonClickListener);

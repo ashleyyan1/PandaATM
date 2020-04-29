@@ -2,26 +2,30 @@ package entity_atm;
 
 import java.time.LocalDateTime;
 
+import database.Database;
+
 public class DebitCard {
 
-	private int cardNumber;
+	private long cardNumber;
 	private String cardHolderName;
 	private LocalDateTime cardExpDate;
 	private int pinNumber;
 	private int customerID;
+	private boolean locked;
 	private int branchNumber;
 	
-	public DebitCard(int cN, String cHN, LocalDateTime cED, int pN,
-						int cID, int bN) {
+	public DebitCard(long cN, String cHN, LocalDateTime cED, int pN,
+						int cID, boolean l, int bN) {
 		this.cardNumber = cN;
 		this.cardHolderName = cHN;
 		this.cardExpDate = cED;
 		this.pinNumber = pN;
 		this.customerID = cID;
+		this.locked = l;
 		this.branchNumber = bN;
 	}
 
-	public int getCardNumber() {
+	public long getCardNumber() {
 		return cardNumber;
 	}
 
@@ -41,6 +45,10 @@ public class DebitCard {
 		return customerID;
 	}
 
+	public boolean isLocked() {
+		return locked;
+	}
+	
 	public int getBranchNumber() {
 		return branchNumber;
 	}
@@ -49,8 +57,9 @@ public class DebitCard {
 	public String toString() {
 		String str = "Card Number: " + this.cardNumber
 				   + "\nCustomer ID: " + this.customerID
-				   + "\nCard Exp. Date: " + this.cardExpDate
-				   + "\nCard Pin Number: " + this.pinNumber + "\n";
+				   + "\nCard Exp. Date: " + this.cardExpDate.format(Database.getTimeFormat())
+				   + "\nCard Pin Number: " + this.pinNumber
+				   + "\nLocked: " + this.locked + "\n";
 		return str;
 	}
 }//end DebitCard

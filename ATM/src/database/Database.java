@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.sqlite.SQLiteConfig;
@@ -14,6 +15,7 @@ import org.sqlite.SQLiteConfig;
 public class Database {
 
 	private Connection connection;
+	private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MM/dd/YYYY hh:mm:ss a") ;
 	private ReentrantLock lock;
 	
 	public Database() {
@@ -41,7 +43,9 @@ public class Database {
 		
 		try (Statement stmt = connection.createStatement();)
 		{
-		    generateTablesAndTriggers(stmt);
+		    generateTables(stmt);
+		    connection.commit();
+		    generateTriggers(stmt);
 		    connection.commit();
 		    System.out.println("Database Initalized");
 		}
@@ -73,7 +77,7 @@ public class Database {
 		
 	}//end Constructor
 	
-	private static void generateTablesAndTriggers(Statement stmt) throws SQLException {
+	private static void generateTables(Statement stmt) throws SQLException {
 		//ATM Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `ATM` (" + 
 							"  `machineID` INTEGER NOT NULL," + 
@@ -99,7 +103,7 @@ public class Database {
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `AccountOpening` (" + 
 							"  `customerID` INTEGER NOT NULL," + 
 							"  `accountNumber` INTEGER NOT NULL," + 
-							"  `dateTimeOpening` DATETIME NOT NULL," + 
+							"  `dateTimeOpening` TIMESTAMP NOT NULL," + 
 							"  PRIMARY KEY (`customerID`, `accountNumber`)," +  
 							"  CONSTRAINT `AccountOpening_Client`" + 
 							"    FOREIGN KEY (`customerID`)" + 
@@ -115,6 +119,7 @@ public class Database {
 		//Account Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `Account` (" + 
 							"  `accountNumber` INTEGER NOT NULL," + 
+							"  `accountName` VARCHAR(45) NOT NULL," +
 							"  `accountStatus` TINYINT NULL," + 
 							"  `accountBal` DOUBLE NOT NULL," + 
 							"  `accountType` INTEGER NOT NULL," + 
@@ -125,11 +130,11 @@ public class Database {
 		//ATMSession Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `ATMSession` (" + 
 							"  `sessionID` INTEGER NOT NULL," + 
-							"  `sessionStartTime` DATETIME NULL," + 
-							"  `sessionEndTime` DATETIME NULL," + 
+							"  `sessionStartTime` TIMESTAMP NOT NULL," + 
+							"  `sessionEndTime` TIMESTAMP NULL," + 
 							"  `sessionActive` TINYINT NOT NULL," + 
 							"  `machineID` INTEGER NOT NULL," + 
-							"  `cardNumber` INTEGER NULL," + 
+							"  `cardNumber` BIGINT NULL," + 
 							"  PRIMARY KEY (`sessionID`)," + 
 							"  CONSTRAINT `ATMSession_ATM`" + 
 							"    FOREIGN KEY (`machineID`)" + 
@@ -150,9 +155,9 @@ public class Database {
 		
 		//CardActivation Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `CardActivation` (" + 
-							"  `cardNumber` INTEGER NULL," + 
+							"  `cardNumber` BIGINT NULL," + 
 							"  `accountNumber` INTEGER NULL," + 
-							"  `dateTimeActivated` DATETIME NOT NULL," + 
+							"  `dateTimeActivated` TIMESTAMP NOT NULL," + 
 							"  PRIMARY KEY (`cardNumber`, `accountNumber`)," + 
 							"  CONSTRAINT `CardActivation_DebitCard`" + 
 							"    FOREIGN KEY (`cardNumber`)" + 
@@ -171,7 +176,7 @@ public class Database {
 							"  `customerName` VARCHAR(45) NOT NULL," + 
 							"  `customerAddress` VARCHAR(45) NOT NULL," + 
 							"  `customerTel` VARCHAR(45) NOT NULL," + 
-							"  `customerDob` DATETIME NOT NULL," + 
+							"  `customerDob` TIMESTAMP NOT NULL," + 
 							"  `branchNumber` INTEGER NOT NULL," + 
 							"  PRIMARY KEY (`customerID`)," + 
 							"  CONSTRAINT `Client_BankBranch`" + 
@@ -182,11 +187,12 @@ public class Database {
 		
 		//DebitCard Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `DebitCard` (" + 
-							"  `cardNumber` INTEGER NOT NULL," + 
+							"  `cardNumber` BIGINT NOT NULL," + 
 							"  `cardHolderName` VARCHAR(45) NOT NULL," + 
-							"  `cardExpDate` DATETIME NOT NULL," + 
+							"  `cardExpDate` TIMESTAMP NOT NULL," + 
 							"  `pinNumber` INTEGER NOT NULL," + 
 							"  `customerID` INTEGER NOT NULL," + 
+							"  `locked` TINYINT NOT NULL," + 
 							"  `branchNumber` INTEGER NOT NULL," + 
 							"  PRIMARY KEY (`cardNumber`)," + 
 							"  CONSTRAINT `DebitCard_Client`" + 
@@ -203,7 +209,7 @@ public class Database {
 		//Transaction Table Generation
 		stmt.executeUpdate( "CREATE TABLE IF NOT EXISTS `Transaction` (" + 
 							"  `transactionID` INTEGER NOT NULL," + 
-							"  `timeDateOfTrans` DATETIME NOT NULL," + 
+							"  `timeDateOfTrans` TIMESTAMP NOT NULL," + 
 							"  `transactionType` INTEGER NOT NULL," + 
 							"  `amount` DOUBLE NOT NULL," + 
 							"  `targetAccNumber` INTEGER NULL," + 
@@ -221,6 +227,32 @@ public class Database {
 							"    ON DELETE RESTRICT" + 
 							"    ON UPDATE CASCADE);");
 	}//end generateTablesAndTriggers
+	
+	//Automatically performs updates on tables when executing certain statements on certain tables
+	private static void generateTriggers(Statement stmt) throws SQLException {
+		
+		//Trigger to keep ATM Session Status in Sync with ATMSession Table (Part 1)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS sessionActiveTrigger AFTER INSERT ON `ATMSession` BEGIN " +
+							"UPDATE `ATM` SET `sessionActive` = 1 WHERE `machineID` = new.machineID; END");
+		//Trigger to keep ATM Session Status in Sync with ATMSession Table (Part 2)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS sessionInactiveTrigger AFTER UPDATE ON `ATMSession` WHEN " +
+							"new.sessionActive = 0 BEGIN UPDATE `ATM` SET `sessionActive` = 0 WHERE `machineID` " +
+							"= new.machineID; END");
+		//Trigger to keep Account Balance & Bill Count in Sync with each Successful Transaction Made (Withdrawal)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS withdrawalSuccessfulTrigger AFTER INSERT ON `Transaction` WHEN " +
+				            "new.transactionType = 0 BEGIN UPDATE `Account` SET `accountBal` = `accountBal` - new.amount WHERE " +
+				            "`accountNumber` = new.accountNumber; UPDATE `ATM` SET `withdrawalBillsRemaining` = `withdrawalBillsRemaining` - " +
+							"new.amount / 20 WHERE `machineID` = (SELECT `machineID` FROM `ATMSession` WHERE `sessionID` = new.sessionID); END");
+		//Trigger to keep Account Balance in Sync with each Successful Transaction Made (Deposit)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS depositSuccessfulTrigger AFTER INSERT ON `Transaction` WHEN " +
+	            			"new.transactionType = 1 BEGIN UPDATE `Account` SET `accountBal` = `accountBal` + new.amount WHERE " +
+	            			"`accountNumber` = new.accountNumber; END");
+		//Trigger to keep Account Balance in Sync with each Successful Transaction Made (Transfer)
+		stmt.executeUpdate( "CREATE TRIGGER IF NOT EXISTS transferSuccessfulTrigger AFTER INSERT ON `Transaction` WHEN " +
+			    			"new.transactionType = 2 BEGIN UPDATE `Account` SET `accountBal` = `accountBal` + new.amount WHERE " +
+			    			"`accountNumber` = new.targetAccNumber; UPDATE `Account` SET `accountBal` = `accountBal` - new.amount WHERE " +
+			    			"`accountNumber` = new.accountNumber; END");
+	}//end generateTriggers
 	
 	public ResultSet executeQuery(PreparedStatement stmt, boolean useLock) throws SQLException {
 		
@@ -262,16 +294,15 @@ public class Database {
 		return this.connection;
 	}
 	
+	public static DateTimeFormatter getTimeFormat() {
+		return timeFormatter;
+	}
+	
 	public void lock() {
 		this.lock.lock();
 	}
 	
 	public void unlock() {
 		this.lock.unlock();
-	}
-	
-	//Main Method to Test Entire Database
-	public static void main(String[] args) throws SQLException {
-		
 	}
 }//end Database

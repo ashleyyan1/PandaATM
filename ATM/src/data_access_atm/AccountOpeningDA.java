@@ -3,6 +3,8 @@ package data_access_atm;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import database.Database;
 import entity_atm.AccountOpening;
@@ -22,7 +24,8 @@ public class AccountOpeningDA {
         
     	psGetAccountOpeningInfo = db.getDatabase().prepareStatement("SELECT `customerID`, `accountNumber`,"
     							+ " `dateTimeOpening` FROM AccountOpening WHERE `customerID` = ? AND `accountNumber` = ? LIMIT 1;");
-    	psInsertAccountOpening = db.getDatabase().prepareStatement("INSERT INTO `AccountOpening` (`customerID`, `accountNumber`, `dateTimeOpening`) VALUES (?, ?, DateTime('now'));");
+    	psInsertAccountOpening = db.getDatabase().prepareStatement("INSERT INTO `AccountOpening` (`customerID`, `accountNumber`, `dateTimeOpening`) "
+    						   + "VALUES (?, ?, ?);");
     }
     
 	//There are two foreign keys functioning as composite key (Association Table)
@@ -33,7 +36,7 @@ public class AccountOpeningDA {
 	        psGetAccountOpeningInfo.setInt(1, customerID);
 	        psGetAccountOpeningInfo.setInt(2, accountNumber);
 	        ResultSet set = db.executeQuery(psGetAccountOpeningInfo, true);
-	        if(set.next()) {                                                          
+	        if(set.next()) { 
 	            acc = new AccountOpening(set.getInt(1), set.getInt(2), set.getTimestamp(3).toLocalDateTime());
 	        }
 	        set.close();
@@ -52,6 +55,7 @@ public class AccountOpeningDA {
 		try {
 			psInsertAccountOpening.setInt(1, customerID);
 			psInsertAccountOpening.setInt(2, accountNumber);
+			psInsertAccountOpening.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 			db.executeStatement(psInsertAccountOpening, false);
 			set = psInsertAccountOpening.getGeneratedKeys();
 			if(set.next()) {
@@ -68,5 +72,5 @@ public class AccountOpeningDA {
 		}
 		db.unlock();
 		return primaryKey;
-	}//end insertAccountOpenning
+	}//end insertAccountOpening
 }//end AccountOpeningDA
