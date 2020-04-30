@@ -1,20 +1,17 @@
-package com.group7.pandaatm.networking;
+package com.group7.pandaatm.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Message implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3835229927254038995L;
+	private static final long serialVersionUID = 6718578759053094001L;
 	/*
 	 * 0  = Logout Request (Cancel Button)
 	 * 1  = Logout Timeout
 	 * 2  = Login Request 
 	 * 3  = Session Access Denied 
-	 * 4  = Card Locked/Card Expired
+	 * 4  = Card Locked
 	 * 5  = Main Menu Info
 	 * 6  = ATM Access Request
 	 * 7  = Communication Error
@@ -33,6 +30,8 @@ public class Message implements Serializable {
 	 * 20 = Account Balance Insufficient
 	 * 21 = Insufficient Withdrawal Bills
 	 * 22 = ATM Access Accepted
+	 * 23 = Debit Card Expired
+	 * 24 = Pin Number Invalid
 	 */
 	private int flag;
 	private ArrayList<Integer> intMessages;

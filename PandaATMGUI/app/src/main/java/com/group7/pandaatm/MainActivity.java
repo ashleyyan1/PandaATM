@@ -54,28 +54,35 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             if (atmID != 0) {
+                int finalAtmID = atmID;
                 Thread worker1 = new Thread(() -> {
                     try {
                         c = SessionController.getInstance();
-                        System.out.println("Sending Message");
-                        c.sendMessage(new Message(6));
-                        System.out.println("Sent Message");
+                        Message msgRequestATM = new Message(6);
+                        msgRequestATM.addIntegerM(finalAtmID);
+                        c.sendMessage(msgRequestATM);
+                        System.out.println("Sent ATM Request Message");
                         Message msgATMRequestReponse = c.readMessage();
-                        System.out.println("Message Read");
+                        System.out.println("ATM Request Response Message Flag: " + msgATMRequestReponse.flag());
                         if(msgATMRequestReponse.flag() == 8) {
                             //TODO Access Denied, create an alert
+                            c.terminateSession();
                         }
                         else if(msgATMRequestReponse.flag() == 22) {
                             //Access Granted, TODO go to log in screen
                             runOnUiThread(() -> {
                                 Intent login = new Intent(MainActivity.this, loginScreen.class);
+                                login.putExtra("ATMAddress", msgATMRequestReponse.getTextMessages().get(0));
                                 startActivity(login);
                             });
                         }
-                        else if(msgATMRequestReponse.flag() == 7)
+                        else if(msgATMRequestReponse.flag() == 7) {
                             //TODO maybe display error before crashing program
-                            System.exit(30);//Communication error, quit program
+                            c.terminateSession();
+                            System.exit(1);//Communication error, quit program
+                        }
                         else {
+                            c.terminateSession();
                             //TODO bad communication, display crashing program
                         }
                     } catch (IOException e) {

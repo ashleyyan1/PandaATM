@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data_access_atm.ATMDA;
 import com.group7.pandaatm.data_access_atm.AccountDA;
 import com.group7.pandaatm.data_access_atm.TransactionDA;
@@ -14,7 +15,6 @@ import com.group7.pandaatm.entity_atm.ATM;
 import com.group7.pandaatm.entity_atm.ATMSession;
 import com.group7.pandaatm.entity_atm.Account;
 import com.group7.pandaatm.entity_atm.DebitCard;
-import com.group7.pandaatm.networking.Message;
 
 public class TransactionHandler {
 

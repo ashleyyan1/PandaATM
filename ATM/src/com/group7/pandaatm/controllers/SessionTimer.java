@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 public class SessionTimer {
 
-	private boolean sessionThreadActive;
+	private volatile boolean sessionThreadActive;
 	private long sessionTimeOut;
 	private Timer sessionTimer;
 	
@@ -45,4 +45,9 @@ public class SessionTimer {
 			
 		}, this.sessionTimeOut );
 	}//end refreshTimer
+	
+	public void stopTimer() {
+		this.sessionTimer.cancel();
+		this.sessionTimer = null;
+	}
 }//end Timer

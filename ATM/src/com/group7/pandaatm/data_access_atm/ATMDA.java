@@ -23,6 +23,7 @@ public class ATMDA {
 		psGetATMInfo = db.getDatabase().prepareStatement("SELECT `machineID`,`machineAddress`,`sessionTimeOut`,`sessionActive`,`maxPinEntryAttempts`,"
 					 + "`withdrawalBillsRemaining`,`depositBillCount`,`minBillThreshold`,`maxBillThreshold`,`maxWithdrawalCapacity`,`maxDepositCapacity`,"
 					 + "`branchNumber` FROM ATM WHERE `machineID` = ? LIMIT 1;");
+		//sessionTimeOut saved as seconds
 		psInsertATM = db.getDatabase().prepareStatement("INSERT INTO `ATM` (`machineAddress`,`sessionTimeOut`,`sessionActive`,`maxPinEntryAttempts`,"
 					+ "`withdrawalBillsRemaining`,`depositBillCount`,`minBillThreshold`,`maxBillThreshold`,`maxWithdrawalCapacity`,`maxDepositCapacity`,"
 			        + "`branchNumber`) VALUES(?, 45, 0, 5, 500, 0, 250, 750, 1000, 1000, ?);");
