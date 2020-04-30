@@ -18,6 +18,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bambooback" />
 
+    <Button
+        android:id="@+id/diffAmt"
+        android:layout_width="124dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="456dp"
+        android:background="#3040E6"
+        android:text="Enter another amount"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="94dp"
@@ -146,20 +160,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/diffAmt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="456dp"
-        android:background="#3040E6"
-        android:text=" Enter Different Amount "
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.78"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/cancelButton1"
