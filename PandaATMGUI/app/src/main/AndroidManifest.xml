@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pandaatm">
+    package="com.group7.pandaatm">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
@@ -10,50 +10,50 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".selectAccountTransfer"
+            android:name="com.group7.pandaatm.selectAccountTransfer"
             android:label="@string/title_activity_select_account_transfer"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".selectAccountDeposit"
+            android:name="com.group7.pandaatm.selectAccountDeposit"
             android:label="@string/title_activity_select_account_deposit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".selectAccountWithdraw"
+            android:name="com.group7.pandaatm.selectAccountWithdraw"
             android:label="@string/title_activity_select_account_withdraw"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".withdrawDiffAmt"
+            android:name="com.group7.pandaatm.withdrawDiffAmt"
             android:label="@string/title_activity_withdraw_diff_amt"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".transactionScreen"
+            android:name="com.group7.pandaatm.transactionScreen"
             android:label="@string/title_activity_transaction_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".balanceScreen"
+            android:name="com.group7.pandaatm.balanceScreen"
             android:label="@string/title_activity_balance_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.group7.pandaatm.MainActivity"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".outsideTransfer"
+            android:name="com.group7.pandaatm.outsideTransfer"
             android:label="@string/title_activity_outside_transfer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".cashDepositScreen"
+            android:name="com.group7.pandaatm.cashDepositScreen"
             android:label="@string/title_activity_cash_deposit_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".withdrawScreen"
+            android:name="com.group7.pandaatm.withdrawScreen"
             android:label="@string/title_activity_withdraw_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".loginScreen"
+            android:name="com.group7.pandaatm.loginScreen"
             android:label="@string/title_activity_atm_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".splashScreen">
+        <activity android:name="com.group7.pandaatm.splashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
