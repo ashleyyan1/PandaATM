@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/First6Fragment"
-        android:name="com.example.pandaatm.First6Fragment"
+        android:name="com.group7.pandaatm.First6Fragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first6">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/Second6Fragment"
-        android:name="com.example.pandaatm.Second6Fragment"
+        android:name="com.group7.pandaatm.Second6Fragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second6">
 
