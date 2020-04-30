@@ -138,6 +138,11 @@ public class cashDepositScreen extends AppCompatActivity {
                         hundredValue.setText("("+ hundredCounter +")");
                     }
                     break;
+                case R.id.enterButton:
+                    //if(depositSuccessful)
+                    Intent depSuccessful = new Intent(cashDepositScreen.this, depositSuccessful.class);
+                    startActivity(depSuccessful);
+                    break;
                 case R.id.cancelButton:         //if previous button is clicked, go to deposit choice screen
                     Intent cancel = new Intent(cashDepositScreen.this, transactionScreen.class);
                     startActivity(cancel);

@@ -1,5 +1,6 @@
 package com.group7.pandaatm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -27,10 +28,10 @@ public class withdrawDiffAmt extends AppCompatActivity {
                     EditText withdrawAmt = findViewById(R.id.withdrawAmt);
                     withdrawAmt.getText().clear();
                     break;
-//                case R.id.enterButton2:
-//                    Intent enter = new Intent(withdrawDiffAmt.this, checkDepositScreen.class);
-//                    startActivity(enter);
-//                    break;
+                case R.id.enterButton1:
+                    Intent enter = new Intent(withdrawDiffAmt.this, withdrawSuccessful.class);
+                    startActivity(enter);
+                    break;
                 case R.id.cancelButton2:        //if previous button is clicked, go to withdraw screen
                     finish();
                     break;

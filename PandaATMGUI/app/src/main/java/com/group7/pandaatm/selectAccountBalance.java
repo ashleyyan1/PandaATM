@@ -9,44 +9,44 @@ import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class selectAccountTransfer extends AppCompatActivity {
+public class selectAccountBalance extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioButton;
     Button select;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_account_transfer);
+        setContentView(R.layout.activity_select_account_balance);
         radioGroup = findViewById(R.id.radioGroup);
-        findViewById(R.id.previous2).setOnClickListener(buttonClickListener);
+        findViewById(R.id.previous3).setOnClickListener(buttonClickListener);
         addListenerOnButton();
     }
+
     public void addListenerOnButton() {
         radioGroup = findViewById(R.id.radioGroup);
-        select = findViewById(R.id.select2);
+        select = findViewById(R.id.select3);
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 radioButton = findViewById(selectedId);
                 switch (v.getId()) {
-                    case R.id.select2:
-                        Intent trans = new Intent(selectAccountTransfer.this, outsideTransfer.class);
-                        startActivity(trans);
-                        break;
-                    case R.id.previous2:
-                        finish();
+                    case R.id.select3:
+                        Intent bal = new Intent(selectAccountBalance.this, balanceScreen.class);
+                        startActivity(bal);
                         break;
                 }
             }
         });
+
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch(v.getId()){
-                case R.id.previous2:
+                case R.id.previous3:
                     finish();
                     break;
             }

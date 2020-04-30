@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".selectAccountDeposit">
+    tools:context=".selectAccountTransferTo">
 
     <ImageView
         android:id="@+id/logo12"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="482dp"
-        android:text="Please Select An Account to deposit into:"
+        android:text="Please Select An Account to transfer to:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,24 +81,33 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/select"
+        android:id="@+id/select3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="230dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="93dp"
+        android:layout_marginBottom="325dp"
+        android:backgroundTint="#33CC33"
         android:text="Select"
-        app:layout_constraintBaseline_toBaselineOf="@+id/previous"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/previous"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton2"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/previous"
+        android:id="@+id/previous3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="241dp"
+        android:layout_marginBottom="325dp"
         android:text="Previous"
-        app:layout_constraintEnd_toStartOf="@+id/select"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/select2"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioButton2"
