@@ -25,6 +25,7 @@ public class cashDepositScreen extends AppCompatActivity {
     int hundredCounter = 0;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,20 +64,25 @@ public class cashDepositScreen extends AppCompatActivity {
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            int totalBills = oneCounter + fiveCounter + tenCounter + twentyCounter + fiftyCounter + hundredCounter;
             switch (v.getId()) {
-                case R.id.addOne:                   //maybe needs a limit for adding
-                    oneCounter++;
-                    oneValue.setText("("+ oneCounter +")");
+                case R.id.addOne:
+                    if (totalBills < 500) {                        //total bill limit TBD
+                        oneCounter++;
+                        oneValue.setText("(" + oneCounter + ")");
+                    }
                     break;
                 case R.id.subOne:
-                    if (oneCounter > 0) {
+                    if (oneCounter > 0) {                           //cannot have negative amount of bills
                         oneCounter--;
                         oneValue.setText("("+ oneCounter +")");
                     }
                     break;
                 case R.id.addFive:
-                    fiveCounter++;
-                    fiveValue.setText("("+ fiveCounter +")");
+                    if (totalBills < 500) {
+                        fiveCounter++;
+                        fiveValue.setText("(" + fiveCounter + ")");
+                    }
                     break;
                 case R.id.subFive:
                     if (fiveCounter > 0) {
@@ -85,8 +91,10 @@ public class cashDepositScreen extends AppCompatActivity {
                     }
                     break;
                 case R.id.addTen:
-                    tenCounter++;
-                    tenValue.setText("("+ tenCounter +")");
+                    if (totalBills < 500) {
+                        tenCounter++;
+                        tenValue.setText("(" + tenCounter + ")");
+                    }
                     break;
                 case R.id.subTen:
                     if (tenCounter > 0) {
@@ -95,8 +103,10 @@ public class cashDepositScreen extends AppCompatActivity {
                     }
                     break;
                 case R.id.addTwenty:
-                    twentyCounter++;
-                    twentyValue.setText("("+ twentyCounter +")");
+                    if (totalBills < 500) {
+                        twentyCounter++;
+                        twentyValue.setText("(" + twentyCounter + ")");
+                    }
                     break;
                 case R.id.subTwenty:
                     if (twentyCounter> 0) {
@@ -105,8 +115,10 @@ public class cashDepositScreen extends AppCompatActivity {
                         break;
                     }
                 case R.id.addFifty:
-                    fiftyCounter++;
-                    fiftyValue.setText("("+ fiftyCounter +")");
+                    if (totalBills < 10) {
+                        fiftyCounter++;
+                        fiftyValue.setText("(" + fiftyCounter + ")");
+                    }
                     break;
                 case R.id.subFifty:
                     if (fiftyCounter > 0) {
@@ -115,8 +127,10 @@ public class cashDepositScreen extends AppCompatActivity {
                     }
                     break;
                 case R.id.addHundred:
-                    hundredCounter++;
-                    hundredValue.setText("("+ hundredCounter +")");
+                    if (totalBills < 500) {
+                        hundredCounter++;
+                        hundredValue.setText("(" + hundredCounter + ")");
+                    }
                     break;
                 case R.id.subHundred:
                     if (hundredCounter > 0) {

@@ -222,12 +222,16 @@
         android:layout_width="128dp"
         android:layout_height="36dp"
         android:layout_marginStart="47dp"
+        android:layout_marginTop="561dp"
+        android:layout_marginEnd="236dp"
         android:layout_marginBottom="134dp"
         android:background="#B12525"
         android:text="Cancel"
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -247,12 +251,16 @@
         android:id="@+id/enterButton"
         android:layout_width="127dp"
         android:layout_height="37dp"
+        android:layout_marginStart="235dp"
         android:layout_marginTop="561dp"
         android:layout_marginEnd="49dp"
+        android:layout_marginBottom="133dp"
         android:background="#33CC33"
         android:text="Deposit"
         android:textColor="#111111"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -280,12 +288,16 @@
         android:id="@+id/dateTxt6"
         android:layout_width="142dp"
         android:layout_height="31dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="642dp"
         android:layout_marginEnd="34dp"
-        android:layout_marginBottom="59dp"
+        android:layout_marginBottom="58dp"
         android:text="Date"
         android:textColor="#111111"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/twentyText"
