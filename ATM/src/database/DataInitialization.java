@@ -15,13 +15,11 @@ import entity_atm.Client;
 
 public class DataInitialization {
 
-	private BankBranchDA bankBranchData;
 	private ClientDA clientData;
 	private AccountDA accountData;
 	private AccountOpeningDA accountOpeningData;
 	private DebitCardDA debitCardData;
 	private CardActivationDA cardActivationData;
-	private ATMDA atmData;
 	
 	private DataInitialization(Database db) throws SQLException {
 		//Erases all data in Database
@@ -35,33 +33,30 @@ public class DataInitialization {
 		stmt.executeUpdate("DELETE FROM `Client`");
 		stmt.executeUpdate("DELETE FROM `ATM`");
 		stmt.executeUpdate("DELETE FROM `BankBranch`");
+		
+		//Initialize Bank Branch (APP ONLY HAS 1 BRANCH)
+		stmt.execute("INSERT INTO `BankBranch` VALUES(1 , '3801 W Temple Ave, Pomona, CA 91768');");
+		//Initialize ATM's (APP HAS EXACTLY 5 UNIQUE ATM LOCATIONS)
+		stmt.execute("INSERT INTO `ATM` VALUES(1, '3801 W Temple Ave, Pomona, CA 91768 - Bldg. 1', 45, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
+		stmt.execute("INSERT INTO `ATM` VALUES(2, '3801 W Temple Ave, Pomona, CA 91768 - Bldg. 17', 45, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
+		stmt.execute("INSERT INTO `ATM` VALUES(3, '3801 W Temple Ave, Pomona, CA 91768 - Marketplace', 45, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
+		stmt.execute("INSERT INTO `ATM` VALUES(4, '3801 W Temple Ave, Pomona, CA 91768 - Bronco Student Center', 45, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
+		stmt.execute("INSERT INTO `ATM` VALUES(5, '3801 W Temple Ave, Pomona, CA 91768 - Library', 45, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
 		stmt.close();
 		
 		//Initialize all Data Access Classes
-		bankBranchData = new BankBranchDA(db);
 		clientData = new ClientDA(db);
 		accountData = new AccountDA(db);
 		accountOpeningData = new AccountOpeningDA(db);
 		debitCardData = new DebitCardDA(db);
 		cardActivationData = new CardActivationDA(db);
-		atmData = new ATMDA(db);
-		
-		//Initialize Bank Branch (APP ONLY HAS 1 BRANCH)
-		int branchOne = bankBranchData.insertBankBranch("3801 W Temple Ave, Pomona, CA 91768");
-		
-		//Initialize ATM's (APP HAS EXACTLY 5 UNIQUE ATM LOCATIONS)
-		atmData.insertATM("3801 W Temple Ave, Pomona, CA 91768 - Bldg. 1", branchOne);
-		atmData.insertATM("3801 W Temple Ave, Pomona, CA 91768 - Bldg. 17", branchOne);
-		atmData.insertATM("3801 W Temple Ave, Pomona, CA 91768 - Marketplace", branchOne);
-		atmData.insertATM("3801 W Temple Ave, Pomona, CA 91768 - Bronco Student Center", branchOne);
-		atmData.insertATM("3801 W Temple Ave, Pomona, CA 91768 - Library", branchOne);
 		
 		//Initialize Clients - There are 5 (Kenny Lee, Ashley Yu, Christian Devile, Nicholas Stewart, Jonathan Halim) 
-		int clientKenny = clientData.insertClient("Kenny Lee", "123 Main St.", "909-696-6969", LocalDateTime.of(1999, 10, 1, 12, 30), branchOne);
-		int clientAshley = clientData.insertClient("Ashley Yu", "345 1st St.", "909-696-6420", LocalDateTime.of(2000, 11, 28, 12, 30), branchOne);
-		int clientChristian = clientData.insertClient("Christian Devile", "456 Valley View", "606-222-0420", LocalDateTime.of(1999, 2, 10, 12, 30), branchOne);
-		int clientNick = clientData.insertClient("Nicholas Stewart", "567 One Infinite Loop", "111-111-1111", LocalDateTime.of(1999, 3, 24, 12, 30), branchOne);
-		int clientJonathan = clientData.insertClient("Jonathan Halim", "789 Ashbury Pkwy.", "545-949-8100", LocalDateTime.of(2000, 7, 30, 12, 30), branchOne);
+		int clientKenny = clientData.insertClient("Kenny Lee", "123 Main St.", "909-696-6969", LocalDateTime.of(1999, 10, 1, 12, 30), 1);
+		int clientAshley = clientData.insertClient("Ashley Yu", "345 1st St.", "909-696-6420", LocalDateTime.of(2000, 11, 28, 12, 30), 1);
+		int clientChristian = clientData.insertClient("Christian Devile", "456 Valley View", "606-222-0420", LocalDateTime.of(1999, 2, 10, 12, 30), 1);
+		int clientNick = clientData.insertClient("Nicholas Stewart", "567 One Infinite Loop", "111-111-1111", LocalDateTime.of(1999, 3, 24, 12, 30), 1);
+		int clientJonathan = clientData.insertClient("Jonathan Halim", "789 Ashbury Pkwy.", "545-949-8100", LocalDateTime.of(2000, 7, 30, 12, 30), 1);
 		
 		//Get Info For each Client (Needed for Debit Card Creation)
 		Client clientKennyInfo = clientData.getClientInfo(clientKenny);
@@ -93,11 +88,11 @@ public class DataInitialization {
 		accountOpeningData.insertAccountOpening(clientJonathan, jonathanSavings);
 		
 		//Initiate Debit Cards - 1 for each Client
-		long kennyCard = debitCardData.insertDebitCard(clientKennyInfo.getCustomerName() ,LocalDateTime.now().plusYears(4L), 1234, clientKenny, branchOne);
-		long ashleyCard = debitCardData.insertDebitCard(clientAshleyInfo.getCustomerName() ,LocalDateTime.now().plusYears(2L), 1234, clientAshley, branchOne);
-		long christianCard = debitCardData.insertDebitCard(clientChristianInfo.getCustomerName() ,LocalDateTime.now().plusYears(5L), 1234, clientChristian, branchOne);
-		long nickCard = debitCardData.insertDebitCard(clientNickInfo.getCustomerName() ,LocalDateTime.now().plusYears(3L), 1234, clientNick, branchOne);
-		long jonathanCard = debitCardData.insertDebitCard(clientJonathanInfo.getCustomerName() ,LocalDateTime.now(), 1234, clientJonathan, branchOne);
+		long kennyCard = debitCardData.insertDebitCard(clientKennyInfo.getCustomerName() ,LocalDateTime.now().plusYears(4L), 1234, clientKenny, 1);
+		long ashleyCard = debitCardData.insertDebitCard(clientAshleyInfo.getCustomerName() ,LocalDateTime.now().plusYears(2L), 1234, clientAshley, 1);
+		long christianCard = debitCardData.insertDebitCard(clientChristianInfo.getCustomerName() ,LocalDateTime.now().plusYears(5L), 1234, clientChristian, 1);
+		long nickCard = debitCardData.insertDebitCard(clientNickInfo.getCustomerName() ,LocalDateTime.now().plusYears(3L), 1234, clientNick, 1);
+		long jonathanCard = debitCardData.insertDebitCard(clientJonathanInfo.getCustomerName() ,LocalDateTime.now(), 1234, clientJonathan, 1);
 		
 		//Initiate Card Activations - (Each Card May be linked to multiple accounts)
 		cardActivationData.insertCardActivation(kennyCard, kennyChecking);

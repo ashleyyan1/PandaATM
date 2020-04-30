@@ -38,13 +38,14 @@ public class SessionHandler implements Runnable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("New Client");
 		dataInput = new ObjectInputStream(s.getInputStream());
 		dataOutput = new ObjectOutputStream(s.getOutputStream());
+		System.out.println("Recieved Client Connection: " + s.getInetAddress().getCanonicalHostName());
 	}
 
 	@Override
 	public void run() {
-
 		try {
 			ATM atm = requestATMAccess();
 			// Access Granted, ATM is available for use
@@ -217,6 +218,9 @@ public class SessionHandler implements Runnable {
 						accessDenied.addStringM("Access Denied. ATM is currently in use.");
 						dataOutput.writeObject(accessDenied);
 					} else {// Grants access to atm (meaning the given ATM is not currently in use)
+						Message accessDenied = new Message(22);
+						accessDenied.addStringM(atm.getMachineAddress());
+						dataOutput.writeObject(accessDenied);
 						return atm;
 					}
 				} catch (SQLException e) {

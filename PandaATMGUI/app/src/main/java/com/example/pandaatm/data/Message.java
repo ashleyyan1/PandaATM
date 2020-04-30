@@ -1,4 +1,4 @@
-package networking;
+package com.example.pandaatm.data;
 
 import java.util.ArrayList;
 
