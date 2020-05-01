@@ -22,12 +22,24 @@
             android:label="@string/title_activity_deposit_successful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name="com.group7.pandaatm.depositUnsuccessful"
+            android:label="@string/title_activity_deposit_unsuccessful_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="com.group7.pandaatm.withdrawSuccessful"
             android:label="@string/title_activity_withdraw_successful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name="com.group7.pandaatm.withdrawUnsuccessful"
+            android:label="@string/title_activity_withdraw_unsuccessful_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="com.group7.pandaatm.transferSuccessful"
             android:label="@string/title_activity_transfer_successful_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.group7.pandaatm.transferUnsuccessful"
+            android:label="@string/title_activity_transfer_unsuccessful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.group7.pandaatm.selectAccountDeposit"

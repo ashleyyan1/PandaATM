@@ -140,8 +140,11 @@ public class cashDepositScreen extends AppCompatActivity {
                     break;
                 case R.id.enterButton:
                     //if(depositSuccessful)
-                    Intent depSuccessful = new Intent(cashDepositScreen.this, depositSuccessful.class);
-                    startActivity(depSuccessful);
+//                    Intent depSuccessful = new Intent(cashDepositScreen.this, depositSuccessful.class);
+//                    startActivity(depSuccessful);
+                    //if(depositUnsuccessful)
+                    Intent depUnsuccessful = new Intent(cashDepositScreen.this, depositUnsuccessful.class);
+                    startActivity(depUnsuccessful);
                     break;
                 case R.id.cancelButton:         //if previous button is clicked, go to deposit choice screen
                     Intent cancel = new Intent(cashDepositScreen.this, transactionScreen.class);
