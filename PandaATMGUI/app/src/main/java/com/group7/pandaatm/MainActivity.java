@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.bldg1ATM: //if ATM on map is clicked, goes to login screen
                     atmID = 1;
-                    Intent login = new Intent(MainActivity.this, loginScreen.class);
-                    startActivity(login);
                     break;
                 case R.id.bldg17ATM:
                     atmID = 2;
