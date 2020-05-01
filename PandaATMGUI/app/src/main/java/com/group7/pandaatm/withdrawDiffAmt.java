@@ -29,7 +29,11 @@ public class withdrawDiffAmt extends AppCompatActivity {
                     withdrawAmt.getText().clear();
                     break;
                 case R.id.enterButton1:
-                    Intent enter = new Intent(withdrawDiffAmt.this, withdrawSuccessful.class);
+                    //if(withdrawDiffAmtSuccessful)
+//                    Intent enter = new Intent(withdrawDiffAmt.this, withdrawSuccessful.class);
+//                    startActivity(enter);
+                    //if(withdrawDiffAmtUnsuccessful)
+                    Intent enter = new Intent(withdrawDiffAmt.this, withdrawUnsuccessful.class);
                     startActivity(enter);
                     break;
                 case R.id.cancelButton2:        //if previous button is clicked, go to withdraw screen

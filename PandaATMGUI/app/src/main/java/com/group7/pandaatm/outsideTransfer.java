@@ -31,8 +31,12 @@ public class outsideTransfer extends AppCompatActivity {
                     amountTransfer.getText().clear();
                     break;
                 case R.id.enterButton2:
-                    Intent transSuccessful = new Intent(outsideTransfer.this, transferSuccessful.class);
-                    startActivity(transSuccessful);
+                    //if(transSuccessful)
+//                    Intent transSuccessful = new Intent(outsideTransfer.this, transferSuccessful.class);
+//                    startActivity(transSuccessful);
+                    //if(transUnsuccessful)
+                    Intent transUnsuccessful = new Intent(outsideTransfer.this, transferUnsuccessful.class);
+                    startActivity(transUnsuccessful);
                     break;
                 case R.id.cancelButton3:        //if previous button is clicked, go to transfer type screen
                     finish();

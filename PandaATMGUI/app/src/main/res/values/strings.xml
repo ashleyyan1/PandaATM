@@ -28,6 +28,9 @@
     <string name="title_activity_select_account_withdraw">selectAccountWithdraw</string>
     <string name="title_activity_select_account_balance">selectAccountBalance</string>
     <string name="title_activity_deposit_successful_screen">depositSuccessfulScreen</string>
+    <string name="title_activity_deposit_unsuccessful_screen">depositUnsuccessfulScreen</string>
     <string name="title_activity_withdraw_successful_screen">withdrawSuccessfulScreen</string>
+    <string name="title_activity_withdraw_unsuccessful_screen">withdrawUnsuccessfulScreen</string>
     <string name="title_activity_transfer_successful_screen">transferSuccessfulScreen</string>
+    <string name="title_activity_transfer_unsuccessful_screen">transferUnsuccessfulScreen</string>
 </resources>
