@@ -31,7 +31,7 @@ public class transactionScreen extends AppCompatActivity {
                     startActivity(withdraw);
                     break;
                 case R.id.transferBtn:      //if transaction button is clicked, go to transfer screen
-                    Intent transfer = new Intent(transactionScreen.this, selectAccountTransfer.class);
+                    Intent transfer = new Intent(transactionScreen.this, selectAccountTransferFrom.class);
                     startActivity(transfer);
                     break;
                 case R.id.depositBtn:       //if deposit button is clicked, go to deposit screen
@@ -39,7 +39,7 @@ public class transactionScreen extends AppCompatActivity {
                     startActivity(deposit);
                     break;
                 case R.id.balanceBtn:       //if balance button is clicked, go to balance button
-                    Intent balance = new Intent(transactionScreen.this, balanceScreen.class);
+                    Intent balance = new Intent(transactionScreen.this, selectAccountBalance.class);
                     startActivity(balance);
                     break;
                 case R.id.logoutBtn:        //if cancel button is clicked, go to main screen

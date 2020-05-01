@@ -15,7 +15,6 @@ public class balanceScreen extends AppCompatActivity {
 
         //initialize click listeners
         findViewById(R.id.cancelButton4).setOnClickListener(buttonClickListener);
-        findViewById(R.id.continueButton).setOnClickListener(buttonClickListener);
 
     }
 
@@ -27,7 +26,8 @@ public class balanceScreen extends AppCompatActivity {
                     Intent cancel = new Intent(balanceScreen.this, transactionScreen.class);
                     startActivity(cancel);
                     break;
-//                case R.id.continueButton:
+                default:
+                    break;
             }
         }
     };

@@ -29,28 +29,13 @@
         android:layout_width="93dp"
         android:layout_height="45dp"
         android:layout_marginTop="40dp"
-        android:background="#B12525"
-        android:text="Cancel"
+        android:background="#65111111"
+        android:text="Previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.295"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/balanceText"
-        app:layout_constraintVertical_bias="0.003" />
-
-    <Button
-        android:id="@+id/continueButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="88dp"
-        android:background="#33CC33"
-        android:password="false"
-        android:phoneNumber="false"
-        android:text="Continue"
-        android:textColor="#011111"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/balanceTxt" />
+        app:layout_constraintVertical_bias="0.032" />
 
     <TextView
         android:id="@+id/balanceText"

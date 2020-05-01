@@ -1,5 +1,6 @@
 package com.group7.pandaatm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,11 +12,11 @@ public class outsideTransfer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_outside_transfer);
 
         //initialize click listeners
         findViewById(R.id.clearButton2).setOnClickListener(buttonClickListener);
-//        findViewById(R.id.enterButton2).setOnClickListener(buttonClickListener);
+        findViewById(R.id.enterButton2).setOnClickListener(buttonClickListener);
         findViewById(R.id.cancelButton3).setOnClickListener(buttonClickListener);
 
     }
@@ -29,10 +30,10 @@ public class outsideTransfer extends AppCompatActivity {
                     acctNum.getText().clear();
                     amountTransfer.getText().clear();
                     break;
-//                case R.id.enterButton3:
-//                    Intent login = new Intent(
-//
-//                    break;
+                case R.id.enterButton2:
+                    Intent transSuccessful = new Intent(outsideTransfer.this, transferSuccessful.class);
+                    startActivity(transSuccessful);
+                    break;
                 case R.id.cancelButton3:        //if previous button is clicked, go to transfer type screen
                     finish();
                     break;

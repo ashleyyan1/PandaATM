@@ -10,9 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.group7.pandaatm.selectAccountTransfer"
-            android:label="@string/title_activity_select_account_transfer"
+            android:name="com.group7.pandaatm.selectAccountTransferFrom"
+            android:label="@string/title_activity_select_account_transfer_from"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="com.group7.pandaatm.selectAccountTransferTo"
+            android:label="@string/title_activity_select_account_transfer_to"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="com.group7.pandaatm.depositSuccessful"
+            android:label="@string/title_activity_deposit_successful_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.group7.pandaatm.withdrawSuccessful"
+            android:label="@string/title_activity_withdraw_successful_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.group7.pandaatm.transferSuccessful"
+            android:label="@string/title_activity_transfer_successful_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.group7.pandaatm.selectAccountDeposit"
             android:label="@string/title_activity_select_account_deposit"
@@ -21,6 +37,10 @@
             android:name="com.group7.pandaatm.selectAccountWithdraw"
             android:label="@string/title_activity_select_account_withdraw"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.group7.pandaatm.selectAccountBalance"
+            android:label="@string/title_activity_select_account_balance"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.group7.pandaatm.withdrawDiffAmt"
             android:label="@string/title_activity_withdraw_diff_amt"

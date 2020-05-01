@@ -6,6 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".transactionScreen">
 
+    <TextView
+        android:id="@+id/atmLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginBottom="609dp"
+        android:text="Building Location:"
+        android:textColor="#111111"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/acctNum3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="222dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="123dp"
+        android:text="ATM Location: "
+        android:textColor="#111111"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/atmLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/logoName5"
         android:layout_width="68dp"
@@ -55,7 +86,7 @@
         android:id="@+id/backgroundImage2"
         android:layout_width="0dp"
         android:layout_height="663dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="172dp"
         android:src="@drawable/cute_panda_paws_up_wall_panda_face_cartoon_icon_42750_498"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -130,28 +161,5 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/welcomeTxt2"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/acctNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="97dp"
-        android:layout_marginBottom="23dp"
-        android:text="Account Number: "
-        android:textColor="#111111"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/backgroundImage2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/atmLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="ATM Location:"
-        android:textColor="#111111"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/acctNum"
-        app:layout_constraintTop_toBottomOf="@+id/acctNum" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
