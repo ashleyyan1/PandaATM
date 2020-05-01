@@ -25,11 +25,8 @@ public class SessionController {
     //Throws Exception, must be handled with GUi to show alert that Internet is not working (server is down)
     private SessionController() throws IOException {
         Socket serverConnection = new Socket(url, port);
-        System.out.println("Sending Message1");
-        dataInput = new ObjectInputStream(serverConnection.getInputStream());
-        System.out.println("Sending Message2");
         dataOutput = new ObjectOutputStream(serverConnection.getOutputStream());
-        System.out.println("Sending Message3");
+        dataInput = new ObjectInputStream(serverConnection.getInputStream());
     }
 
     public void sendMessage(Message m) throws IOException {
@@ -45,5 +42,14 @@ public class SessionController {
             System.exit(1);
         }
         return null;
+    }
+
+    public void terminateSession(){
+        try {
+            dataOutput.close();
+            c = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

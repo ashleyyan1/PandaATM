@@ -88,10 +88,10 @@ public class DataInitialization {
 		accountOpeningData.insertAccountOpening(clientJonathan, jonathanSavings);
 		
 		//Initiate Debit Cards - 1 for each Client
-		long kennyCard = debitCardData.insertDebitCard(clientKennyInfo.getCustomerName() ,LocalDateTime.now().plusYears(4L), 1234, clientKenny, 1);
-		long ashleyCard = debitCardData.insertDebitCard(clientAshleyInfo.getCustomerName() ,LocalDateTime.now().plusYears(2L), 1234, clientAshley, 1);
-		long christianCard = debitCardData.insertDebitCard(clientChristianInfo.getCustomerName() ,LocalDateTime.now().plusYears(5L), 1234, clientChristian, 1);
-		long nickCard = debitCardData.insertDebitCard(clientNickInfo.getCustomerName() ,LocalDateTime.now().plusYears(3L), 1234, clientNick, 1);
+		long kennyCard = debitCardData.insertDebitCard(clientKennyInfo.getCustomerName() ,LocalDateTime.now().plusYears(4L), 4444, clientKenny, 1);
+		long ashleyCard = debitCardData.insertDebitCard(clientAshleyInfo.getCustomerName() ,LocalDateTime.now().plusYears(2L), 1895, clientAshley, 1);
+		long christianCard = debitCardData.insertDebitCard(clientChristianInfo.getCustomerName() ,LocalDateTime.now().plusYears(5L), 8491, clientChristian, 1);
+		long nickCard = debitCardData.insertDebitCard(clientNickInfo.getCustomerName() ,LocalDateTime.now().plusYears(3L), 6969, clientNick, 1);
 		long jonathanCard = debitCardData.insertDebitCard(clientJonathanInfo.getCustomerName() ,LocalDateTime.now(), 1234, clientJonathan, 1);
 		
 		//Initiate Card Activations - (Each Card May be linked to multiple accounts)
