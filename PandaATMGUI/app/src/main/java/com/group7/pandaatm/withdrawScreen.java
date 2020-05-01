@@ -40,8 +40,12 @@ public class withdrawScreen extends AppCompatActivity {
             case R.id.eightybutton:
             case R.id.onehundredbutton:
             case R.id.twohundredbutton:
-                Intent withdrawSuccess = new Intent(withdrawScreen.this, withdrawSuccessful.class);
-                startActivity(withdrawSuccess);
+                //if(withdrawSuccessful)
+//                Intent withdrawSuccessful = new Intent(withdrawScreen.this, withdrawSuccessful.class);
+//                startActivity(withdrawSuccessful);
+                //if(withdrawUnsuccessful)
+                Intent withdrawUnsuccessful = new Intent(withdrawScreen.this, withdrawUnsuccessful.class);
+                startActivity(withdrawUnsuccessful);
                 break;
             default:
                 break;
