@@ -1,6 +1,5 @@
 package com.group7.pandaatm;
 
-import android.app.AppComponentFactory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +23,7 @@ public class depositSuccessful extends AppCompatActivity {
                 startActivity(main);
                 break;
             case R.id.yes:
-                Intent trans = new Intent(depositSuccessful.this, transactionScreen.class);
+                Intent trans = new Intent(depositSuccessful.this, MenuScreen.class);
                 startActivity(trans);
                 break;
             default:

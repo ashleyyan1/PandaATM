@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,7 +30,9 @@ public class loginScreen extends AppCompatActivity {
         findViewById(R.id.loginButton).setOnClickListener(buttonClickListener);
         findViewById(R.id.clearButton).setOnClickListener(buttonClickListener);
         findViewById(R.id.backToMapButton).setOnClickListener(buttonClickListener);
-
+        TextView addressText  = findViewById(R.id.atmLocation2);
+        Intent intent = getIntent();
+        addressText.setText(intent.getStringExtra("ATMAddress"));
         cardNumber = findViewById(R.id.cardNumberText);
         pinNumber = findViewById(R.id.pinText);
         buttonConfirm = findViewById(R.id.loginButton);
@@ -100,7 +103,7 @@ public class loginScreen extends AppCompatActivity {
                             } else if (msgLoginVerification.flag() == 5) {
                                 //TODO Successful, go to transactionScreen, maybe show animation beforehand
                                 runOnUiThread(() -> {
-                                    Intent mainMenu = new Intent(loginScreen.this, transactionScreen.class);
+                                    Intent mainMenu = new Intent(loginScreen.this, MenuScreen.class);
                                     startActivity(mainMenu);
                                 });
                             } else if (msgLoginVerification.flag() == 23) {
@@ -159,4 +162,6 @@ public class loginScreen extends AppCompatActivity {
 
     };
 
+    @Override
+    public void onBackPressed() {}
 }

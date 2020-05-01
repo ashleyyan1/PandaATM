@@ -144,7 +144,7 @@ public class cashDepositScreen extends AppCompatActivity {
                     startActivity(depSuccessful);
                     break;
                 case R.id.cancelButton:         //if previous button is clicked, go to deposit choice screen
-                    Intent cancel = new Intent(cashDepositScreen.this, transactionScreen.class);
+                    Intent cancel = new Intent(cashDepositScreen.this, MenuScreen.class);
                     startActivity(cancel);
                     break;
                 default:

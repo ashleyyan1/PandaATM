@@ -23,7 +23,7 @@ public class withdrawSuccessful extends AppCompatActivity {
                 startActivity(main);
                 break;
             case R.id.yes1:
-                Intent trans = new Intent(withdrawSuccessful.this, transactionScreen.class);
+                Intent trans = new Intent(withdrawSuccessful.this, MenuScreen.class);
                 startActivity(trans);
                 break;
             default:

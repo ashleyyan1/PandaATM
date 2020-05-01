@@ -2,11 +2,18 @@ package com.group7.pandaatm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.method.KeyListener;
+import android.view.KeyEvent;
 import android.view.View;
 
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bscATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.libATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.mktplaceATM).setOnClickListener(buttonClickListener);
-
 
     }
 
@@ -59,24 +65,21 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("Sent ATM Request Message");
                         Message msgATMRequestReponse = c.readMessage();
                         System.out.println("ATM Request Response Message Flag: " + msgATMRequestReponse.flag());
-                        if(msgATMRequestReponse.flag() == 8) {
+                        if (msgATMRequestReponse.flag() == 8) {
                             //TODO Access Denied, create an alert
                             c.terminateSession();
-                        }
-                        else if(msgATMRequestReponse.flag() == 22) {
+                        } else if (msgATMRequestReponse.flag() == 22) {
                             //Access Granted, TODO go to log in screen
                             runOnUiThread(() -> {
                                 Intent login = new Intent(MainActivity.this, loginScreen.class);
                                 login.putExtra("ATMAddress", msgATMRequestReponse.getTextMessages().get(0));
                                 startActivity(login);
                             });
-                        }
-                        else if(msgATMRequestReponse.flag() == 7) {
+                        } else if (msgATMRequestReponse.flag() == 7) {
                             //TODO maybe display error before crashing program
                             c.terminateSession();
                             System.exit(1);//Communication error, quit program
-                        }
-                        else {
+                        } else {
                             c.terminateSession();
                             //TODO bad communication, display crashing program
                         }
@@ -86,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
                             //TODO Show error
                         });
                     }
+                });
+                worker1.start();
+            }
         }
     };
+
+    @Override
+    public void onBackPressed() {}
 }

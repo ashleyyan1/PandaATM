@@ -46,7 +46,7 @@
             android:label="@string/title_activity_withdraw_diff_amt"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.transactionScreen"
+            android:name="com.group7.pandaatm.MenuScreen"
             android:label="@string/title_activity_transaction_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

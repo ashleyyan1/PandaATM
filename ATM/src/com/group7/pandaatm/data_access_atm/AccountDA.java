@@ -118,7 +118,7 @@ public class AccountDA {
 			set = db.executeQuery(psGetAvailableAccounts, true);
 			db.getDatabase().setAutoCommit(false);
 			while(set.next()) {
-				availableAccounts.add(this.getAccountInfo(set.getInt(1)));
+				availableAccounts.add(this.getAccountInfo(set.getInt(2)));
 			}//end
 			db.getDatabase().commit();
 			db.getDatabase().setAutoCommit(true);

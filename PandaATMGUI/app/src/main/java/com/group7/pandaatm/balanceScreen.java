@@ -23,7 +23,7 @@ public class balanceScreen extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.cancelButton4:    //if cancel button is clicked, go back to main screen
-                    Intent cancel = new Intent(balanceScreen.this, transactionScreen.class);
+                    Intent cancel = new Intent(balanceScreen.this, MenuScreen.class);
                     startActivity(cancel);
                     break;
                 default:

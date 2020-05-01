@@ -23,7 +23,7 @@ public class transferSuccessful extends AppCompatActivity {
                 startActivity(main);
                 break;
             case R.id.yes2:
-                Intent trans = new Intent(transferSuccessful.this, transactionScreen.class);
+                Intent trans = new Intent(transferSuccessful.this, MenuScreen.class);
                 startActivity(trans);
                 break;
             default:

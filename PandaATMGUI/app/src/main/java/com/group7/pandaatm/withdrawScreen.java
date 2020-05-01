@@ -27,7 +27,7 @@ public class withdrawScreen extends AppCompatActivity {
     private View.OnClickListener buttonClickListener = v -> {
         switch (v.getId()) {
             case R.id.cancelButton1:        //if cancel button is clicked, go to main screen
-                Intent cancel = new Intent(withdrawScreen.this, transactionScreen.class);
+                Intent cancel = new Intent(withdrawScreen.this, MenuScreen.class);
                 startActivity(cancel);
                 break;
             case R.id.diffAmt:              //if different amount is clicked, go to withdraw diffAmt class
