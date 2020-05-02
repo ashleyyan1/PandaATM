@@ -30,21 +30,11 @@ public class loginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atm_login);
 
-        Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-        TextView textViewDate = findViewById(R.id.dateTxt2);
-        textViewDate.setText(currentDate);
-
-        SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
-        String time = format.format(calendar.getTime());
-        TextView textview = findViewById(R.id.timeText2);
-        textview.setText(time);
-
         //initialize click listeners
         findViewById(R.id.loginButton).setOnClickListener(buttonClickListener);
         findViewById(R.id.clearButton).setOnClickListener(buttonClickListener);
         findViewById(R.id.backToMapButton).setOnClickListener(buttonClickListener);
-        TextView addressText  = findViewById(R.id.atmLocation2);
+        TextView addressText  = findViewById(R.id.buildingLocation);
         Intent intent = getIntent();
         addressText.setText(intent.getStringExtra("ATMAddress"));
         cardNumber = findViewById(R.id.cardNumberText);

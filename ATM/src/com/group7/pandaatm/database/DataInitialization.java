@@ -4,10 +4,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 
-import com.group7.pandaatm.data_access_atm.ATMDA;
 import com.group7.pandaatm.data_access_atm.AccountDA;
 import com.group7.pandaatm.data_access_atm.AccountOpeningDA;
-import com.group7.pandaatm.data_access_atm.BankBranchDA;
 import com.group7.pandaatm.data_access_atm.CardActivationDA;
 import com.group7.pandaatm.data_access_atm.ClientDA;
 import com.group7.pandaatm.data_access_atm.DebitCardDA;
@@ -57,6 +55,7 @@ public class DataInitialization {
 		int clientChristian = clientData.insertClient("Christian Devile", "456 Valley View", "606-222-0420", LocalDateTime.of(1999, 2, 10, 12, 30), 1);
 		int clientNick = clientData.insertClient("Nicholas Stewart", "567 One Infinite Loop", "111-111-1111", LocalDateTime.of(1999, 3, 24, 12, 30), 1);
 		int clientJonathan = clientData.insertClient("Jonathan Halim", "789 Ashbury Pkwy.", "545-949-8100", LocalDateTime.of(2000, 7, 30, 12, 30), 1);
+		int clientTannaz = clientData.insertClient("Tannaz Rezaei Damavandi", "Bldg. 8 Office 45", "909-879-5519 ", LocalDateTime.of(1999, 5, 4, 12, 30), 1);
 		
 		//Get Info For each Client (Needed for Debit Card Creation)
 		Client clientKennyInfo = clientData.getClientInfo(clientKenny);
@@ -64,6 +63,7 @@ public class DataInitialization {
 		Client clientChristianInfo = clientData.getClientInfo(clientChristian);
 		Client clientNickInfo = clientData.getClientInfo(clientNick);
 		Client clientJonathanInfo = clientData.getClientInfo(clientJonathan);
+		Client clientTannazInfo = clientData.getClientInfo(clientTannaz);
 		
 		//Initiate Accounts - # of Accounts Varies from User to User
 		int kennyChecking = accountData.insertCheckingAcc("Kenny's Checking SPENDY BOI", 420.69);
@@ -75,6 +75,7 @@ public class DataInitialization {
 		int nickChecking = accountData.insertCheckingAcc("Nicholas's Checking", 1270);
 		int nickSavings = accountData.insertSavingsAcc("Nicholas's Savings", 23567);
 		int jonathanSavings = accountData.insertSavingsAcc("Jonathan's V-Bucks Allowance", 100);
+		int tannazSavings = accountData.insertSavingsAcc("Vacation Fund", 1000000);
 		
 		//Initiate Account Openings - 1 for each Account
 		accountOpeningData.insertAccountOpening(clientKenny, kennyChecking);
@@ -86,6 +87,7 @@ public class DataInitialization {
 		accountOpeningData.insertAccountOpening(clientNick, nickChecking);
 		accountOpeningData.insertAccountOpening(clientNick, nickSavings);
 		accountOpeningData.insertAccountOpening(clientJonathan, jonathanSavings);
+		accountOpeningData.insertAccountOpening(clientTannaz, tannazSavings);
 		
 		//Initiate Debit Cards - 1 for each Client
 		long kennyCard = debitCardData.insertDebitCard(clientKennyInfo.getCustomerName() ,LocalDateTime.now().plusYears(4L), 4444, clientKenny, 1);
@@ -93,6 +95,7 @@ public class DataInitialization {
 		long christianCard = debitCardData.insertDebitCard(clientChristianInfo.getCustomerName() ,LocalDateTime.now().plusYears(5L), 8491, clientChristian, 1);
 		long nickCard = debitCardData.insertDebitCard(clientNickInfo.getCustomerName() ,LocalDateTime.now().plusYears(3L), 6969, clientNick, 1);
 		long jonathanCard = debitCardData.insertDebitCard(clientJonathanInfo.getCustomerName() ,LocalDateTime.now(), 1234, clientJonathan, 1);
+		long tannazCard = debitCardData.insertDebitCard(clientTannazInfo.getCustomerName(), LocalDateTime.now().plusYears(4L), 3560, clientTannaz, 1);
 		
 		//Initiate Card Activations - (Each Card May be linked to multiple accounts)
 		cardActivationData.insertCardActivation(kennyCard, kennyChecking);
@@ -104,6 +107,7 @@ public class DataInitialization {
 		cardActivationData.insertCardActivation(nickCard, nickChecking);
 		cardActivationData.insertCardActivation(nickCard, nickSavings);
 		cardActivationData.insertCardActivation(jonathanCard, jonathanSavings);
+		cardActivationData.insertCardActivation(tannazCard, tannazSavings);
 	}//end Constructor
 	
 	public static void main(String[] args) throws SQLException {

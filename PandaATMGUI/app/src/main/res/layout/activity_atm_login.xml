@@ -12,38 +12,29 @@
     tools:context=".loginScreen">
 
     <TextView
-        android:id="@+id/atmLocation2"
-        android:layout_width="wrap_content"
+        android:id="@+id/buildingLocation"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="106dp"
-        android:layout_marginEnd="115dp"
-        android:layout_marginBottom="596dp"
+        android:layout_marginTop="8dp"
         android:text="Building Location:"
         android:textColor="#111111"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/atmLocation"
+        app:layout_constraintTop_toBottomOf="@+id/atmLocation" />
 
     <TextView
-        android:id="@+id/acctNum4"
+        android:id="@+id/atmLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="142dp"
-        android:layout_marginBottom="13dp"
         android:text="ATM Location: "
         android:textColor="#111111"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/atmLocation2"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.008" />
 
     <ImageView
         android:id="@+id/logoName2"
@@ -72,17 +63,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/timeText2"
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="28dp"
-        android:text="time"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/backToMapButton"
@@ -158,16 +138,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backgroundImage"
         app:layout_constraintVertical_bias="0.298" />
-
-    <TextView
-        android:id="@+id/dateTxt2"
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="59dp"
-        android:text="Date"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

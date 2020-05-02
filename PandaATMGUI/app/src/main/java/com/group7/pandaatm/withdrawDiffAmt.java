@@ -59,8 +59,10 @@ public class withdrawDiffAmt extends AppCompatActivity {
                                             Message msgSendAmount = new Message(18);
                                             msgSendAmount.addDoubleM(amount);
                                             c.sendMessage(msgSendAmount);
-                                            Intent enter = new Intent(withdrawDiffAmt.this, ConfirmationScreen.class);
-                                            startActivity(enter);
+                                            runOnUiThread(() -> {
+                                                Intent confirmation = new Intent(withdrawDiffAmt.this, ConfirmationScreen.class);
+                                                startActivity(confirmation);
+                                            });
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
@@ -81,7 +83,7 @@ public class withdrawDiffAmt extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     break;
-                case R.id.cancelButton2:        //if previous button is clicked, go to withdraw screen
+                case R.id.cancelButton2:        //if previous button is clicked, go to Main Menu screen
                     Thread worker14 = new Thread(() -> {
                         try {
                             SessionController c = SessionController.getInstance();
@@ -100,5 +102,4 @@ public class withdrawDiffAmt extends AppCompatActivity {
             }
         }
     };
-
 }

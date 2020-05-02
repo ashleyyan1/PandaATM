@@ -22,13 +22,15 @@
         android:id="@+id/cancelButton2"
         android:layout_width="128dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="228dp"
-        android:background="#FFFFFF"
+        android:background="#C1C1C1"
         android:text="Cancel"
         android:textColor="#111111"
-        app:layout_constraintBottom_toTopOf="@+id/dateTxt6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.528" />
 
     <Button
         android:id="@+id/clearButton1"
@@ -110,13 +112,4 @@
         app:layout_constraintTop_toTopOf="@+id/logo5"
         app:srcCompat="@drawable/mutant_bamboo" />
 
-    <TextView
-        android:id="@+id/dateTxt6"
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="59dp"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
