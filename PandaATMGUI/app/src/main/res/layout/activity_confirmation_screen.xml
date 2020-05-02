@@ -2,17 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_confirmation_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".depositSuccessful">
+    tools:context=".ConfirmationScreen">
 
     <ImageView
         android:id="@+id/backgroundImage3"
         android:layout_width="0dp"
         android:layout_height="663dp"
         android:layout_marginTop="120dp"
-        android:src="@drawable/cute_panda_paws_up_wall_panda_face_cartoon_icon_42750_498"
+        android:src="@drawable/bambooback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

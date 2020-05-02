@@ -71,6 +71,10 @@
             android:name=".loginScreen"
             android:label="@string/title_activity_atm_login"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ConfirmationScreen"
+            android:label="@string/title_activity_confirmation_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".splashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

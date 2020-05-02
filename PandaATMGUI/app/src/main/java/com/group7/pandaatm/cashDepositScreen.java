@@ -255,12 +255,13 @@ public class cashDepositScreen extends AppCompatActivity {
                             msgBillDeposit.addIntegerM(fiftyCounter);
                             msgBillDeposit.addIntegerM(hundredCounter);
                             c.sendMessage(msgBillDeposit);
-                            double totalAmount = oneCounter * 1 + fiveCounter * 5 + tenCounter * 10 + twentyCounter * 20 + fiftyCounter * 50 + hundredCounter * 100;
+                            double totalAmount = oneCounter + fiveCounter * 5 + tenCounter * 10 + twentyCounter * 20 + fiftyCounter * 50 + hundredCounter * 100;
                             runOnUiThread(() -> {
-                                Intent confirmTransaction = new Intent(cashDepositScreen.this, depositUnsuccessful.class);
+                                Intent confirmTransaction = new Intent(cashDepositScreen.this, ConfirmationScreen.class);
                                 confirmTransaction.putExtra("accountName", accountName);
                                 confirmTransaction.putExtra("billCount", totalBills);
                                 confirmTransaction.putExtra("amount", totalAmount);
+                                confirmTransaction.putExtra("type", 0);
                                 startActivity(confirmTransaction);
                             });
                         } catch (IOException e) {
@@ -309,5 +310,3 @@ public class cashDepositScreen extends AppCompatActivity {
         findViewById(R.id.addHundred).setBackgroundColor(color);
     }
 }
-
-

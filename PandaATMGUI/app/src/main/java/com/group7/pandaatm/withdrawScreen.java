@@ -2,7 +2,6 @@ package com.group7.pandaatm;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.se.omapi.Session;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +17,7 @@ public class withdrawScreen extends AppCompatActivity {
     double accountMax;
     boolean isChecking;
     double min;
+    int billAvailableCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class withdrawScreen extends AppCompatActivity {
         accountName = pastIntent.getStringExtra("accountName");
         accountMax = pastIntent.getDoubleExtra("amount", -1);
         isChecking = pastIntent.getBooleanExtra("isChecking", false);
+        billAvailableCount = pastIntent.getIntExtra("billAvailableCount", -1);
         if(isChecking)
             min = pastIntent.getDoubleExtra("min", -1);
         //initialize click listeners
@@ -57,15 +58,17 @@ public class withdrawScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 });
+                worker11.start();
                 break;
             case R.id.diffAmt:              //if different amount is clicked, go to withdraw diffAmt class
                 Intent diffAmt = new Intent(withdrawScreen.this, withdrawDiffAmt.class);
                 diffAmt.putExtra("accountName", accountName);
-                diffAmt.putExtra("amount", amount);
+                diffAmt.putExtra("accountMax", accountMax);
                 diffAmt.putExtra("isChecking", isChecking);
                 if(isChecking) {
                     diffAmt.putExtra("min", min);
                 }
+                diffAmt.putExtra("billAvailableCount", billAvailableCount);
                 startActivity(diffAmt);
                 break;
             case R.id.twentybutton:
@@ -91,18 +94,46 @@ public class withdrawScreen extends AppCompatActivity {
         }
         if(amount != -1) {
             if(amount < accountMax) {
-                int finalAmount = amount;
-                Thread worker12 = new Thread(() -> {
-                    try {
-                        SessionController c = SessionController.getInstance();
-                        Message msgSendAmount = new Message(18);
-                        msgSendAmount.addDoubleM(finalAmount);
-                        c.sendMessage(msgSendAmount);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if(( amount / 20) < billAvailableCount) {
+                    if(isChecking && (accountMax - amount) < min) {
+                        //TODO Let user know they would withdraw past agreed min,
+                        // return true/false yes/no if they wish to continue or edit their amount
+                        if(true) {
+                            int finalAmount = amount;
+                            Thread worker12 = new Thread(() -> {
+                                try {
+                                    SessionController c = SessionController.getInstance();
+                                    Message msgSendAmount = new Message(18);
+                                    msgSendAmount.addDoubleM(finalAmount);
+                                    c.sendMessage(msgSendAmount);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                            worker12.start();
+                        }
                     }
-                });
-                worker12.start();
+                    else {
+                        int finalAmount = amount;
+                        Thread worker12 = new Thread(() -> {
+                            try {
+                                SessionController c = SessionController.getInstance();
+                                Message msgSendAmount = new Message(18);
+                                msgSendAmount.addDoubleM(finalAmount);
+                                c.sendMessage(msgSendAmount);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        worker12.start();
+                    }
+                }
+                else {
+                    //TODO Alert user ATM can not fulfill request
+                }
+            }
+            else {
+                //TODO Alert user they do not have enough funds to withdraw that amount
             }
         }
     };

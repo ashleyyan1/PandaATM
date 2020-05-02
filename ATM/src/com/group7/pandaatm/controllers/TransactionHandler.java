@@ -72,6 +72,7 @@ public class TransactionHandler {
 			Account account = accountData.getAccountInfo(chosenAccount.getIntegerMessages().get(0));
 			System.out.println(Thread.currentThread().getName() + ": Selected Account: " + account.getAccountName());
 			Message accountBalanceMsg = new Message(14);
+			accountBalanceMsg.addIntegerM(atm.getWithdrawalBillsRemaining());
 			accountBalanceMsg.addDoubleM(account.getAccountBal());
 			
 			//Check if Account is of type 'Checking' for `minReqBalance` (Balance Warning Handled in Client)
