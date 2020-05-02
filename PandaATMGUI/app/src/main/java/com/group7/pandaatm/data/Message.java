@@ -42,6 +42,7 @@ public class Message implements Serializable {
 		this.flag = flag;
 		intMessages = new ArrayList<Integer>();
 		textMessages = new ArrayList<String>();
+		doubleMessages = new ArrayList<Double>();
 	}
 
 	public int addIntegerM(int data) {
