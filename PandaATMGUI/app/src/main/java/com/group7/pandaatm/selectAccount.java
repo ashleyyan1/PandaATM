@@ -80,6 +80,7 @@ public class selectAccount extends AppCompatActivity {
                                             if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
                                                 minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
                                             }
+                                            int billAvailableCount = msgRecieveAccountData.getIntegerMessages().get(0);
                                             double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, withdrawScreen.class);
@@ -92,6 +93,7 @@ public class selectAccount extends AppCompatActivity {
                                                 else {
                                                     dep.putExtra("isChecking", false);
                                                 }
+                                                dep.putExtra("billAvailableCount", billAvailableCount);
                                                 startActivity(dep);
                                             });
                                         }
