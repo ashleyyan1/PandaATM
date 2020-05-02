@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.group7.pandaatm">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,66 +12,66 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.group7.pandaatm.depositSuccessful"
+            android:name=".depositSuccessful"
             android:label="@string/title_activity_deposit_successful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.depositUnsuccessful"
+            android:name=".depositUnsuccessful"
             android:label="@string/title_activity_deposit_unsuccessful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.withdrawSuccessful"
+            android:name=".withdrawSuccessful"
             android:label="@string/title_activity_withdraw_successful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.withdrawUnsuccessful"
+            android:name=".withdrawUnsuccessful"
             android:label="@string/title_activity_withdraw_unsuccessful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.transferSuccessful"
+            android:name=".transferSuccessful"
             android:label="@string/title_activity_transfer_successful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.transferUnsuccessful"
+            android:name=".transferUnsuccessful"
             android:label="@string/title_activity_transfer_unsuccessful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.selectAccount"
+            android:name=".selectAccount"
             android:label="@string/title_activity_select_account_deposit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.withdrawDiffAmt"
+            android:name=".withdrawDiffAmt"
             android:label="@string/title_activity_withdraw_diff_amt"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.MenuScreen"
+            android:name=".MenuScreen"
             android:label="@string/title_activity_transaction_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.balanceScreen"
+            android:name=".balanceScreen"
             android:label="@string/title_activity_balance_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.outsideTransfer"
+            android:name=".outsideTransfer"
             android:label="@string/title_activity_outside_transfer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.cashDepositScreen"
+            android:name=".cashDepositScreen"
             android:label="@string/title_activity_cash_deposit_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.withdrawScreen"
+            android:name=".withdrawScreen"
             android:label="@string/title_activity_withdraw_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.group7.pandaatm.loginScreen"
+            android:name=".loginScreen"
             android:label="@string/title_activity_atm_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.group7.pandaatm.splashScreen">
+        <activity android:name=".splashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
