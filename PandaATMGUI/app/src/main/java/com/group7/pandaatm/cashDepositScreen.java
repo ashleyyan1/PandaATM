@@ -144,6 +144,7 @@ public class cashDepositScreen extends AppCompatActivity {
                             updateAdders(true);
                         if(fiveCounter == 0) {
                             findViewById(R.id.subFive).setEnabled(false);
+                            findViewById(R.id.subFive).setBackgroundColor(greyColor);
                         }
                     }
                     break;
@@ -270,7 +271,7 @@ public class cashDepositScreen extends AppCompatActivity {
                     });
                     worker9.start();
                     break;
-                case R.id.cancelButton:         //if previous button is clicked, go to deposit choice screen
+                case R.id.cancelButton:   //if previous button is clicked, go to deposit choice screen
                     Thread worker10 = new Thread(() -> {
                         try {
                             SessionController c = SessionController.getInstance();
@@ -290,7 +291,6 @@ public class cashDepositScreen extends AppCompatActivity {
                     break;
             }
         }
-
     };
 
     public void updateAdders(boolean value) {

@@ -106,6 +106,10 @@ public class withdrawScreen extends AppCompatActivity {
                                     Message msgSendAmount = new Message(18);
                                     msgSendAmount.addDoubleM(finalAmount);
                                     c.sendMessage(msgSendAmount);
+                                    runOnUiThread(() -> {
+                                        Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
+                                        startActivity(confirmation);
+                                    });
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -121,6 +125,10 @@ public class withdrawScreen extends AppCompatActivity {
                                 Message msgSendAmount = new Message(18);
                                 msgSendAmount.addDoubleM(finalAmount);
                                 c.sendMessage(msgSendAmount);
+                                runOnUiThread(() -> {
+                                    Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
+                                    startActivity(confirmation);
+                                });
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

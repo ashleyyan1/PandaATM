@@ -17,25 +17,16 @@
         app:layout_constraintTop_toTopOf="@+id/logo2"
         app:srcCompat="@drawable/mutant_bamboo" />
 
-    <TextView
-        android:id="@+id/dateTxt3"
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="58dp"
-        android:text="Date"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <ImageView
         android:id="@+id/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/dateTxt3"
+        android:layout_marginBottom="88dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTxt"
         app:srcCompat="@drawable/map" />
 
     <ImageView
@@ -135,21 +126,21 @@
         android:layout_width="45dp"
         android:layout_height="37dp"
         android:layout_marginEnd="112dp"
-        android:layout_marginBottom="104dp"
         android:background="@drawable/atmbw"
-        app:layout_constraintBottom_toTopOf="@+id/dateTxt3"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/libATM" />
 
     <ImageButton
         android:id="@+id/libATM"
         android:layout_width="0dp"
         android:layout_height="37dp"
         android:layout_marginEnd="120dp"
-        android:layout_marginBottom="300dp"
         android:background="@drawable/atmbw"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mktplace" />
+        app:layout_constraintStart_toEndOf="@+id/mktplace"
+        app:layout_constraintTop_toTopOf="@+id/map" />
 
     <TextView
         android:id="@+id/bldg1"
@@ -157,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
         android:layout_marginEnd="76dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:background="#EAD422"
         android:text="Building 1"
         android:textColor="#111111"
@@ -171,12 +162,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="4dp"
         android:background="#EAD422"
         android:text="Building 17"
         android:textColor="#111111"
         app:layout_constraintBottom_toTopOf="@+id/bldg17ATM"
-        app:layout_constraintEnd_toEndOf="@+id/dateTxt3"
         app:layout_constraintStart_toEndOf="@+id/bldg1ATM" />
 
     <TextView
@@ -195,26 +185,11 @@
         android:id="@+id/lib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="4dp"
         android:background="#EAD422"
         android:text="Library"
         android:textColor="#111111"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bldg17ATM" />
+        app:layout_constraintBottom_toTopOf="@+id/libATM"
+        app:layout_constraintStart_toStartOf="@+id/libATM" />
 
-    <TextView
-        android:id="@+id/timeText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="237dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="145dp"
-        android:text="time"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dateTxt3"
-        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

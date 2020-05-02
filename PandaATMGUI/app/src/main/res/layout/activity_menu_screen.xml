@@ -7,35 +7,29 @@
     tools:context=".MenuScreen">
 
     <TextView
-        android:id="@+id/atmLocation"
-        android:layout_width="wrap_content"
+        android:id="@+id/buildingLocation2"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="210dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="123dp"
-        android:layout_marginBottom="609dp"
+        android:layout_marginTop="8dp"
         android:text="Building Location:"
         android:textColor="#111111"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/atmLocation2"
+        app:layout_constraintTop_toBottomOf="@+id/atmLocation2" />
 
     <TextView
-        android:id="@+id/acctNum3"
+        android:id="@+id/atmLocation2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="222dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="123dp"
         android:text="ATM Location: "
         android:textColor="#111111"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/atmLocation"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042" />
 
     <ImageView
         android:id="@+id/logoName5"
@@ -74,13 +68,14 @@
         android:id="@+id/welcomeTxt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="Select your transaction."
         android:textColor="#111111"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/withdrawBtn"
-        app:layout_constraintStart_toStartOf="@+id/welcomeTxt"
-        app:layout_constraintTop_toTopOf="@+id/withdrawBtn" />
+        app:layout_constraintEnd_toStartOf="@+id/withdrawBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTxt" />
 
     <ImageView
         android:id="@+id/backgroundImage2"
@@ -92,28 +87,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/timeText"
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:text="time"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/dateTxt"
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="59dp"
-        android:text="Date"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/transferBtn"
@@ -162,15 +135,15 @@
 
     <TextView
         android:id="@+id/welcomeTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="10dp"
         android:text="Welcome, "
         android:textColor="#111111"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/welcomeTxt2"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/depositBtn"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/depositBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,27 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".depositSuccessful"
-            android:label="@string/title_activity_deposit_successful_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".depositUnsuccessful"
-            android:label="@string/title_activity_deposit_unsuccessful_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".withdrawSuccessful"
-            android:label="@string/title_activity_withdraw_successful_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".withdrawUnsuccessful"
-            android:label="@string/title_activity_withdraw_unsuccessful_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".transferSuccessful"
+            android:name=".transactionSuccessful"
             android:label="@string/title_activity_transfer_successful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".transferUnsuccessful"
+            android:name=".transactionUnsuccessful"
             android:label="@string/title_activity_transfer_unsuccessful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -54,10 +38,6 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".outsideTransfer"
-            android:label="@string/title_activity_outside_transfer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".cashDepositScreen"

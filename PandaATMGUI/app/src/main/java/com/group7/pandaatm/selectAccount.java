@@ -26,9 +26,10 @@ public class selectAccount extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_account_deposit);
+        setContentView(R.layout.activity_select_account);
         accountSpinner = findViewById(R.id.accountSpinner);
-        addListenerOnButton();
+        findViewById(R.id.select).setOnClickListener(buttonClickListener);
+        findViewById(R.id.previous).setOnClickListener(buttonClickListener);
         Intent creationIntent = getIntent();
         accountNames = creationIntent.getStringArrayListExtra("accountNames");
         accountInteger = creationIntent.getIntegerArrayListExtra("accountIds");
@@ -36,9 +37,7 @@ public class selectAccount extends AppCompatActivity {
         populateSpinner(accountNames);
     }
 
-    public void addListenerOnButton() {
-        select = findViewById(R.id.select);
-        select.setOnClickListener(new View.OnClickListener() {
+    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -152,7 +151,7 @@ public class selectAccount extends AppCompatActivity {
                                             }
                                             double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
-                                                Intent dep = new Intent(selectAccount.this, cashDepositScreen.class);
+                                                Intent dep = new Intent(selectAccount.this, withdrawDiffAmt.class);
                                                 dep.putExtra("accountNameSrc", getIntent().getStringExtra("accountNameSource"));
                                                 dep.putExtra("amountSrc", getIntent().getIntExtra("amountSource", 0));
                                                 boolean isSrcChecking = getIntent().getBooleanExtra("isChecking", false);
@@ -214,25 +213,10 @@ public class selectAccount extends AppCompatActivity {
                                 SessionController c = SessionController.getInstance();
                                 Message msgCancelTransaction = new Message(17);
                                 c.sendMessage(msgCancelTransaction);
-                                Message msgCancelConfirmation = c.readMessage();
-                                if(msgCancelConfirmation.flag() == 17) {
-                                    //Return to Main Menu
-                                    runOnUiThread(() -> {
-                                        Intent menu = new Intent(selectAccount.this, MenuScreen.class);
-                                        startActivity(menu);
-                                    });
-                                }
-                                else if (msgCancelConfirmation.flag() == 1){
-                                    //Session Timed Out
-                                    c.terminateSession();
-                                    runOnUiThread(() -> {
-                                        Intent map = new Intent(selectAccount.this, MainActivity.class);
-                                        startActivity(map);
-                                    });
-                                }
-                                else {//Code 7 potentially
-                                    System.exit(1);
-                                }
+                                runOnUiThread(() -> {
+                                   Intent mainMenu = new Intent(selectAccount.this, MenuScreen.class);
+                                   startActivity(mainMenu);
+                                });
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -241,9 +225,7 @@ public class selectAccount extends AppCompatActivity {
                         break;
                 }
             }
-        });
-
-    }
+        };
 
     public void populateSpinner(ArrayList<String> names) {
         ArrayAdapter<String> accountSelectorAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, names);

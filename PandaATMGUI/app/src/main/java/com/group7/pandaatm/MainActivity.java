@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,9 +11,7 @@ import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,18 +28,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bscATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.libATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.mktplaceATM).setOnClickListener(buttonClickListener);
-
-        Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-        TextView textViewDate = findViewById(R.id.dateTxt3);
-        textViewDate.setText(currentDate);
-
-        SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
-        String time = format.format(calendar.getTime());
-        TextView textview = findViewById(R.id.timeText3);
-        textview.setText(time);
-
-
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
@@ -75,26 +60,28 @@ public class MainActivity extends AppCompatActivity {
                         msgRequestATM.addIntegerM(finalAtmID);
                         c.sendMessage(msgRequestATM);
                         System.out.println("Sent ATM Request Message");
-                        Message msgATMRequestReponse = c.readMessage();
-                        System.out.println("ATM Request Response Message Flag: " + msgATMRequestReponse.flag());
-                        if (msgATMRequestReponse.flag() == 8) {
+                        Message msgATMRequestResponse = c.readMessage();
+                        System.out.println("ATM Request Response Message Flag: " + msgATMRequestResponse.flag());
+                        if (msgATMRequestResponse.flag() == 8) {
                             //TODO Access Denied, create an alert
-                            AlertDialog.Builder beingUsedAlert = new AlertDialog.Builder(MainActivity.this);
-                            beingUsedAlert.setMessage("ATM is currently in use.");
-                            beingUsedAlert.setTitle("Bad Login...");
-                            beingUsedAlert.setPositiveButton("OK", null);
-                            beingUsedAlert.setCancelable(false);
-                            beingUsedAlert.create().show();
+                            runOnUiThread(() -> {
+                                AlertDialog.Builder beingUsedAlert = new AlertDialog.Builder(MainActivity.this);
+                                beingUsedAlert.setMessage("ATM is currently in use.");
+                                beingUsedAlert.setTitle("Bad Login...");
+                                beingUsedAlert.setPositiveButton("OK", null);
+                                beingUsedAlert.setCancelable(false);
+                                beingUsedAlert.create().show();
+                            });
                             c.terminateSession();
-                        } else if (msgATMRequestReponse.flag() == 22) {
+                        } else if (msgATMRequestResponse.flag() == 22) {
                             //Access Granted, TODO go to log in screen
-                            c.setAddress(msgATMRequestReponse.getTextMessages().get(0));
+                            c.setAddress(msgATMRequestResponse.getTextMessages().get(0));
                             runOnUiThread(() -> {
                                 Intent login = new Intent(MainActivity.this, loginScreen.class);
-                                login.putExtra("ATMAddress", msgATMRequestReponse.getTextMessages().get(0));
+                                login.putExtra("ATMAddress", msgATMRequestResponse.getTextMessages().get(0));
                                 startActivity(login);
                             });
-                        } else if (msgATMRequestReponse.flag() == 7) {
+                        } else if (msgATMRequestResponse.flag() == 7) {
                             //TODO maybe display error before crashing program
                             c.terminateSession();
                             System.exit(1);//Communication error, quit program
@@ -115,5 +102,5 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {}//Disables Android's Back Button
 }

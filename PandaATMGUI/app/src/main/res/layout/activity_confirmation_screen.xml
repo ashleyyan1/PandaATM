@@ -90,19 +90,4 @@
         app:layout_constraintTop_toTopOf="@+id/logo5"
         app:srcCompat="@drawable/mutant_bamboo" />
 
-    <TextView
-        android:id="@+id/dateTxt6"
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="642dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="58dp"
-        android:text="Date"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
