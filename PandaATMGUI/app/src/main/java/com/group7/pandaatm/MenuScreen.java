@@ -11,7 +11,10 @@ import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MenuScreen extends AppCompatActivity {
 
@@ -19,6 +22,17 @@ public class MenuScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_screen);
+
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        TextView textViewDate = findViewById(R.id.dateTxt);
+        textViewDate.setText(currentDate);
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
+        String time = format.format(calendar.getTime());
+        TextView textview = findViewById(R.id.timeText);
+        textview.setText(time);
+
         Thread worker8 = new Thread(() -> {
             try {
                 SessionController c = SessionController.getInstance();

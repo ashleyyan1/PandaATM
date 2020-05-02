@@ -1,19 +1,20 @@
 package com.group7.pandaatm;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.method.KeyListener;
-import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,17 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.bscATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.libATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.mktplaceATM).setOnClickListener(buttonClickListener);
+
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        TextView textViewDate = findViewById(R.id.dateTxt3);
+        textViewDate.setText(currentDate);
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
+        String time = format.format(calendar.getTime());
+        TextView textview = findViewById(R.id.timeText3);
+        textview.setText(time);
+
 
     }
 
@@ -67,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("ATM Request Response Message Flag: " + msgATMRequestReponse.flag());
                         if (msgATMRequestReponse.flag() == 8) {
                             //TODO Access Denied, create an alert
+                            AlertDialog.Builder beingUsedAlert = new AlertDialog.Builder(MainActivity.this);
+                            beingUsedAlert.setMessage("ATM is currently in use.");
+                            beingUsedAlert.setTitle("Bad Login...");
+                            beingUsedAlert.setPositiveButton("OK", null);
+                            beingUsedAlert.setCancelable(false);
+                            beingUsedAlert.create().show();
                             c.terminateSession();
                         } else if (msgATMRequestReponse.flag() == 22) {
                             //Access Granted, TODO go to log in screen

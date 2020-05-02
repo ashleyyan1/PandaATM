@@ -16,6 +16,9 @@ import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class loginScreen extends AppCompatActivity {
     private EditText cardNumber;
@@ -26,6 +29,16 @@ public class loginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atm_login);
+
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        TextView textViewDate = findViewById(R.id.dateTxt2);
+        textViewDate.setText(currentDate);
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:MM:SS");
+        String time = format.format(calendar.getTime());
+        TextView textview = findViewById(R.id.timeText2);
+        textview.setText(time);
 
         //initialize click listeners
         findViewById(R.id.loginButton).setOnClickListener(buttonClickListener);
@@ -79,7 +92,12 @@ public class loginScreen extends AppCompatActivity {
                         cardNumberLong = Long.parseLong(cardNumber);
                         pinNumberInt = Integer.parseInt(pin);
                     } catch (NumberFormatException e) {
-                        //TODO somehow a non-numeric-char got in the cardNumber /shrug
+                        AlertDialog.Builder stringAlert = new AlertDialog.Builder(loginScreen.this);
+                        stringAlert.setMessage("Try again with proper input.");
+                        stringAlert.setTitle("Bad Login...");
+                        stringAlert.setPositiveButton("OK", null);
+                        stringAlert.setCancelable(false);
+                        stringAlert.create().show();
                     }
                     System.out.println("Card Number: " + cardNumberLong);
                     System.out.println("Pin: " + pinNumberInt);
@@ -96,7 +114,7 @@ public class loginScreen extends AppCompatActivity {
                                 //TODO Show alert card number not found, show alert, allow new card
                                 runOnUiThread(() -> {
                                     AlertDialog.Builder errorAlert = new AlertDialog.Builder(loginScreen.this);
-                                    errorAlert.setMessage("Wrong card number");
+                                    errorAlert.setMessage("Wrong card number.");
                                     errorAlert.setTitle("Bad Login...");
                                     errorAlert.setPositiveButton("OK", null);
                                     errorAlert.setCancelable(false);
@@ -104,6 +122,12 @@ public class loginScreen extends AppCompatActivity {
                                 });
                             } else if (msgLoginVerification.flag() == 4) {
                                 //TODO Show Card is locked, show alert, kick user out back to MainActivity
+                                AlertDialog.Builder lockedAlert = new AlertDialog.Builder(loginScreen.this);
+                                lockedAlert.setMessage("Card is locked. Try again later.");
+                                lockedAlert.setTitle("Bad Login...");
+                                lockedAlert.setPositiveButton("OK", null);
+                                lockedAlert.setCancelable(false);
+                                lockedAlert.create().show();
                                 c.terminateSession();
                                 runOnUiThread(() -> {
                                     Intent map = new Intent(loginScreen.this, MainActivity.class);
@@ -118,8 +142,21 @@ public class loginScreen extends AppCompatActivity {
                                 });
                             } else if (msgLoginVerification.flag() == 23) {
                                 //TODO Card is Expired, show Alert, allow new card
+                                AlertDialog.Builder expiredAlert = new AlertDialog.Builder(loginScreen.this);
+                                expiredAlert.setMessage("Card is expired.");
+                                expiredAlert.setTitle("Bad Login...");
+                                expiredAlert.setPositiveButton("OK", null);
+                                expiredAlert.setCancelable(false);
+                                expiredAlert.create().show();
                             } else if (msgLoginVerification.flag() == 24) {
                                 //TODO Pin Number invalid, show Alert, only allow changing pin, or cancel
+                                AlertDialog.Builder pinAlert = new AlertDialog.Builder(loginScreen.this);
+                                pinAlert.setMessage("PIN Number invalid");
+                                pinAlert.setTitle("Bad Login...");
+                                pinAlert.setPositiveButton("OK", null);
+                                pinAlert.setNegativeButton("Cancel", null);
+                                pinAlert.setCancelable(false);
+                                pinAlert.create().show();
                             }
                         } catch (IOException e) {
                             //Should not happen
