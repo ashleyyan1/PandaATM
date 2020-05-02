@@ -144,42 +144,44 @@ public class TransactionHandler {
 						throw e;
 					}
 				}
-				else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
-					Message transactionCancelled = new Message(17);
-					transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-					dataOutput.writeObject(transactionCancelled);
+				else if(confirmTransaction.flag() == 17) {//Cancel Transaction (Button Pressed)
+					//Message transactionCancelled = new Message(17);
+					//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+					//dataOutput.writeObject(transactionCancelled);
 					System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled on Confirmation");
 				}
 				else {//Communication Error
-					Message unexpectedRequest = new Message(7);
-					unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
-					dataOutput.writeObject(unexpectedRequest);
+					//Message unexpectedRequest = new Message(7);
+					//unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
+					//dataOutput.writeObject(unexpectedRequest);
 					System.out.println(Thread.currentThread().getName() + ": Communication Error");
 				}	
 			}
-			else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
-				Message transactionCancelled = new Message(17);
-				transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-				dataOutput.writeObject(transactionCancelled);
+			else if(transactionAmountMsg.flag() == 17) {//Cancel Transaction (Button Pressed)
+				//Message transactionCancelled = new Message(17);
+				//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+				//dataOutput.writeObject(transactionCancelled);
 				System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled Selecting Amount");
 			}
 			else {//Communication Error
-				Message unexpectedRequest = new Message(7);
-				unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
-				dataOutput.writeObject(unexpectedRequest);
+				//Message unexpectedRequest = new Message(7);
+				//unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
+				//dataOutput.writeObject(unexpectedRequest);
 				System.out.println(Thread.currentThread().getName() + ": Communication Error");
 			}	
 			
 		}
 		else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
-			Message transactionCancelled = new Message(17);
-			transactionCancelled.addStringM("Transaction Cancelled Selecting Account");
-			dataOutput.writeObject(transactionCancelled);
+			//Message transactionCancelled = new Message(17);
+			//transactionCancelled.addStringM("Transaction Cancelled Selecting Account");
+			//dataOutput.writeObject(transactionCancelled);
+			System.out.println(Thread.currentThread().getName() + ": Transaction Account Selection Cancelled");
 		}
 		else {//Communication Error
-			Message unexpectedRequest = new Message(7);
-			unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
-			dataOutput.writeObject(unexpectedRequest);
+			//Message unexpectedRequest = new Message(7);
+			//unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
+			//dataOutput.writeObject(unexpectedRequest);
+			System.out.println(Thread.currentThread().getName() + ": Communication Error");
 		}	
 	}//end initiateWithdrawal
 
@@ -289,43 +291,43 @@ public class TransactionHandler {
 						throw e;
 					}
 				}
-				else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
-					Message transactionCancelled = new Message(17);
-					transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-					dataOutput.writeObject(transactionCancelled);
+				else if(confirmTransaction.flag() == 17) {//Cancel Transaction (Button Pressed)
+					//Message transactionCancelled = new Message(17);
+					//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+					//dataOutput.writeObject(transactionCancelled);
 					System.out.println(Thread.currentThread().getName() + ": Transaction Confirmation Cancelled");
 				}
 				else {//Communication Error
-					Message unexpectedRequest = new Message(7);
-					unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
-					dataOutput.writeObject(unexpectedRequest);
+					//Message unexpectedRequest = new Message(7);
+					//unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
+					//dataOutput.writeObject(unexpectedRequest);
 					System.out.println(Thread.currentThread().getName() + ": Communication Error");
 				}	
 			}
-			else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
-				Message transactionCancelled = new Message(17);
-				transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-				dataOutput.writeObject(transactionCancelled);
+			else if(transactionAmountMsg.flag() == 17) {//Cancel Transaction (Button Pressed)
+				//Message transactionCancelled = new Message(17);
+				//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+				//dataOutput.writeObject(transactionCancelled);
 				System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled during Bill Selection");
 			}
 			else {//Communication Error
-				Message unexpectedRequest = new Message(7);
-				unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
-				dataOutput.writeObject(unexpectedRequest);
+				//Message unexpectedRequest = new Message(7);
+				//unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
+				//dataOutput.writeObject(unexpectedRequest);
 				System.out.println(Thread.currentThread().getName() + ": Communication Error");
 			}	
 			
 		}
 		else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
-			Message transactionCancelled = new Message(17);
-			transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-			dataOutput.writeObject(transactionCancelled);
+			//Message transactionCancelled = new Message(17);
+			//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+			//dataOutput.writeObject(transactionCancelled);
 			System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled Selecting Account");
 		}
 		else {//Communication Error
-			Message unexpectedRequest = new Message(7);
-			unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
-			dataOutput.writeObject(unexpectedRequest);
+			//Message unexpectedRequest = new Message(7);
+			//unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
+			//dataOutput.writeObject(unexpectedRequest);
 			System.out.println(Thread.currentThread().getName() + ": Communication Error");
 		}	
 	}//end initiateDeposit
@@ -434,42 +436,42 @@ public class TransactionHandler {
 						}
 					}
 					else if(confirmTransaction.flag() == 17) {//Cancel Transaction (Button Pressed)
-						Message transactionCancelled = new Message(17);
-						transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-						dataOutput.writeObject(transactionCancelled);
+						//Message transactionCancelled = new Message(17);
+						//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+						//dataOutput.writeObject(transactionCancelled);
 						System.out.println(Thread.currentThread().getName() + ": Transaction Confirmation Cancelled");
 					}
 					else {//Communication Error
-						Message unexpectedRequest = new Message(7);
-						unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
-						dataOutput.writeObject(unexpectedRequest);
+						//Message unexpectedRequest = new Message(7);
+						//unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
+						//dataOutput.writeObject(unexpectedRequest);
 						System.out.println(Thread.currentThread().getName() + ": Communication Error");
 					}							
 				}//end if(transactionAmountMsg.flag() == 18)
 			}//end if(secondChosenAccount.flag() ==16)
 			else if(secondChosenAccountMsg.flag() == 17) {//Cancel Transaction (Button Pressed)
-				Message transactionCancelled = new Message(17);
-				transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-				dataOutput.writeObject(transactionCancelled);
+				//Message transactionCancelled = new Message(17);
+				//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+				//dataOutput.writeObject(transactionCancelled);
 				System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled at Amount Selection");
 			}
 			else {//Communication Error
-				Message unexpectedRequest = new Message(7);
-				unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
-				dataOutput.writeObject(unexpectedRequest);
+				//Message unexpectedRequest = new Message(7);
+				//unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
+				//dataOutput.writeObject(unexpectedRequest);
 				System.out.println(Thread.currentThread().getName() + ": Communication Error");
 			}	
 		}
 		else if(firstChosenAccountMsg.flag() == 17) {//Cancel Transaction (Button Pressed)
-			Message transactionCancelled = new Message(17);
-			transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-			dataOutput.writeObject(transactionCancelled);
+			//Message transactionCancelled = new Message(17);
+			//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+			//dataOutput.writeObject(transactionCancelled);
 			System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled at Account Selection");
 		}
 		else {//Communication Error
-			Message unexpectedRequest = new Message(7);
-			unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
-			dataOutput.writeObject(unexpectedRequest);
+			//Message unexpectedRequest = new Message(7);
+			//unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
+			//dataOutput.writeObject(unexpectedRequest);
 			System.out.println(Thread.currentThread().getName() + ": Communication Error");
 		}	
 	}//end initiateTransfer
