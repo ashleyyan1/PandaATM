@@ -18,7 +18,7 @@ public class depositUnsuccessful extends AppCompatActivity {
     private View.OnClickListener buttonClickListener = v -> {
         switch (v.getId()) {
             case R.id.main:    //if cancel button is clicked, go back to main screen
-                Intent main = new Intent(depositUnsuccessful.this, transactionScreen.class);
+                Intent main = new Intent(depositUnsuccessful.this, MenuScreen.class);
                 startActivity(main);
                 break;
             default:

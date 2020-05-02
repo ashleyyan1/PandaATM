@@ -18,7 +18,7 @@ public class withdrawUnsuccessful extends AppCompatActivity {
     private View.OnClickListener buttonClickListener = v -> {
         switch (v.getId()) {
             case R.id.main1:    //if cancel button is clicked, go back to main screen
-                Intent main1 = new Intent(withdrawUnsuccessful.this, transactionScreen.class);
+                Intent main1 = new Intent(withdrawUnsuccessful.this, MenuScreen.class);
                 startActivity(main1);
                 break;
             default:

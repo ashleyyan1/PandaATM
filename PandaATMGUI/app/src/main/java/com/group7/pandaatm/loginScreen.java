@@ -1,5 +1,6 @@
 package com.group7.pandaatm;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -93,6 +94,14 @@ public class loginScreen extends AppCompatActivity {
                             System.out.println("ATM Session Response Flag: " + msgLoginVerification.flag());
                             if (msgLoginVerification.flag() == 3) {//Card Number not found
                                 //TODO Show alert card number not found, show alert, allow new card
+                                runOnUiThread(() -> {
+                                    AlertDialog.Builder errorAlert = new AlertDialog.Builder(loginScreen.this);
+                                    errorAlert.setMessage("Wrong card number");
+                                    errorAlert.setTitle("Bad Login...");
+                                    errorAlert.setPositiveButton("OK", null);
+                                    errorAlert.setCancelable(false);
+                                    errorAlert.create().show();
+                                });
                             } else if (msgLoginVerification.flag() == 4) {
                                 //TODO Show Card is locked, show alert, kick user out back to MainActivity
                                 c.terminateSession();
@@ -102,6 +111,7 @@ public class loginScreen extends AppCompatActivity {
                                 });
                             } else if (msgLoginVerification.flag() == 5) {
                                 //TODO Successful, go to transactionScreen, maybe show animation beforehand
+                                c.setCardName(msgLoginVerification.getTextMessages().get(1));
                                 runOnUiThread(() -> {
                                     Intent mainMenu = new Intent(loginScreen.this, MenuScreen.class);
                                     startActivity(mainMenu);

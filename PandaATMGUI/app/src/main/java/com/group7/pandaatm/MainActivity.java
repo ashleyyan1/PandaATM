@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             c.terminateSession();
                         } else if (msgATMRequestReponse.flag() == 22) {
                             //Access Granted, TODO go to log in screen
+                            c.setAddress(msgATMRequestReponse.getTextMessages().get(0));
                             runOnUiThread(() -> {
                                 Intent login = new Intent(MainActivity.this, loginScreen.class);
                                 login.putExtra("ATMAddress", msgATMRequestReponse.getTextMessages().get(0));

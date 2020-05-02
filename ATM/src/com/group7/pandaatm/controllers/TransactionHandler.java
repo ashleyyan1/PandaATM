@@ -60,6 +60,7 @@ public class TransactionHandler {
 		//Sends Message to Client which accounts are available for transaction
 		Message availableAccountMsg = prepareAvailableAccountMsg();
 		dataOutput.writeObject(availableAccountMsg);
+		System.out.println(Thread.currentThread().getName() + ": Sent Account List");
 		
 		Message chosenAccount = (Message)dataInput.readObject();
 		if (!sessionTimer.getSessionThreadActive()) throw new InterruptedException();
@@ -69,6 +70,7 @@ public class TransactionHandler {
 			
 			//Show Available Balance to User Before Prompting for an amount
 			Account account = accountData.getAccountInfo(chosenAccount.getIntegerMessages().get(0));
+			System.out.println(Thread.currentThread().getName() + ": Selected Account: " + account.getAccountName());
 			Message accountBalanceMsg = new Message(14);
 			accountBalanceMsg.addDoubleM(account.getAccountBal());
 			
@@ -77,6 +79,7 @@ public class TransactionHandler {
 				accountBalanceMsg.addDoubleM(account.getMinReqBalance());
 			}	
 			dataOutput.writeObject(accountBalanceMsg);
+			System.out.println(Thread.currentThread().getName() + ": Sent Client Balance and Checking Account Info");
 			
 			Message transactionAmountMsg = (Message) dataInput.readObject();
 			if (!sessionTimer.getSessionThreadActive()) throw new InterruptedException();
@@ -86,12 +89,14 @@ public class TransactionHandler {
 				
 				//Pull Amount from transactionAmount message
 				double transactionAmount = transactionAmountMsg.getDoubleMessages().get(0);
+				System.out.println(Thread.currentThread().getName() + ": Recieved Transaction Amount: $" + transactionAmount);
 				//Purpose is to allow one last check of accountBalance before confirming trans
 				Message confirmTransaction = (Message) dataInput.readObject();
 				if (!sessionTimer.getSessionThreadActive()) throw new InterruptedException();
 				sessionTimer.refreshTimer();
 				
 				if(confirmTransaction.flag() == 19) {//Transaction Confirmation
+					System.out.println(Thread.currentThread().getName() + ": Transaction Request Confirmed");
 					
 					try {
 						db.lock();
@@ -103,6 +108,7 @@ public class TransactionHandler {
 							insufficientBalance.addStringM("Insufficient Balance to complete transaction. "
 															+ "Transaction aborted.");
 							dataOutput.writeObject(insufficientBalance);
+							System.out.println(Thread.currentThread().getName() + ": Balance Insufficent");
 						}
 						else {//Enough Funds are available to continue transaction
 							
@@ -113,6 +119,7 @@ public class TransactionHandler {
 								Message transactionSuccessful = new Message(12);//Transaction Successful
 								transactionSuccessful.addStringM("Transaction Successful. Returning to Main Menu.");
 								dataOutput.writeObject(transactionSuccessful);
+								System.out.println(Thread.currentThread().getName() + ": Withdrawal Successful");
 								
 								
 								//Checks minBillThreshold (Notifies bank when withdrawal bill box is low)
@@ -127,6 +134,7 @@ public class TransactionHandler {
 								insufficientBillCount.addStringM("Not enough bills available in ATM. "
 																	+ "Transaction aborted.");
 								dataOutput.writeObject(insufficientBillCount);
+								System.out.println(Thread.currentThread().getName() + ": Insufficent Bill Count");
 							}			
 						}
 						db.unlock();
@@ -139,28 +147,32 @@ public class TransactionHandler {
 					Message transactionCancelled = new Message(17);
 					transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 					dataOutput.writeObject(transactionCancelled);
+					System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled on Confirmation");
 				}
 				else {//Communication Error
 					Message unexpectedRequest = new Message(7);
 					unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
 					dataOutput.writeObject(unexpectedRequest);
+					System.out.println(Thread.currentThread().getName() + ": Communication Error");
 				}	
 			}
 			else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
 				Message transactionCancelled = new Message(17);
 				transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 				dataOutput.writeObject(transactionCancelled);
+				System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled Selecting Amount");
 			}
 			else {//Communication Error
 				Message unexpectedRequest = new Message(7);
 				unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
 				dataOutput.writeObject(unexpectedRequest);
+				System.out.println(Thread.currentThread().getName() + ": Communication Error");
 			}	
 			
 		}
 		else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
 			Message transactionCancelled = new Message(17);
-			transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+			transactionCancelled.addStringM("Transaction Cancelled Selecting Account");
 			dataOutput.writeObject(transactionCancelled);
 		}
 		else {//Communication Error
@@ -184,6 +196,7 @@ public class TransactionHandler {
 		//Sends Message to Client which accounts are available for transaction
 		Message availableAccountMsg = prepareAvailableAccountMsg();
 		dataOutput.writeObject(availableAccountMsg);
+		System.out.println(Thread.currentThread().getName() + ": Sent Account List");
 		
 		Message chosenAccount = (Message)dataInput.readObject();
 		if (!sessionTimer.getSessionThreadActive()) throw new InterruptedException();
@@ -193,12 +206,14 @@ public class TransactionHandler {
 			
 			//Show Available Balance to User Before Prompting for amount (Bill Counts)
 			Account account = accountData.getAccountInfo(chosenAccount.getIntegerMessages().get(0));
+			System.out.println(Thread.currentThread().getName() + ": Selected Account: " + account.getAccountName());
 			Message accountBalanceMsg = new Message(14);
 			accountBalanceMsg.addDoubleM(account.getAccountBal());
 			
 			//Send the number of bills the ATM has room for in its deposit box
 			accountBalanceMsg.addIntegerM(atm.getMaxDepositCapacity() - atm.getDepositBillCount());
 			dataOutput.writeObject(accountBalanceMsg);
+			System.out.println(Thread.currentThread().getName() + ": Sent to Client Amount and Checking Info");
 			
 			Message transactionAmountMsg = (Message) dataInput.readObject();
 			if (!sessionTimer.getSessionThreadActive()) throw new InterruptedException();
@@ -219,23 +234,24 @@ public class TransactionHandler {
 				
 				//Pull Amount from transactionAmount message
 				int onesCount = transactionAmountMsg.getIntegerMessages().get(0);
-				int twosCount = transactionAmountMsg.getIntegerMessages().get(1);
-				int fivesCount = transactionAmountMsg.getIntegerMessages().get(2);
-				int tensCount = transactionAmountMsg.getIntegerMessages().get(3);
-				int twentiesCount = transactionAmountMsg.getIntegerMessages().get(4);
-				int fiftiesCount = transactionAmountMsg.getIntegerMessages().get(5);
-				int hundredsCount = transactionAmountMsg.getIntegerMessages().get(6);
+				int fivesCount = transactionAmountMsg.getIntegerMessages().get(1);
+				int tensCount = transactionAmountMsg.getIntegerMessages().get(2);
+				int twentiesCount = transactionAmountMsg.getIntegerMessages().get(3);
+				int fiftiesCount = transactionAmountMsg.getIntegerMessages().get(4);
+				int hundredsCount = transactionAmountMsg.getIntegerMessages().get(5);
 				
-				double transactionAmount = onesCount + 2 * twosCount + 5 * fivesCount + 10 * tensCount
+				double transactionAmount = onesCount + 5 * fivesCount + 10 * tensCount
 									     + 20 * twentiesCount + 50 * fiftiesCount + 100 * hundredsCount;
-				int billCount = onesCount + twosCount + fivesCount + tensCount + twentiesCount + fiftiesCount + hundredsCount;
-				
+				int billCount = onesCount + fivesCount + tensCount + twentiesCount + fiftiesCount + hundredsCount;
+
+				System.out.println(Thread.currentThread().getName() + ": Recieved from Client Bills: " + billCount + " Total: " + transactionAmount);
 				//Confirm with user to proceed with Deposit Transaction ("Cancelling Returns Bills")
 				Message confirmTransaction = (Message) dataInput.readObject();
 				if (!sessionTimer.getSessionThreadActive()) throw new InterruptedException();
 				sessionTimer.refreshTimer();
 				
 				if(confirmTransaction.flag() == 19) {//Transaction Confirmation
+					System.out.println(Thread.currentThread().getName() + ": Client Confirmed Transaction");
 					
 					try {
 						db.lock();
@@ -249,7 +265,8 @@ public class TransactionHandler {
 							
 							Message transactionSuccessful = new Message(12);//Transaction Successful
 							transactionSuccessful.addStringM("Transaction Successful. Returning to Main Menu.");
-							dataOutput.writeObject(transactionSuccessful);		
+							dataOutput.writeObject(transactionSuccessful);	
+							System.out.println(Thread.currentThread().getName() + ": Deposit Successful");	
 							
 							//Checks maxBillThreshold (Notifies bank when deposit bill box is close to full)
 							if(atm.getDepositBillCount() > atm.getMaxBillThreshold()) {
@@ -263,6 +280,7 @@ public class TransactionHandler {
 							insufficientBillCount.addStringM("Not enough bills available in ATM. "
 																+ "Transaction aborted.");
 							dataOutput.writeObject(insufficientBillCount);
+							System.out.println(Thread.currentThread().getName() + ": Can not accept funds, not enough space");
 						}
 						db.unlock();
 					} catch(Exception e) {
@@ -274,22 +292,26 @@ public class TransactionHandler {
 					Message transactionCancelled = new Message(17);
 					transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 					dataOutput.writeObject(transactionCancelled);
+					System.out.println(Thread.currentThread().getName() + ": Transaction Confirmation Cancelled");
 				}
 				else {//Communication Error
 					Message unexpectedRequest = new Message(7);
 					unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
 					dataOutput.writeObject(unexpectedRequest);
+					System.out.println(Thread.currentThread().getName() + ": Communication Error");
 				}	
 			}
 			else if(chosenAccount.flag() == 17) {//Cancel Transaction (Button Pressed)
 				Message transactionCancelled = new Message(17);
 				transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 				dataOutput.writeObject(transactionCancelled);
+				System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled during Bill Selection");
 			}
 			else {//Communication Error
 				Message unexpectedRequest = new Message(7);
 				unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
 				dataOutput.writeObject(unexpectedRequest);
+				System.out.println(Thread.currentThread().getName() + ": Communication Error");
 			}	
 			
 		}
@@ -297,11 +319,13 @@ public class TransactionHandler {
 			Message transactionCancelled = new Message(17);
 			transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 			dataOutput.writeObject(transactionCancelled);
+			System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled Selecting Account");
 		}
 		else {//Communication Error
 			Message unexpectedRequest = new Message(7);
 			unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
 			dataOutput.writeObject(unexpectedRequest);
+			System.out.println(Thread.currentThread().getName() + ": Communication Error");
 		}	
 	}//end initiateDeposit
 
@@ -319,6 +343,7 @@ public class TransactionHandler {
 		//Sends Message to Client which accounts are available for transaction
 		Message availableAccountMsg = prepareAvailableAccountMsg();
 		dataOutput.writeObject(availableAccountMsg);
+		System.out.println(Thread.currentThread().getName() + ": Sent Account List");
 		
 		//First Account read in is the Source Account
 		Message firstChosenAccountMsg = (Message)dataInput.readObject();
@@ -330,6 +355,7 @@ public class TransactionHandler {
 			
 			//Show Available Balance (From Source Account) to User Before Prompting for amount
 			Account srcAccount = accountData.getAccountInfo(firstChosenAccountMsg.getIntegerMessages().get(0));
+			System.out.println(Thread.currentThread().getName() + ": Account SOURCE Selected: " + srcAccount.getAccountName());
 			Message srcAccBalanceMsg = new Message(14);
 			srcAccBalanceMsg.addDoubleM(srcAccount.getAccountBal());
 			
@@ -338,6 +364,7 @@ public class TransactionHandler {
 				srcAccBalanceMsg.addDoubleM(srcAccount.getMinReqBalance());
 			}
 			dataOutput.writeObject(srcAccBalanceMsg);
+			System.out.println(Thread.currentThread().getName() + ": Sent Account SOURCE Details to Client");
 			
 			//Return remaining accounts available after source account selected
 			Message remainingAccounts = new Message(15);
@@ -349,6 +376,7 @@ public class TransactionHandler {
 				}
 			}//end for
 			dataOutput.writeObject(remainingAccounts);
+			System.out.println(Thread.currentThread().getName() + ": Sent Remaining Avaliable Accounts to Client");
 			
 			//Second Account read in is the target account
 			Message secondChosenAccountMsg = (Message)dataInput.readObject();
@@ -359,6 +387,7 @@ public class TransactionHandler {
 			
 				//Show Available Balance (From Target Account) to User
 				Account targetAccount = accountData.getAccountInfo(secondChosenAccountMsg.getIntegerMessages().get(0));
+				System.out.println(Thread.currentThread().getName() + ": Account DESTINATION Selected: " + targetAccount.getAccountName());
 				Message targetAccBalanceMsg = new Message(14);
 				targetAccBalanceMsg.addDoubleM(srcAccount.getAccountBal());
 				dataOutput.writeObject(targetAccBalanceMsg);
@@ -371,13 +400,14 @@ public class TransactionHandler {
 				if(transactionAmountMsg.flag() == 18) {//Transaction Amount (Desired Amount to be digitally transferred)
 					
 					double transactionAmount = transactionAmountMsg.getDoubleMessages().get(0); 
+					System.out.println(Thread.currentThread().getName() + ": Transfer Amount: " + transactionAmount);
 					//Confirm with user to proceed with Transfer Transaction
 					Message confirmTransaction = (Message) dataInput.readObject();
 					if (!sessionTimer.getSessionThreadActive()) throw new InterruptedException();
 					sessionTimer.refreshTimer();
 					
 					if(confirmTransaction.flag() == 19) {//Transaction Confirmation (User Selected "Proceed/Yes/etc.")
-						
+						System.out.println(Thread.currentThread().getName() + ": Client Confirmed Transaction");
 						try {
 							db.lock();
 							if(accountData.getAccountInfo(srcAccount.getAccountNumber()).getAccountBal() >= transactionAmount) {
@@ -387,12 +417,14 @@ public class TransactionHandler {
 								Message transactionSuccessful = new Message(12);//Transaction Successful
 								transactionSuccessful.addStringM("Transaction Successful. Returning to Main Menu.");
 								dataOutput.writeObject(transactionSuccessful);
+								System.out.println(Thread.currentThread().getName() + ": Transaction Successful");
 							}
 							else {//Insufficient Funds Available
 								Message insufficientBalance = new Message(20);
 								insufficientBalance.addStringM("Insufficient Balance to complete transfer. "
 																+ "Transaction aborted.");
 								dataOutput.writeObject(insufficientBalance);
+								System.out.println(Thread.currentThread().getName() + ": Insufficent Funds");
 							}
 							db.unlock();
 						} catch(Exception e) {
@@ -404,11 +436,13 @@ public class TransactionHandler {
 						Message transactionCancelled = new Message(17);
 						transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 						dataOutput.writeObject(transactionCancelled);
+						System.out.println(Thread.currentThread().getName() + ": Transaction Confirmation Cancelled");
 					}
 					else {//Communication Error
 						Message unexpectedRequest = new Message(7);
 						unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
 						dataOutput.writeObject(unexpectedRequest);
+						System.out.println(Thread.currentThread().getName() + ": Communication Error");
 					}							
 				}//end if(transactionAmountMsg.flag() == 18)
 			}//end if(secondChosenAccount.flag() ==16)
@@ -416,22 +450,26 @@ public class TransactionHandler {
 				Message transactionCancelled = new Message(17);
 				transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 				dataOutput.writeObject(transactionCancelled);
+				System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled at Amount Selection");
 			}
 			else {//Communication Error
 				Message unexpectedRequest = new Message(7);
 				unexpectedRequest.addStringM("Expected Amount Selection. Received Unexpected Request Type.");
 				dataOutput.writeObject(unexpectedRequest);
+				System.out.println(Thread.currentThread().getName() + ": Communication Error");
 			}	
 		}
 		else if(firstChosenAccountMsg.flag() == 17) {//Cancel Transaction (Button Pressed)
 			Message transactionCancelled = new Message(17);
 			transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 			dataOutput.writeObject(transactionCancelled);
+			System.out.println(Thread.currentThread().getName() + ": Transaction Cancelled at Account Selection");
 		}
 		else {//Communication Error
 			Message unexpectedRequest = new Message(7);
 			unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
 			dataOutput.writeObject(unexpectedRequest);
+			System.out.println(Thread.currentThread().getName() + ": Communication Error");
 		}	
 	}//end initiateTransfer
 	
@@ -451,6 +489,7 @@ public class TransactionHandler {
 		//Sends Message to Client which accounts are available for transaction
 		Message availableAccountMsg = prepareAvailableAccountMsg();
 		dataOutput.writeObject(availableAccountMsg);
+		System.out.println(Thread.currentThread().getName() + ": Sent Account List");
 		
 		//A selected account is read in from the client
 		Message chosenAccountMsg = (Message)dataInput.readObject();
@@ -459,20 +498,27 @@ public class TransactionHandler {
 		
 		if(chosenAccountMsg.flag() == 16) {//"Transaction" Account Selected
 			
-			Account account= accountData.getAccountInfo(chosenAccountMsg.getIntegerMessages().get(0));
+			Account account = accountData.getAccountInfo(chosenAccountMsg.getIntegerMessages().get(0));
+			System.out.println(Thread.currentThread().getName() + ": Sending Account Details: " + account.getAccountName());
 			Message accountBalance = new Message(14);
 			accountBalance.addDoubleM(account.getAccountBal());
+			if(account.getAccountType() == 1) {
+				accountBalance.addDoubleM(account.getMinReqBalance());
+			}
+			accountBalance.addStringM(account.getAccountName());
 			dataOutput.writeObject(accountBalance);
 		}
 		else if(chosenAccountMsg.flag() == 17) {//Cancel Transaction (Button Pressed)
 			Message transactionCancelled = new Message(17);
 			transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
 			dataOutput.writeObject(transactionCancelled);
+			System.out.println(Thread.currentThread().getName() + ": Account Selection Cancelled");
 		}
 		else {
 			Message unexpectedRequest = new Message(7);
 			unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
 			dataOutput.writeObject(unexpectedRequest);
+			System.out.println(Thread.currentThread().getName() + ": Communication Error");
 		}	
 	}//end initiateBalanceInquiry
 }// end TransactionHandler

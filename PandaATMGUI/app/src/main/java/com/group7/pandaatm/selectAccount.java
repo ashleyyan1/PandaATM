@@ -8,9 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 import com.group7.pandaatm.data.Message;
@@ -19,7 +16,7 @@ import com.group7.pandaatm.data.SessionController;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class selectAccountDeposit extends AppCompatActivity {
+public class selectAccount extends AppCompatActivity {
     Button select;
     Spinner accountSpinner;
     ArrayList<String> accountNames;
@@ -61,12 +58,12 @@ public class selectAccountDeposit extends AppCompatActivity {
                                     case 1://Deposit
                                         if(msgRecieveAccountData.flag() == 14) {
                                             double amount = msgRecieveAccountData.getDoubleMessages().get(0);
-                                            int billCount = msgRecieveAccountData.getIntegerMessages().get(0);
+                                            int maxBillCount = msgRecieveAccountData.getIntegerMessages().get(0);
                                             runOnUiThread(() -> {
-                                                Intent dep = new Intent(selectAccountDeposit.this, cashDepositScreen.class);
-                                                dep.putExtra("accountID", accountID);
+                                                Intent dep = new Intent(selectAccount.this, cashDepositScreen.class);
+                                                dep.putExtra("accountName", accountNames.get(value));
                                                 dep.putExtra("amount", amount);
-                                                dep.putExtra("billCount", billCount);
+                                                dep.putExtra("maxBillCount", maxBillCount);
                                                 startActivity(dep);
                                             });
                                         }
@@ -85,8 +82,8 @@ public class selectAccountDeposit extends AppCompatActivity {
                                             }
                                             double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
-                                                Intent dep = new Intent(selectAccountDeposit.this, withdrawScreen.class);
-                                                dep.putExtra("accountID", accountID);
+                                                Intent dep = new Intent(selectAccount.this, withdrawScreen.class);
+                                                dep.putExtra("accountName", accountNames.get(value));
                                                 dep.putExtra("amount", amount);
                                                 if(finalMinRequiredBal >= 0) {
                                                     dep.putExtra("isChecking", true);
@@ -114,12 +111,12 @@ public class selectAccountDeposit extends AppCompatActivity {
                                             double finalMinRequiredBal = minRequiredBal;
                                             Message msgRecieveAccountDestList = c.readMessage();
                                             if(msgRecieveAccountDestList.flag() == 15) {
-                                                ArrayList<String> accountNames = msgRecieveAccountDestList.getTextMessages();
-                                                ArrayList<Integer> accountIDs = msgRecieveAccountDestList.getIntegerMessages();
+                                                ArrayList<String> targetAccountNames = msgRecieveAccountDestList.getTextMessages();
+                                                ArrayList<Integer> targetAccountIDs = msgRecieveAccountDestList.getIntegerMessages();
                                                 runOnUiThread(() -> {
-                                                    Intent dep = new Intent(selectAccountDeposit.this, selectAccountDeposit.class);
-                                                    dep.putExtra("accountNames", accountNames);
-                                                    dep.putExtra("accountIds", accountIDs);
+                                                    Intent dep = new Intent(selectAccount.this, selectAccount.class);
+                                                    dep.putExtra("accountNames", targetAccountNames);
+                                                    dep.putExtra("accountIds", targetAccountIDs);
                                                     dep.putExtra("nextIntent", 4);
                                                     dep.putExtra("accountNameSource", accountNames.get(value));
                                                     dep.putExtra("accountIDSource", accountID);
@@ -145,19 +142,18 @@ public class selectAccountDeposit extends AppCompatActivity {
                                         }
                                         break;
                                     case 4://Transfer Target
-                                        double amount = msgRecieveAccountData.getDoubleMessages().get(0);
-                                        double minRequiredBal = -1;
-                                        if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
-                                            minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
-                                        }
-                                        double finalMinRequiredBal = minRequiredBal;
-                                        Message msgRecieveAccountDestList = c.readMessage();
                                         if(msgRecieveAccountData.flag() == 14) {
+                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                            double minRequiredBal = -1;
+                                            if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
+                                                minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
+                                            }
+                                            double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
-                                                Intent dep = new Intent(selectAccountDeposit.this, cashDepositScreen.class);
+                                                Intent dep = new Intent(selectAccount.this, cashDepositScreen.class);
                                                 dep.putExtra("accountNameSrc", getIntent().getStringExtra("accountNameSource"));
                                                 dep.putExtra("amountSrc", getIntent().getIntExtra("amountSource", 0));
-                                                boolean isSrcChecking = getIntent().getBooleanExtra("isChecking", false)
+                                                boolean isSrcChecking = getIntent().getBooleanExtra("isChecking", false);
                                                 if (isSrcChecking) {
                                                     dep.putExtra("isCheckingSrc", true);
                                                     dep.putExtra("minSrc", getIntent().getIntExtra("min", 0));
@@ -182,18 +178,64 @@ public class selectAccountDeposit extends AppCompatActivity {
                                         }
                                         break;
                                     case 5://Account Inquiry
-
+                                        if(msgRecieveAccountData.flag() == 14) {
+                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                            boolean isChecking = (msgRecieveAccountData.getDoubleMessages().size() == 2);
+                                            runOnUiThread(() -> {
+                                                Intent dep = new Intent(selectAccount.this, balanceScreen.class);
+                                                dep.putExtra("accountName", msgRecieveAccountData.getTextMessages().get(0));
+                                                dep.putExtra("amount", amount);
+                                                dep.putExtra("isChecking", isChecking);
+                                                startActivity(dep);
+                                            });
+                                        }
+                                        else
+                                        {
+                                            //Catestropic Error
+                                            System.exit(1);
+                                        }
                                         break;
                                     default://Bleh
+                                        //Catestropic Error
+                                        System.exit(1);
                                         break;
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         });
+                        worker6.start();
                         break;
                     case R.id.previous:
-
+                        Thread worker7 = new Thread(() -> {
+                            try {
+                                SessionController c = SessionController.getInstance();
+                                Message msgCancelTransaction = new Message(17);
+                                c.sendMessage(msgCancelTransaction);
+                                Message msgCancelConfirmation = c.readMessage();
+                                if(msgCancelConfirmation.flag() == 17) {
+                                    //Return to Main Menu
+                                    runOnUiThread(() -> {
+                                        Intent menu = new Intent(selectAccount.this, MenuScreen.class);
+                                        startActivity(menu);
+                                    });
+                                }
+                                else if (msgCancelConfirmation.flag() == 1){
+                                    //Session Timed Out
+                                    c.terminateSession();
+                                    runOnUiThread(() -> {
+                                        Intent map = new Intent(selectAccount.this, MainActivity.class);
+                                        startActivity(map);
+                                    });
+                                }
+                                else {//Code 7 potentially
+                                    System.exit(1);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        worker7.start();
                         break;
                 }
             }

@@ -18,7 +18,7 @@ public class transferUnsuccessful extends AppCompatActivity {
     private View.OnClickListener buttonClickListener = v -> {
         switch (v.getId()) {
             case R.id.main2:    //if cancel button is clicked, go back to main screen
-                Intent main = new Intent(transferUnsuccessful.this, transactionScreen.class);
+                Intent main = new Intent(transferUnsuccessful.this, MenuScreen.class);
                 startActivity(main);
                 break;
             default:
