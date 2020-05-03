@@ -52,12 +52,12 @@ public class selectAccount extends AppCompatActivity {
                                 Message msgSendAccountID = new Message(16);
                                 msgSendAccountID.addIntegerM(accountID);
                                 c.sendMessage(msgSendAccountID);
-                                Message msgRecieveAccountData = c.readMessage();
+                                Message msgReceiveAccountData = c.readMessage();
                                 switch (nextIntent) {
                                     case 1://Deposit
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
-                                            int maxBillCount = msgRecieveAccountData.getIntegerMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
+                                            int maxBillCount = msgReceiveAccountData.getIntegerMessages().get(0);
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, cashDepositScreen.class);
                                                 dep.putExtra("accountName", accountNames.get(value));
@@ -68,18 +68,18 @@ public class selectAccount extends AppCompatActivity {
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 2://Withdrawal
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
                                             double minRequiredBal = -1;
-                                            if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
-                                                minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
+                                            if(msgReceiveAccountData.getDoubleMessages().size() == 2) {
+                                                minRequiredBal = msgReceiveAccountData.getDoubleMessages().get(1);
                                             }
-                                            int billAvailableCount = msgRecieveAccountData.getIntegerMessages().get(0);
+                                            int billAvailableCount = msgReceiveAccountData.getIntegerMessages().get(0);
                                             double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, withdrawScreen.class);
@@ -98,16 +98,16 @@ public class selectAccount extends AppCompatActivity {
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 3://Transfer Source
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
                                             double minRequiredBal = -1;
-                                            if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
-                                                minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
+                                            if(msgReceiveAccountData.getDoubleMessages().size() == 2) {
+                                                minRequiredBal = msgReceiveAccountData.getDoubleMessages().get(1);
                                             }
                                             double finalMinRequiredBal = minRequiredBal;
                                             Message msgRecieveAccountDestList = c.readMessage();
@@ -132,26 +132,26 @@ public class selectAccount extends AppCompatActivity {
                                                 });
                                             }
                                             else {
-                                                //Catestropic Error
+                                                //Catastrophic Error
                                                 System.exit(1);
                                             }
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 4://Transfer Target
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
                                             double minRequiredBal = -1;
-                                            if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
-                                                minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
+                                            if(msgReceiveAccountData.getDoubleMessages().size() == 2) {
+                                                minRequiredBal = msgReceiveAccountData.getDoubleMessages().get(1);
                                             }
                                             double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
-                                                Intent dep = new Intent(selectAccount.this, withdrawDiffAmt.class);
+                                                Intent dep = new Intent(selectAccount.this, withdrawAmtTransfer.class);
                                                 dep.putExtra("accountNameSrc", getIntent().getStringExtra("accountNameSource"));
                                                 dep.putExtra("amountSrc", getIntent().getIntExtra("amountSource", 0));
                                                 boolean isSrcChecking = getIntent().getBooleanExtra("isChecking", false);
@@ -174,17 +174,17 @@ public class selectAccount extends AppCompatActivity {
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 5://Account Inquiry
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
-                                            boolean isChecking = (msgRecieveAccountData.getDoubleMessages().size() == 2);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
+                                            boolean isChecking = (msgReceiveAccountData.getDoubleMessages().size() == 2);
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, balanceScreen.class);
-                                                dep.putExtra("accountName", msgRecieveAccountData.getTextMessages().get(0));
+                                                dep.putExtra("accountName", msgReceiveAccountData.getTextMessages().get(0));
                                                 dep.putExtra("amount", amount);
                                                 dep.putExtra("isChecking", isChecking);
                                                 startActivity(dep);
@@ -192,12 +192,12 @@ public class selectAccount extends AppCompatActivity {
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     default://Bleh
-                                        //Catestropic Error
+                                        //Catastrophic Error
                                         System.exit(1);
                                         break;
                                 }

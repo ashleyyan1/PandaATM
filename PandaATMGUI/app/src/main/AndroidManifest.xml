@@ -24,7 +24,7 @@
             android:label="@string/title_activity_select_account_deposit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".withdrawDiffAmt"
+            android:name=".withdrawCustomAmt"
             android:label="@string/title_activity_withdraw_diff_amt"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -36,7 +36,7 @@
             android:label="@string/title_activity_balance_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".receiptScreen"
+            android:name=".receiptConfirmationScreen"
             android:label="@string/title_activity_receipt_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

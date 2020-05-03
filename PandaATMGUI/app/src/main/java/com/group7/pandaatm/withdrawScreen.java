@@ -62,7 +62,7 @@ public class withdrawScreen extends AppCompatActivity {
                 worker11.start();
                 break;
             case R.id.diffAmt:              //if different amount is clicked, go to withdraw diffAmt class
-                Intent diffAmt = new Intent(withdrawScreen.this, withdrawDiffAmt.class);
+                Intent diffAmt = new Intent(withdrawScreen.this, withdrawCustomAmt.class);
                 diffAmt.putExtra("accountName", accountName);
                 diffAmt.putExtra("accountMax", accountMax);
                 diffAmt.putExtra("isChecking", isChecking);
