@@ -36,6 +36,10 @@
             android:label="@string/title_activity_balance_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".receiptScreen"
+            android:label="@string/title_activity_receipt_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar" />

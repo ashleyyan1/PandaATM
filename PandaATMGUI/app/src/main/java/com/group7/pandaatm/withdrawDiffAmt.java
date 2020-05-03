@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.group7.pandaatm.data.Message;
@@ -70,14 +71,32 @@ public class withdrawDiffAmt extends AppCompatActivity {
                                     worker13.start();
                                 } else {
                                     //TODO show error, request can not be supplied by ATM, do nothing
+                                    AlertDialog.Builder atmEmpty = new AlertDialog.Builder(withdrawDiffAmt.this);
+                                    atmEmpty.setMessage("ATM needs to be refilled.");
+                                    atmEmpty.setTitle("Transaction failed...");
+                                    atmEmpty.setPositiveButton("OK", null);
+                                    atmEmpty.setCancelable(false);
+                                    atmEmpty.create().show();
                                 }
                             }
                             else {
                                 //TODO show error, value is not divisible by twenty, and do nothing
+                                AlertDialog.Builder notDivisible = new AlertDialog.Builder(withdrawDiffAmt.this);
+                                notDivisible.setMessage("Enter a multiple of twenty.");
+                                notDivisible.setTitle("Transaction failed...");
+                                notDivisible.setPositiveButton("OK", null);
+                                notDivisible.setCancelable(false);
+                                notDivisible.create().show();
                             }
                         }
                         else {
                             //TODO show error, Not enough in your bank account, and do nothing
+                            AlertDialog.Builder notEnough = new AlertDialog.Builder(withdrawDiffAmt.this);
+                            notEnough.setMessage("Not enough in your bank account.");
+                            notEnough.setTitle("Transaction failed...");
+                            notEnough.setPositiveButton("OK", null);
+                            notEnough.setCancelable(false);
+                            notEnough.create().show();
                         }
                     } catch (NumberFormatException e) {
                         e.printStackTrace();

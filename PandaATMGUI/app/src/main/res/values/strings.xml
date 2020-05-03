@@ -34,4 +34,5 @@
     <string name="title_activity_transfer_successful_screen">transferSuccessfulScreen</string>
     <string name="title_activity_transfer_unsuccessful_screen">transferUnsuccessfulScreen</string>
     <string name="title_activity_confirmation_screen">confirmationScreen</string>
+    <string name="title_activity_receipt_screen">receiptScreen</string>
 </resources>
