@@ -52,34 +52,35 @@ public class selectAccount extends AppCompatActivity {
                                 Message msgSendAccountID = new Message(16);
                                 msgSendAccountID.addIntegerM(accountID);
                                 c.sendMessage(msgSendAccountID);
-                                Message msgRecieveAccountData = c.readMessage();
+                                Message msgReceiveAccountData = c.readMessage();
                                 switch (nextIntent) {
                                     case 1://Deposit
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
-                                            int maxBillCount = msgRecieveAccountData.getIntegerMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
+                                            int maxBillCount = msgReceiveAccountData.getIntegerMessages().get(0);
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, cashDepositScreen.class);
                                                 dep.putExtra("accountName", accountNames.get(value));
                                                 dep.putExtra("amount", amount);
                                                 dep.putExtra("maxBillCount", maxBillCount);
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 2://Withdrawal
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
                                             double minRequiredBal = -1;
-                                            if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
-                                                minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
+                                            if(msgReceiveAccountData.getDoubleMessages().size() == 2) {
+                                                minRequiredBal = msgReceiveAccountData.getDoubleMessages().get(1);
                                             }
-                                            int billAvailableCount = msgRecieveAccountData.getIntegerMessages().get(0);
+                                            int billAvailableCount = msgReceiveAccountData.getIntegerMessages().get(0);
                                             double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, withdrawScreen.class);
@@ -94,26 +95,27 @@ public class selectAccount extends AppCompatActivity {
                                                 }
                                                 dep.putExtra("billAvailableCount", billAvailableCount);
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 3://Transfer Source
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
                                             double minRequiredBal = -1;
-                                            if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
-                                                minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
+                                            if(msgReceiveAccountData.getDoubleMessages().size() == 2) {
+                                                minRequiredBal = msgReceiveAccountData.getDoubleMessages().get(1);
                                             }
                                             double finalMinRequiredBal = minRequiredBal;
-                                            Message msgRecieveAccountDestList = c.readMessage();
-                                            if(msgRecieveAccountDestList.flag() == 15) {
-                                                ArrayList<String> targetAccountNames = msgRecieveAccountDestList.getTextMessages();
-                                                ArrayList<Integer> targetAccountIDs = msgRecieveAccountDestList.getIntegerMessages();
+                                            Message msgReceiveAccountDestList = c.readMessage();
+                                            if(msgReceiveAccountDestList.flag() == 15) {
+                                                ArrayList<String> targetAccountNames = msgReceiveAccountDestList.getTextMessages();
+                                                ArrayList<Integer> targetAccountIDs = msgReceiveAccountDestList.getIntegerMessages();
                                                 runOnUiThread(() -> {
                                                     Intent dep = new Intent(selectAccount.this, selectAccount.class);
                                                     dep.putExtra("accountNames", targetAccountNames);
@@ -129,35 +131,36 @@ public class selectAccount extends AppCompatActivity {
                                                         dep.putExtra("isChecking", false);
                                                     }
                                                     startActivity(dep);
+                                                    finish();
                                                 });
                                             }
                                             else {
-                                                //Catestropic Error
+                                                //Catastrophic Error
                                                 System.exit(1);
                                             }
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 4://Transfer Target
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
                                             double minRequiredBal = -1;
-                                            if(msgRecieveAccountData.getDoubleMessages().size() == 2) {
-                                                minRequiredBal = msgRecieveAccountData.getDoubleMessages().get(1);
+                                            if(msgReceiveAccountData.getDoubleMessages().size() == 2) {
+                                                minRequiredBal = msgReceiveAccountData.getDoubleMessages().get(1);
                                             }
                                             double finalMinRequiredBal = minRequiredBal;
                                             runOnUiThread(() -> {
-                                                Intent dep = new Intent(selectAccount.this, withdrawDiffAmt.class);
+                                                Intent dep = new Intent(selectAccount.this, withdrawAmtTransfer.class);
                                                 dep.putExtra("accountNameSrc", getIntent().getStringExtra("accountNameSource"));
-                                                dep.putExtra("amountSrc", getIntent().getIntExtra("amountSource", 0));
+                                                dep.putExtra("amountSrc", getIntent().getDoubleExtra("amountSource", 0));
                                                 boolean isSrcChecking = getIntent().getBooleanExtra("isChecking", false);
                                                 if (isSrcChecking) {
                                                     dep.putExtra("isCheckingSrc", true);
-                                                    dep.putExtra("minSrc", getIntent().getIntExtra("min", 0));
+                                                    dep.putExtra("minSrc", getIntent().getDoubleExtra("min", -1));
                                                 } else {
                                                     dep.putExtra("isCheckingSrc", false);
                                                 }
@@ -170,34 +173,36 @@ public class selectAccount extends AppCompatActivity {
                                                     dep.putExtra("isCheckingTar", false);
                                                 }
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     case 5://Account Inquiry
-                                        if(msgRecieveAccountData.flag() == 14) {
-                                            double amount = msgRecieveAccountData.getDoubleMessages().get(0);
-                                            boolean isChecking = (msgRecieveAccountData.getDoubleMessages().size() == 2);
+                                        if(msgReceiveAccountData.flag() == 14) {
+                                            double amount = msgReceiveAccountData.getDoubleMessages().get(0);
+                                            boolean isChecking = (msgReceiveAccountData.getDoubleMessages().size() == 2);
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, balanceScreen.class);
-                                                dep.putExtra("accountName", msgRecieveAccountData.getTextMessages().get(0));
+                                                dep.putExtra("accountName", msgReceiveAccountData.getTextMessages().get(0));
                                                 dep.putExtra("amount", amount);
                                                 dep.putExtra("isChecking", isChecking);
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
                                         {
-                                            //Catestropic Error
+                                            //Catastrophic Error
                                             System.exit(1);
                                         }
                                         break;
                                     default://Bleh
-                                        //Catestropic Error
+                                        //Catastrophic Error
                                         System.exit(1);
                                         break;
                                 }
@@ -216,6 +221,7 @@ public class selectAccount extends AppCompatActivity {
                                 runOnUiThread(() -> {
                                    Intent mainMenu = new Intent(selectAccount.this, MenuScreen.class);
                                    startActivity(mainMenu);
+                                    finish();
                                 });
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -231,4 +237,6 @@ public class selectAccount extends AppCompatActivity {
         ArrayAdapter<String> accountSelectorAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, names);
         accountSpinner.setAdapter(accountSelectorAdapter);
     }
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

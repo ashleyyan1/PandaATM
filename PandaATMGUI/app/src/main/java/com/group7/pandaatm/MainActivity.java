@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                         Message msgATMRequestResponse = c.readMessage();
                         System.out.println("ATM Request Response Message Flag: " + msgATMRequestResponse.flag());
                         if (msgATMRequestResponse.flag() == 8) {
-                            //TODO Access Denied, create an alert
                             runOnUiThread(() -> {
                                 AlertDialog.Builder beingUsedAlert = new AlertDialog.Builder(MainActivity.this);
                                 beingUsedAlert.setMessage("ATM is currently in use.");
@@ -74,12 +73,13 @@ public class MainActivity extends AppCompatActivity {
                             });
                             c.terminateSession();
                         } else if (msgATMRequestResponse.flag() == 22) {
-                            //Access Granted, TODO go to log in screen
+                            //Access Granted
                             c.setAddress(msgATMRequestResponse.getTextMessages().get(0));
                             runOnUiThread(() -> {
                                 Intent login = new Intent(MainActivity.this, loginScreen.class);
                                 login.putExtra("ATMAddress", msgATMRequestResponse.getTextMessages().get(0));
                                 startActivity(login);
+                                finish();
                             });
                         } else if (msgATMRequestResponse.flag() == 7) {
                             //TODO maybe display error before crashing program

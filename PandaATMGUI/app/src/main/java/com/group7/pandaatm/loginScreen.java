@@ -122,6 +122,7 @@ public class loginScreen extends AppCompatActivity {
                                 runOnUiThread(() -> {
                                     Intent map = new Intent(loginScreen.this, MainActivity.class);
                                     startActivity(map);
+                                    finish();
                                 });
                             } else if (msgLoginVerification.flag() == 5) {
                                 //TODO Successful, go to transactionScreen, maybe show animation beforehand
@@ -129,6 +130,7 @@ public class loginScreen extends AppCompatActivity {
                                 runOnUiThread(() -> {
                                     Intent mainMenu = new Intent(loginScreen.this, MenuScreen.class);
                                     startActivity(mainMenu);
+                                    finish();
                                 });
                             } else if (msgLoginVerification.flag() == 23) {
                                 //TODO Card is Expired, show Alert, allow new card
@@ -154,20 +156,6 @@ public class loginScreen extends AppCompatActivity {
                     });
                     worker2.start();
                     break;
-                    // if login button is clicked, go to transaction screen
-                    //check if fields are null
-//                    if (cardNum.getText().toString().equals(number) && pinNum.getText().toString().equals(pin)) {
-//                        Intent login = new Intent(loginScreen.this, transactionScreen.class);
-//                        startActivity(login);
-//                    } else {
-//                        AlertDialog.Builder errorAlert = new AlertDialog.Builder(loginScreen.this);
-//                        errorAlert.setMessage("Wrong card number or PIN.");
-//                        errorAlert.setTitle("Error Message...");
-//                        errorAlert.setPositiveButton("OK", null);
-//                        errorAlert.setCancelable(true);
-//                        errorAlert.create().show();
-//                    }
-//                    break;
                 case R.id.clearButton:      //if clean button is clicked, clear text fields
                     cardNum.getText().clear();
                     pinNum.getText().clear();
@@ -187,6 +175,7 @@ public class loginScreen extends AppCompatActivity {
                         runOnUiThread(() -> {
                             Intent mainActivity = new Intent(loginScreen.this, MainActivity.class);
                             startActivity(mainActivity);
+                            finish();
                         });
                     });
                     worker3.start();
@@ -198,7 +187,6 @@ public class loginScreen extends AppCompatActivity {
         }
 
     };
-
     @Override
     public void onBackPressed() {}
 }

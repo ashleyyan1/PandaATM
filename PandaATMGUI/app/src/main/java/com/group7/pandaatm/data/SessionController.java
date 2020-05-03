@@ -8,7 +8,8 @@ import java.net.Socket;
 public class SessionController {
 
     //Remote Connection IP: supercomp.servegame.com
-    private static final String url = "supercomp.servegame.com";
+    //private static final String url = "supercomp.servegame.com";
+    private static final String url = "192.168.1.179";
     private static final int port = 6924;
 
     private ObjectInputStream dataInput;

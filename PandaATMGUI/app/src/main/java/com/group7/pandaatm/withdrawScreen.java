@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.group7.pandaatm.data.Message;
@@ -53,6 +54,7 @@ public class withdrawScreen extends AppCompatActivity {
                         runOnUiThread(() -> {
                             Intent cancel = new Intent(withdrawScreen.this, MenuScreen.class);
                             startActivity(cancel);
+                            finish();
                         });
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -61,7 +63,7 @@ public class withdrawScreen extends AppCompatActivity {
                 worker11.start();
                 break;
             case R.id.diffAmt:              //if different amount is clicked, go to withdraw diffAmt class
-                Intent diffAmt = new Intent(withdrawScreen.this, withdrawDiffAmt.class);
+                Intent diffAmt = new Intent(withdrawScreen.this, withdrawCustomAmt.class);
                 diffAmt.putExtra("accountName", accountName);
                 diffAmt.putExtra("accountMax", accountMax);
                 diffAmt.putExtra("isChecking", isChecking);
@@ -97,6 +99,11 @@ public class withdrawScreen extends AppCompatActivity {
                 if(( amount / 20) < billAvailableCount) {
                     if(isChecking && (accountMax - amount) < min) {
                         //TODO Let user know they would withdraw past agreed min,
+                        AlertDialog.Builder minBal = new AlertDialog.Builder(withdrawScreen.this);
+                        minBal.setMessage("Going below minimum balance.");
+                        minBal.setPositiveButton("OK", null);
+                        minBal.setCancelable(false);
+                        minBal.create().show();
                         // return true/false yes/no if they wish to continue or edit their amount
                         if(true) {
                             int finalAmount = amount;
@@ -109,6 +116,7 @@ public class withdrawScreen extends AppCompatActivity {
                                     runOnUiThread(() -> {
                                         Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
                                         startActivity(confirmation);
+                                        finish();
                                     });
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -128,6 +136,7 @@ public class withdrawScreen extends AppCompatActivity {
                                 runOnUiThread(() -> {
                                     Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
                                     startActivity(confirmation);
+                                    finish();
                                 });
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -138,13 +147,25 @@ public class withdrawScreen extends AppCompatActivity {
                 }
                 else {
                     //TODO Alert user ATM can not fulfill request
+                    AlertDialog.Builder cannotFulfill = new AlertDialog.Builder(withdrawScreen.this);
+                    cannotFulfill.setMessage("ATM was unable to fulfill transaction request.");
+                    cannotFulfill.setTitle("Transaction failed...");
+                    cannotFulfill.setPositiveButton("OK", null);
+                    cannotFulfill.setCancelable(false);
+                    cannotFulfill.create().show();
                 }
             }
             else {
                 //TODO Alert user they do not have enough funds to withdraw that amount
+                AlertDialog.Builder notEnough = new AlertDialog.Builder(withdrawScreen.this);
+                notEnough.setMessage("Not enough in your bank account.");
+                notEnough.setTitle("Transaction failed...");
+                notEnough.setPositiveButton("OK", null);
+                notEnough.setCancelable(false);
+                notEnough.create().show();
             }
         }
     };
-
-
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

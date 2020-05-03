@@ -43,6 +43,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 Intent dep = new Intent(ConfirmationScreen.this, MenuScreen.class);
                                 startActivity(dep);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -61,6 +62,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                                 runOnUiThread(() -> {
                                     Intent dep = new Intent(ConfirmationScreen.this, transactionSuccessful.class);
                                     startActivity(dep);
+                                    finish();
                                 });
                             }
                             else if (m.flag() == 20 || m.flag() == 21) {//Transaction Failed
@@ -68,6 +70,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                                     Intent dep = new Intent(ConfirmationScreen.this, transactionUnsuccessful.class);
                                     dep.putExtra("Error Message", m.getTextMessages().get(0));
                                     startActivity(dep);
+                                    finish();
                                 });
                             }
                             else{//shouldn't happen
@@ -82,4 +85,6 @@ public class ConfirmationScreen extends AppCompatActivity {
             }//end switch
         }//end onClick()
     };
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }//end ConfirmationScreen

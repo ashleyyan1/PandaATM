@@ -61,6 +61,7 @@ public class MenuScreen extends AppCompatActivity {
                                 withdraw.putExtra("accountIds", accountIDs);
                                 withdraw.putExtra("nextIntent", 2);
                                 startActivity(withdraw);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -82,6 +83,7 @@ public class MenuScreen extends AppCompatActivity {
                                 transfer.putExtra("accountIds", accountIDs);
                                 transfer.putExtra("nextIntent", 3);
                                 startActivity(transfer);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -103,6 +105,7 @@ public class MenuScreen extends AppCompatActivity {
                                 deposit.putExtra("accountIds", accountIDs);
                                 deposit.putExtra("nextIntent", 1);
                                 startActivity(deposit);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -124,6 +127,7 @@ public class MenuScreen extends AppCompatActivity {
                                 balance.putExtra("accountIds", accountIDs);
                                 balance.putExtra("nextIntent", 5);
                                 startActivity(balance);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -140,6 +144,7 @@ public class MenuScreen extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 Intent map = new Intent(MenuScreen.this, MainActivity.class);
                                 startActivity(map);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -153,8 +158,8 @@ public class MenuScreen extends AppCompatActivity {
             }
         }
     };
-
-
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }
 
 

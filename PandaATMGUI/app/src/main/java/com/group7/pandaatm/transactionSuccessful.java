@@ -19,8 +19,11 @@ public class transactionSuccessful extends AppCompatActivity {
             runOnUiThread(() -> {
                 Intent dep = new Intent(transactionSuccessful.this, MenuScreen.class);
                 startActivity(dep);
+                finish();
             });
         });
         worker23.start();
     }
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

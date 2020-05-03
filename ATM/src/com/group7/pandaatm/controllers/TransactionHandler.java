@@ -392,7 +392,7 @@ public class TransactionHandler {
 				Account targetAccount = accountData.getAccountInfo(secondChosenAccountMsg.getIntegerMessages().get(0));
 				System.out.println(Thread.currentThread().getName() + ": Account DESTINATION Selected: " + targetAccount.getAccountName());
 				Message targetAccBalanceMsg = new Message(14);
-				targetAccBalanceMsg.addDoubleM(srcAccount.getAccountBal());
+				targetAccBalanceMsg.addDoubleM(targetAccount.getAccountBal());
 				dataOutput.writeObject(targetAccBalanceMsg);
 				
 				Message transactionAmountMsg = (Message) dataInput.readObject();
@@ -512,15 +512,15 @@ public class TransactionHandler {
 			dataOutput.writeObject(accountBalance);
 		}
 		else if(chosenAccountMsg.flag() == 17) {//Cancel Transaction (Button Pressed)
-			Message transactionCancelled = new Message(17);
-			transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
-			dataOutput.writeObject(transactionCancelled);
+			//Message transactionCancelled = new Message(17);
+			//transactionCancelled.addStringM("Transaction was cancelled. Returning to menu.");
+			//dataOutput.writeObject(transactionCancelled);
 			System.out.println(Thread.currentThread().getName() + ": Account Selection Cancelled");
 		}
 		else {
-			Message unexpectedRequest = new Message(7);
-			unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
-			dataOutput.writeObject(unexpectedRequest);
+			//Message unexpectedRequest = new Message(7);
+			//unexpectedRequest.addStringM("Expected Account Selection. Received Unexpected Request Type.");
+			//dataOutput.writeObject(unexpectedRequest);
 			System.out.println(Thread.currentThread().getName() + ": Communication Error");
 		}	
 	}//end initiateBalanceInquiry

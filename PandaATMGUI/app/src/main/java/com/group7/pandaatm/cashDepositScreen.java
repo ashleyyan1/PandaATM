@@ -58,8 +58,6 @@ public class cashDepositScreen extends AppCompatActivity {
         fiftyValue = findViewById(R.id.fiftyCounter);
         hundredValue = findViewById(R.id.hundredCounter);
 
-
-
         //Init subButtons to be disabled
         findViewById(R.id.subOne).setEnabled(false);
         findViewById(R.id.subFive).setEnabled(false);
@@ -264,6 +262,7 @@ public class cashDepositScreen extends AppCompatActivity {
                                 confirmTransaction.putExtra("amount", totalAmount);
                                 confirmTransaction.putExtra("type", 0);
                                 startActivity(confirmTransaction);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -280,6 +279,7 @@ public class cashDepositScreen extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 Intent cancel = new Intent(cashDepositScreen.this, MenuScreen.class);
                                 startActivity(cancel);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -309,4 +309,6 @@ public class cashDepositScreen extends AppCompatActivity {
         findViewById(R.id.addFifty).setBackgroundColor(color);
         findViewById(R.id.addHundred).setBackgroundColor(color);
     }
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }
