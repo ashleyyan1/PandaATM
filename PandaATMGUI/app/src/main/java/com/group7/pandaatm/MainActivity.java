@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent login = new Intent(MainActivity.this, loginScreen.class);
                                 login.putExtra("ATMAddress", msgATMRequestResponse.getTextMessages().get(0));
                                 startActivity(login);
+                                finish();
                             });
                         } else if (msgATMRequestResponse.flag() == 7) {
                             //TODO maybe display error before crashing program

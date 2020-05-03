@@ -9,4 +9,6 @@ public class receiptConfirmationScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_confirmation_screen);
     }
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

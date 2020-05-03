@@ -20,6 +20,10 @@
             android:label="@string/title_activity_transfer_unsuccessful_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".withdrawAmtTransfer"
+            android:label="@string/title_activity_withdraw_amt_transfer_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".selectAccount"
             android:label="@string/title_activity_select_account_deposit"
             android:theme="@style/AppTheme.NoActionBar" />

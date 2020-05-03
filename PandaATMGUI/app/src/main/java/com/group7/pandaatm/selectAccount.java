@@ -64,6 +64,7 @@ public class selectAccount extends AppCompatActivity {
                                                 dep.putExtra("amount", amount);
                                                 dep.putExtra("maxBillCount", maxBillCount);
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
@@ -94,6 +95,7 @@ public class selectAccount extends AppCompatActivity {
                                                 }
                                                 dep.putExtra("billAvailableCount", billAvailableCount);
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
@@ -110,10 +112,10 @@ public class selectAccount extends AppCompatActivity {
                                                 minRequiredBal = msgReceiveAccountData.getDoubleMessages().get(1);
                                             }
                                             double finalMinRequiredBal = minRequiredBal;
-                                            Message msgRecieveAccountDestList = c.readMessage();
-                                            if(msgRecieveAccountDestList.flag() == 15) {
-                                                ArrayList<String> targetAccountNames = msgRecieveAccountDestList.getTextMessages();
-                                                ArrayList<Integer> targetAccountIDs = msgRecieveAccountDestList.getIntegerMessages();
+                                            Message msgReceiveAccountDestList = c.readMessage();
+                                            if(msgReceiveAccountDestList.flag() == 15) {
+                                                ArrayList<String> targetAccountNames = msgReceiveAccountDestList.getTextMessages();
+                                                ArrayList<Integer> targetAccountIDs = msgReceiveAccountDestList.getIntegerMessages();
                                                 runOnUiThread(() -> {
                                                     Intent dep = new Intent(selectAccount.this, selectAccount.class);
                                                     dep.putExtra("accountNames", targetAccountNames);
@@ -129,6 +131,7 @@ public class selectAccount extends AppCompatActivity {
                                                         dep.putExtra("isChecking", false);
                                                     }
                                                     startActivity(dep);
+                                                    finish();
                                                 });
                                             }
                                             else {
@@ -153,11 +156,11 @@ public class selectAccount extends AppCompatActivity {
                                             runOnUiThread(() -> {
                                                 Intent dep = new Intent(selectAccount.this, withdrawAmtTransfer.class);
                                                 dep.putExtra("accountNameSrc", getIntent().getStringExtra("accountNameSource"));
-                                                dep.putExtra("amountSrc", getIntent().getIntExtra("amountSource", 0));
+                                                dep.putExtra("amountSrc", getIntent().getDoubleExtra("amountSource", 0));
                                                 boolean isSrcChecking = getIntent().getBooleanExtra("isChecking", false);
                                                 if (isSrcChecking) {
                                                     dep.putExtra("isCheckingSrc", true);
-                                                    dep.putExtra("minSrc", getIntent().getIntExtra("min", 0));
+                                                    dep.putExtra("minSrc", getIntent().getDoubleExtra("min", -1));
                                                 } else {
                                                     dep.putExtra("isCheckingSrc", false);
                                                 }
@@ -170,6 +173,7 @@ public class selectAccount extends AppCompatActivity {
                                                     dep.putExtra("isCheckingTar", false);
                                                 }
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
@@ -188,6 +192,7 @@ public class selectAccount extends AppCompatActivity {
                                                 dep.putExtra("amount", amount);
                                                 dep.putExtra("isChecking", isChecking);
                                                 startActivity(dep);
+                                                finish();
                                             });
                                         }
                                         else
@@ -216,6 +221,7 @@ public class selectAccount extends AppCompatActivity {
                                 runOnUiThread(() -> {
                                    Intent mainMenu = new Intent(selectAccount.this, MenuScreen.class);
                                    startActivity(mainMenu);
+                                    finish();
                                 });
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -231,4 +237,6 @@ public class selectAccount extends AppCompatActivity {
         ArrayAdapter<String> accountSelectorAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, names);
         accountSpinner.setAdapter(accountSelectorAdapter);
     }
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

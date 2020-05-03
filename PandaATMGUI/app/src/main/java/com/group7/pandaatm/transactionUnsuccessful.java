@@ -28,10 +28,13 @@ public class transactionUnsuccessful extends AppCompatActivity {
                 case R.id.main2:
                     Intent dep2 = new Intent(transactionUnsuccessful.this, MenuScreen.class);
                     startActivity(dep2);
+                    finish();
                     break;
                 default:
                     break;
             }//end onClick()
         }
     };
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

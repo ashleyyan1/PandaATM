@@ -28,6 +28,8 @@ public class splashScreen extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }
 
 

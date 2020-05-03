@@ -35,11 +35,13 @@ public class balanceScreen extends AppCompatActivity {
                 case R.id.cancelButton4:    //if cancel button is clicked, go back to main screen
                     Intent cancel = new Intent(balanceScreen.this, MenuScreen.class);
                     startActivity(cancel);
+                    finish();
                     break;
                 default:
                     break;
             }
         }
     };
-    
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

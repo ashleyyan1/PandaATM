@@ -54,6 +54,7 @@ public class withdrawScreen extends AppCompatActivity {
                         runOnUiThread(() -> {
                             Intent cancel = new Intent(withdrawScreen.this, MenuScreen.class);
                             startActivity(cancel);
+                            finish();
                         });
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -115,6 +116,7 @@ public class withdrawScreen extends AppCompatActivity {
                                     runOnUiThread(() -> {
                                         Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
                                         startActivity(confirmation);
+                                        finish();
                                     });
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -134,6 +136,7 @@ public class withdrawScreen extends AppCompatActivity {
                                 runOnUiThread(() -> {
                                     Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
                                     startActivity(confirmation);
+                                    finish();
                                 });
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -163,6 +166,6 @@ public class withdrawScreen extends AppCompatActivity {
             }
         }
     };
-
-
+    @Override
+    public void onBackPressed() {}//Disables Android's Back Button
 }

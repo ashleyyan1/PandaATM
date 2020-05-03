@@ -34,6 +34,22 @@
         app:layout_constraintTop_toBottomOf="@+id/twohundredbutton"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/cancelButton1"
+        android:layout_width="124dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="#B12525"
+        android:text="Cancel"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/backgroundImage8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twohundredbutton"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="94dp"
@@ -119,12 +135,10 @@
         android:background="#cc000000"
         android:text="$60"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/cancelButton1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fortybutton"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -153,19 +167,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/cancelButton1"
-        android:layout_width="121dp"
-        android:layout_height="48dp"
-        android:background="#B12525"
-        android:text="cancel"
-        android:textColor="#111111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/diffAmt"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

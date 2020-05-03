@@ -25,7 +25,7 @@ public class withdrawCustomAmt extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdraw_diff_amt);
+        setContentView(R.layout.activity_withdraw_amt_transfer_screen);
         Intent pastIntent = getIntent();
         accountName = pastIntent.getStringExtra("accountName");
         accountMax = pastIntent.getDoubleExtra("accountMax", -1);
@@ -73,6 +73,7 @@ public class withdrawCustomAmt extends AppCompatActivity {
                                             runOnUiThread(() -> {
                                                 Intent confirmation = new Intent(withdrawCustomAmt.this, ConfirmationScreen.class);
                                                 startActivity(confirmation);
+                                                finish();
                                             });
                                         } catch (IOException e) {
                                             e.printStackTrace();
@@ -121,6 +122,7 @@ public class withdrawCustomAmt extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 Intent exit = new Intent(withdrawCustomAmt.this, MenuScreen.class);
                                 startActivity(exit);
+                                finish();
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
