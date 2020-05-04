@@ -1,15 +1,17 @@
 package com.group7.pandaatm.data;
 
+import com.group7.pandaatm.data.model.TransactionRecord;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class SessionController {
 
-    //Remote Connection IP: supercomp.servegame.com
-    //private static final String url = "supercomp.servegame.com";
-    private static final String url = "192.168.1.179";
+    //Production Program IP: supercomp.servegame.com
+    private static final String url = "192.168.1.100";
     private static final int port = 6924;
 
     private ObjectInputStream dataInput;
@@ -17,6 +19,7 @@ public class SessionController {
 
     private String debitCardName;
     private String atmAddress;
+    private ArrayList<TransactionRecord> record;
 
     private static SessionController c;
 
@@ -32,6 +35,7 @@ public class SessionController {
         Socket serverConnection = new Socket(url, port);
         dataOutput = new ObjectOutputStream(serverConnection.getOutputStream());
         dataInput = new ObjectInputStream(serverConnection.getInputStream());
+        record = new ArrayList<TransactionRecord>();
     }
 
     public void setCardName(String name) {
@@ -72,5 +76,13 @@ public class SessionController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void insertRecord(TransactionRecord r) {
+        record.add(r);
+    }
+
+    public ArrayList<TransactionRecord> getRecord() {
+        return record;
     }
 }

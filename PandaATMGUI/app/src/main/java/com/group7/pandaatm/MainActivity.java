@@ -92,7 +92,12 @@ public class MainActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                         runOnUiThread(() -> {
-                            //TODO Show error
+                            AlertDialog.Builder beingUsedAlert = new AlertDialog.Builder(MainActivity.this);
+                            beingUsedAlert.setMessage("Could not connect to ATM Database");
+                            beingUsedAlert.setTitle("Server Offline");
+                            beingUsedAlert.setPositiveButton("OK", null);
+                            beingUsedAlert.setCancelable(false);
+                            beingUsedAlert.create().show();
                         });
                     }
                 });

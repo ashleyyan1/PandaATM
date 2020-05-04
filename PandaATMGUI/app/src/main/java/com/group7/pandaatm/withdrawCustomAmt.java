@@ -72,6 +72,10 @@ public class withdrawCustomAmt extends AppCompatActivity {
                                             c.sendMessage(msgSendAmount);
                                             runOnUiThread(() -> {
                                                 Intent confirmation = new Intent(withdrawCustomAmt.this, ConfirmationScreen.class);
+                                                confirmation.putExtra("accountName", accountName);
+                                                confirmation.putExtra("type", 1);
+                                                confirmation.putExtra("srcOldBalance" , accountMax);
+                                                confirmation.putExtra("amount", amount);
                                                 startActivity(confirmation);
                                                 finish();
                                             });

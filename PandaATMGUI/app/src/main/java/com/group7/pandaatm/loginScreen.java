@@ -112,14 +112,14 @@ public class loginScreen extends AppCompatActivity {
                                 });
                             } else if (msgLoginVerification.flag() == 4) {
                                 //TODO Show Card is locked, show alert, kick user out back to MainActivity
-                                AlertDialog.Builder lockedAlert = new AlertDialog.Builder(loginScreen.this);
-                                lockedAlert.setMessage("Card is locked. Try again later.");
-                                lockedAlert.setTitle("Bad Login...");
-                                lockedAlert.setPositiveButton("OK", null);
-                                lockedAlert.setCancelable(false);
-                                lockedAlert.create().show();
                                 c.terminateSession();
                                 runOnUiThread(() -> {
+                                    AlertDialog.Builder lockedAlert = new AlertDialog.Builder(loginScreen.this);
+                                    lockedAlert.setMessage("Card is locked. Try again later.");
+                                    lockedAlert.setTitle("Bad Login...");
+                                    lockedAlert.setPositiveButton("OK", null);
+                                    lockedAlert.setCancelable(false);
+                                    lockedAlert.create().show();
                                     Intent map = new Intent(loginScreen.this, MainActivity.class);
                                     startActivity(map);
                                     finish();
@@ -134,21 +134,25 @@ public class loginScreen extends AppCompatActivity {
                                 });
                             } else if (msgLoginVerification.flag() == 23) {
                                 //TODO Card is Expired, show Alert, allow new card
-                                AlertDialog.Builder expiredAlert = new AlertDialog.Builder(loginScreen.this);
-                                expiredAlert.setMessage("Card is expired.");
-                                expiredAlert.setTitle("Bad Login...");
-                                expiredAlert.setPositiveButton("OK", null);
-                                expiredAlert.setCancelable(false);
-                                expiredAlert.create().show();
+                                runOnUiThread(() -> {
+                                    AlertDialog.Builder expiredAlert = new AlertDialog.Builder(loginScreen.this);
+                                    expiredAlert.setMessage("Card is expired.");
+                                    expiredAlert.setTitle("Bad Login...");
+                                    expiredAlert.setPositiveButton("OK", null);
+                                    expiredAlert.setCancelable(false);
+                                    expiredAlert.create().show();
+                                });
                             } else if (msgLoginVerification.flag() == 24) {
                                 //TODO Pin Number invalid, show Alert, only allow changing pin, or cancel
-                                AlertDialog.Builder pinAlert = new AlertDialog.Builder(loginScreen.this);
-                                pinAlert.setMessage("PIN Number invalid");
-                                pinAlert.setTitle("Bad Login...");
-                                pinAlert.setPositiveButton("OK", null);
-                                pinAlert.setNegativeButton("Cancel", null);
-                                pinAlert.setCancelable(false);
-                                pinAlert.create().show();
+                                runOnUiThread(() -> {
+                                    AlertDialog.Builder pinAlert = new AlertDialog.Builder(loginScreen.this);
+                                    pinAlert.setMessage("PIN Number invalid");
+                                    pinAlert.setTitle("Bad Login...");
+                                    pinAlert.setPositiveButton("OK", null);
+                                    pinAlert.setNegativeButton("Cancel", null);
+                                    pinAlert.setCancelable(false);
+                                    pinAlert.create().show();
+                                });
                             }
                         } catch (IOException e) {
                             //Should not happen

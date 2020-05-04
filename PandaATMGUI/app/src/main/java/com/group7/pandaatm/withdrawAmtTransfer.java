@@ -2,6 +2,7 @@ package com.group7.pandaatm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 
@@ -17,8 +18,8 @@ public class withdrawAmtTransfer extends AppCompatActivity {
 
     private String accountNameSrc;
     private String accountNameTar;
-    private double amountSrc;
-    private double amountTar;
+    private double srcAccountMax;
+    private double tarAccountMax;
     private double minSrc;
 
     @Override
@@ -28,7 +29,7 @@ public class withdrawAmtTransfer extends AppCompatActivity {
         Intent pastIntent = getIntent();
 
         accountNameSrc = pastIntent.getStringExtra("accountNameSrc");
-        amountSrc = pastIntent.getDoubleExtra("amountSrc", -1);
+        srcAccountMax = pastIntent.getDoubleExtra("amountSrc", -1);
         boolean isSrcChecking = pastIntent.getBooleanExtra("isCheckingSrc", false);
 
         //Gets minReqBalance required if source account was a checking account
@@ -37,19 +38,20 @@ public class withdrawAmtTransfer extends AppCompatActivity {
         }
         //Target Accounts to Deposit the transfer money into (from account select intent)
         accountNameTar = pastIntent.getStringExtra("accountNameTar");
-        amountTar = pastIntent.getDoubleExtra("amountTar", -1);
+        tarAccountMax = pastIntent.getDoubleExtra("amountTar", -1);
 
         //initialize click listeners
         findViewById(R.id.clearButton1).setOnClickListener(buttonClickListener);
         findViewById(R.id.enterButton1).setOnClickListener(buttonClickListener);
         findViewById(R.id.cancelButton2).setOnClickListener(buttonClickListener);
-
+        EditText amountBox = findViewById(R.id.withdrawAmt);
+        amountBox.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         System.out.println("IN WITHDRAW AMT TRANSFER");
         System.out.println("Source Account Name: " + accountNameSrc);
-        System.out.println("Source Account Amount: " + amountSrc);
+        System.out.println("Source Account Amount: " + srcAccountMax);
         System.out.println("Source Min Required Balance: " + minSrc);
         System.out.println("Target Account Name: " + accountNameTar);
-        System.out.println("Target Account Amount: " + amountTar);
+        System.out.println("Target Account Amount: " + tarAccountMax);
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
@@ -64,9 +66,9 @@ public class withdrawAmtTransfer extends AppCompatActivity {
                     String amountText = withdrawAmt.getText().toString();
                     try {
                         double amount = Double.parseDouble(amountText);
-                        if (amount < amountSrc) {
+                        if (amount < srcAccountMax) {
                             //Alerts user that the amount will in going below min required balance
-                            if(amountSrc - amount < minSrc)
+                            if(srcAccountMax - amount < minSrc)
                             {
                                 runOnUiThread(() -> {
                                     AlertDialog.Builder belowMinReqBal = new AlertDialog.Builder(withdrawAmtTransfer.this);
@@ -86,9 +88,11 @@ public class withdrawAmtTransfer extends AppCompatActivity {
                                     runOnUiThread(() -> {
                                         Intent confirmation = new Intent(withdrawAmtTransfer.this, ConfirmationScreen.class);
                                         confirmation.putExtra("srcAccountName", accountNameSrc);
-                                        confirmation.putExtra("srcAmount", amountSrc);
+                                        confirmation.putExtra("srcAccountMax", srcAccountMax);
                                         confirmation.putExtra("tarAccountName", accountNameTar);
-                                        confirmation.putExtra("tarAmount", amountTar);
+                                        confirmation.putExtra("tarAccountMax", tarAccountMax);
+                                        confirmation.putExtra("amount", amount);
+                                        confirmation.putExtra("type", 2);
                                         startActivity(confirmation);
                                         finish();
                                     });
