@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
-import com.group7.pandaatm.data.model.TransactionRecord;
+import com.group7.pandaatm.data.TransactionRecord;
 
 import java.io.IOException;
 

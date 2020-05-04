@@ -1,4 +1,4 @@
-package com.group7.pandaatm.data.model;
+package com.group7.pandaatm.data;
 
 import java.util.ArrayList;
 
@@ -73,13 +73,13 @@ public class TransactionRecord {
     public String typeString() {
         switch (type) {
             case 0:
-                return "Withdrawl";
+                return "Withdrawal";
             case 1:
                 return "Deposit";
             case 2:
                 return "Transfer";
             default:
-                throw new IllegalArgumentException("Unexpected Type provided");
+                throw new IllegalArgumentException("Unexpected Type Provided.");
         }
     }
 

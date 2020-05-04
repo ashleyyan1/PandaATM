@@ -1,27 +1,24 @@
 package com.group7.pandaatm.data;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.group7.pandaatm.MainActivity;
-import com.group7.pandaatm.data.model.TransactionRecord;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class SessionController {
 
     //Production Program IP: supercomp.servegame.com
-    private static final String url = "192.168.1.100";
+    //private static final String url = "192.168.1.100";
+    private static final String url = "supercomp.servegame.com";
     private static final int port = 6924;
 
     private ObjectInputStream dataInput;
@@ -31,7 +28,7 @@ public class SessionController {
     private String atmAddress;
     private String cardNumber;
     private ArrayList<TransactionRecord> record;
-    private Context currentContext;
+    private AppCompatActivity currentContext;
     private LinkedBlockingQueue<Message> queue;
 
     private static SessionController c;
@@ -66,6 +63,7 @@ public class SessionController {
                             Intent timeout = new Intent(currentContext, MainActivity.class);
                             timeout.putExtra("timeout", true);
                             currentContext.startActivity(timeout);
+                            currentContext.finish();
                         });
                     }
                     else {
@@ -79,7 +77,7 @@ public class SessionController {
         ioWorker.start();
     }
 
-    public void setCurrentContext(Context c) { this.currentContext = c; }
+    public void setCurrentContext(AppCompatActivity c) { this.currentContext = c; }
 
     public void setCardName(String name) {
         this.debitCardName = name;
