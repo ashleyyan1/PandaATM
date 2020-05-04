@@ -35,11 +35,11 @@ public class DataInitialization {
 		//Initialize Bank Branch (APP ONLY HAS 1 BRANCH)
 		stmt.execute("INSERT INTO `BankBranch` VALUES(1 , '3801 W Temple Ave, Pomona, CA 91768');");
 		//Initialize ATM's (APP HAS EXACTLY 5 UNIQUE ATM LOCATIONS)
-		stmt.execute("INSERT INTO `ATM` VALUES(1, '3801 W Temple Ave, Pomona, CA 91768 - Bldg. 1', 20, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
+		stmt.execute("INSERT INTO `ATM` VALUES(1, '3801 W Temple Ave, Pomona, CA 91768 - Bldg. 1', 120, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
 		stmt.execute("INSERT INTO `ATM` VALUES(2, '3801 W Temple Ave, Pomona, CA 91768 - Bldg. 17', 120, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
 		stmt.execute("INSERT INTO `ATM` VALUES(3, '3801 W Temple Ave, Pomona, CA 91768 - Marketplace', 120, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
 		stmt.execute("INSERT INTO `ATM` VALUES(4, '3801 W Temple Ave, Pomona, CA 91768 - Bronco Student Center', 120, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
-		stmt.execute("INSERT INTO `ATM` VALUES(5, '3801 W Temple Ave, Pomona, CA 91768 - Library', 120, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
+		stmt.execute("INSERT INTO `ATM` VALUES(5, '3801 W Temple Ave, Pomona, CA 91768 - Library', 15, 0, 5, 500, 0, 250, 750, 1000, 1000, 1);");
 		stmt.close();
 		
 		//Initialize all Data Access Classes
@@ -106,6 +106,7 @@ public class DataInitialization {
 		cardActivationData.insertCardActivation(christianCard, christianSavingsTwo);
 		cardActivationData.insertCardActivation(nickCard, nickChecking);
 		cardActivationData.insertCardActivation(nickCard, nickSavings);
+		cardActivationData.insertCardActivation(nickCard, christianSavingsTwo);
 		cardActivationData.insertCardActivation(jonathanCard, jonathanSavings);
 		cardActivationData.insertCardActivation(tannazCard, tannazSavings);
 	}//end Constructor
