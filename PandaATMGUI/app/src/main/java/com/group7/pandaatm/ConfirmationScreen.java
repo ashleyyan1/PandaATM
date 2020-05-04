@@ -18,6 +18,13 @@ public class ConfirmationScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation_screen);
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         findViewById(R.id.confirmNo).setOnClickListener(buttonClickListener);
         findViewById(R.id.confirmYes).setOnClickListener(buttonClickListener);;
     }
@@ -98,14 +105,14 @@ public class ConfirmationScreen extends AppCompatActivity {
                 String accountName1 = caller.getStringExtra("accountName");
                 double tarOldAmount1 = caller.getDoubleExtra("accountAmount", -1);
                 double tarNewAmount1 = tarOldAmount1 + amount;
-                TransactionRecord record1 = new TransactionRecord(type, amount, id);
+                TransactionRecord record1 = new TransactionRecord(amount, id);
                 record1.setDeposit(accountName1, tarOldAmount1, tarNewAmount1);
                 return record1;
             case 1://Withdrawal
                 String accountName2 = caller.getStringExtra("accountName");
                 double srcOldBalance2 = caller.getDoubleExtra("srcOldBalance", -1);
                 double srcNewBalance2 = srcOldBalance2 - amount;
-                TransactionRecord record2 = new TransactionRecord(type, amount, id);
+                TransactionRecord record2 = new TransactionRecord(amount, id);
                 record2.setWithdrawal(accountName2, srcOldBalance2, srcNewBalance2);
                 return record2;
             case 2://Transfer
@@ -115,7 +122,7 @@ public class ConfirmationScreen extends AppCompatActivity {
                 String accountName3B = caller.getStringExtra("tarAccountName");
                 double tarOldBalance3 = caller.getDoubleExtra("tarAccountMax", -1);
                 double tarNewBalance3 = tarOldBalance3 + amount;
-                TransactionRecord record3 = new TransactionRecord(type, amount, id);
+                TransactionRecord record3 = new TransactionRecord(amount, id);
                 record3.setTransfer(accountName3A, accountName3B, srcOldBalance3, srcNewBalance3, tarOldBalance3, tarNewBalance3);
                 return record3;
             default:

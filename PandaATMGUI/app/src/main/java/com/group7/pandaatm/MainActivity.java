@@ -21,7 +21,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        if(getIntent().getBooleanExtra("timeout", false)) {
 
+            AlertDialog.Builder timeoutAlert = new AlertDialog.Builder(this);
+            timeoutAlert.setMessage("Session has been terminated due extended period of inactivity");
+            timeoutAlert.setTitle("Session Timeout...");
+            timeoutAlert.setPositiveButton("OK", null);
+            timeoutAlert.setCancelable(false);
+            timeoutAlert.create().show();
+        }
         //initialize click listeners
         findViewById(R.id.bldg1ATM).setOnClickListener(buttonClickListener);
         findViewById(R.id.bldg17ATM).setOnClickListener(buttonClickListener);

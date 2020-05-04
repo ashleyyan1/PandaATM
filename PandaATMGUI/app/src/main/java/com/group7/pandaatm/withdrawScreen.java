@@ -24,6 +24,13 @@ public class withdrawScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw_screen);
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         Intent pastIntent = getIntent();
         accountName = pastIntent.getStringExtra("accountName");
         accountMax = pastIntent.getDoubleExtra("amount", -1);
@@ -139,6 +146,10 @@ public class withdrawScreen extends AppCompatActivity {
                                 c.sendMessage(msgSendAmount);
                                 runOnUiThread(() -> {
                                     Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
+                                    confirmation.putExtra("accountName", accountName);
+                                    confirmation.putExtra("type", 1);
+                                    confirmation.putExtra("srcOldBalance" , accountMax);
+                                    confirmation.putExtra("amount", finalAmount);
                                     startActivity(confirmation);
                                     finish();
                                 });

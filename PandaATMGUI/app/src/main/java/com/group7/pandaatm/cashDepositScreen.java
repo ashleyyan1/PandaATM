@@ -45,6 +45,13 @@ public class cashDepositScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash_deposit_screen);
 
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         Intent pastIntent = getIntent();
         maxBillCount = pastIntent.getIntExtra("maxBillCount", -1);
         maxBillCount = Math.min(maxBillCount, 50);

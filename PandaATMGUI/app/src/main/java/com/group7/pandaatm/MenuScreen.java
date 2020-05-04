@@ -23,6 +23,7 @@ public class MenuScreen extends AppCompatActivity {
         Thread worker8 = new Thread(() -> {
             try {
                 SessionController c = SessionController.getInstance();
+                c.setCurrentContext(this);
                 runOnUiThread(() -> {
                     TextView welcomeText = findViewById(R.id.welcomeTxt);
                     TextView atmAddress = findViewById(R.id.buildingLocation2);
@@ -60,6 +61,7 @@ public class MenuScreen extends AppCompatActivity {
                                 withdraw.putExtra("accountNames", accountNames);
                                 withdraw.putExtra("accountIds", accountIDs);
                                 withdraw.putExtra("nextIntent", 2);
+                                withdraw.putExtra("prompt", "Please Select an Account to Withdraw From");
                                 startActivity(withdraw);
                                 finish();
                             });
@@ -82,6 +84,7 @@ public class MenuScreen extends AppCompatActivity {
                                 transfer.putExtra("accountNames", accountNames);
                                 transfer.putExtra("accountIds", accountIDs);
                                 transfer.putExtra("nextIntent", 3);
+                                transfer.putExtra("prompt", "Please select a Source Account");
                                 startActivity(transfer);
                                 finish();
                             });
@@ -104,6 +107,7 @@ public class MenuScreen extends AppCompatActivity {
                                 deposit.putExtra("accountNames", accountNames);
                                 deposit.putExtra("accountIds", accountIDs);
                                 deposit.putExtra("nextIntent", 1);
+                                deposit.putExtra("prompt", "Please Select a Destination Account");
                                 startActivity(deposit);
                                 finish();
                             });
@@ -126,6 +130,7 @@ public class MenuScreen extends AppCompatActivity {
                                 balance.putExtra("accountNames", accountNames);
                                 balance.putExtra("accountIds", accountIDs);
                                 balance.putExtra("nextIntent", 5);
+                                balance.putExtra("prompt", "Please Select an Account to View");
                                 startActivity(balance);
                                 finish();
                             });
@@ -140,12 +145,21 @@ public class MenuScreen extends AppCompatActivity {
                         try {
                             SessionController c = SessionController.getInstance();
                             c.sendMessage(new Message(0));
-                            c.terminateSession();
-                            runOnUiThread(() -> {
-                                Intent map = new Intent(MenuScreen.this, MainActivity.class);
-                                startActivity(map);
-                                finish();
-                            });
+                            if(c.getRecord().size() == 0) {
+                                c.terminateSession();
+                                runOnUiThread(() -> {
+                                    Intent map = new Intent(MenuScreen.this, MainActivity.class);
+                                    startActivity(map);
+                                    finish();
+                                });
+                            }
+                            else {
+                                runOnUiThread(() -> {
+                                    Intent map = new Intent(MenuScreen.this, receiptScreen.class);
+                                    startActivity(map);
+                                    finish();
+                                });
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

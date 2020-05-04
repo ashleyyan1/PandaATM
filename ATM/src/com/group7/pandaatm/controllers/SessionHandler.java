@@ -54,7 +54,7 @@ public class SessionHandler implements Runnable {
 			if (atm != null) {
 
 				// Timer to Terminate Session if User is Idle
-				sessionTimer = new SessionTimer("timerThread", true, (long) (atm.getSessionTimeOut() * 1000L));
+				sessionTimer = new SessionTimer("timerThread", dataOutput, true, (long) (atm.getSessionTimeOut() * 1000L));
 				sessionTimer.startTimer();
 
 				ATMSession atmSession = verifyLogin(atm);
@@ -111,7 +111,7 @@ public class SessionHandler implements Runnable {
 						
 						System.out.println(Thread.currentThread() + ": ATM Session Closed");
 
-					} catch (InterruptedException e) {
+					} catch (Exception e) {
 						// Terminates Session on Session Timeout
 						System.out.println(Thread.currentThread() + ": Session Timed Out");
 						sessionData.terminateSession(atmSession.getSessionID());
@@ -120,7 +120,7 @@ public class SessionHandler implements Runnable {
 					} // end if(verifyLogin())
 				} // end if(accessGranted)
 			}
-		} catch (ClassNotFoundException | IOException | InterruptedException | SQLException e) {
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
 		try {

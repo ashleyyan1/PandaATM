@@ -1,5 +1,11 @@
 package com.group7.pandaatm.data;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+
+import com.group7.pandaatm.MainActivity;
 import com.group7.pandaatm.data.model.TransactionRecord;
 
 import java.io.IOException;
@@ -7,6 +13,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class SessionController {
 
@@ -19,9 +29,13 @@ public class SessionController {
 
     private String debitCardName;
     private String atmAddress;
+    private String cardNumber;
     private ArrayList<TransactionRecord> record;
+    private Context currentContext;
+    private LinkedBlockingQueue<Message> queue;
 
     private static SessionController c;
+    private boolean isListening;
 
     public static SessionController getInstance() throws IOException {
         if(c == null) {
@@ -36,7 +50,36 @@ public class SessionController {
         dataOutput = new ObjectOutputStream(serverConnection.getOutputStream());
         dataInput = new ObjectInputStream(serverConnection.getInputStream());
         record = new ArrayList<TransactionRecord>();
+        queue = new LinkedBlockingQueue<Message>();
+        isListening = true;
+        Thread ioWorker = new Thread(() -> {
+            Message m = null;
+            try {
+                while(isListening) {
+                    m = (Message) dataInput.readObject();
+                    if(m.flag() == 1) {
+                        isListening = false;
+                        Handler handler = new Handler(currentContext.getMainLooper());
+                        handler.post(() -> {
+                            System.out.println("Sending Exit Alert");
+                            terminateSession();
+                            Intent timeout = new Intent(currentContext, MainActivity.class);
+                            timeout.putExtra("timeout", true);
+                            currentContext.startActivity(timeout);
+                        });
+                    }
+                    else {
+                        queue.offer(m);
+                    }
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        ioWorker.start();
     }
+
+    public void setCurrentContext(Context c) { this.currentContext = c; }
 
     public void setCardName(String name) {
         this.debitCardName = name;
@@ -46,6 +89,8 @@ public class SessionController {
         this.atmAddress = address;
     }
 
+    public void setCardNumber(String number) { this.cardNumber = number; }
+
     public String getCardName() {
         return debitCardName;
     }
@@ -54,17 +99,17 @@ public class SessionController {
         return atmAddress;
     }
 
+    public String getCardNumber() { return cardNumber; }
+
     public void sendMessage(Message m) throws IOException {
         dataOutput.writeObject(m);
     }
 
     public Message readMessage() throws IOException {
         try {
-            return (Message) dataInput.readObject();
-        } catch (ClassNotFoundException e) {
-            System.err.println("Message Object received does not match Client's Message");
+            return queue.take();
+        } catch (InterruptedException e) {
             e.printStackTrace();
-            System.exit(1);
         }
         return null;
     }

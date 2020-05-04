@@ -7,11 +7,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.group7.pandaatm.data.SessionController;
+
+import java.io.IOException;
+
 public class transactionUnsuccessful extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_unsuccessful_screen);
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         Intent dep = getIntent();
 
         String errorMsg = dep.getStringExtra("Error Message");

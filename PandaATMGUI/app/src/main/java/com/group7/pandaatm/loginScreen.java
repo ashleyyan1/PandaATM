@@ -29,6 +29,13 @@ public class loginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atm_login);
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         //initialize click listeners
         findViewById(R.id.loginButton).setOnClickListener(buttonClickListener);
@@ -94,6 +101,7 @@ public class loginScreen extends AppCompatActivity {
                     Message msgLoginDetails = new Message(2);
                     msgLoginDetails.setCardNumber(cardNumberLong);
                     msgLoginDetails.addIntegerM(pinNumberInt);
+                    long finalCardNumberLong = cardNumberLong;
                     Thread worker2 = new Thread(() -> {
                         try {
                             SessionController c = SessionController.getInstance();
@@ -125,15 +133,16 @@ public class loginScreen extends AppCompatActivity {
                                     finish();
                                 });
                             } else if (msgLoginVerification.flag() == 5) {
-                                //TODO Successful, go to transactionScreen, maybe show animation beforehand
+                                //Successful, go to transactionScreen
                                 c.setCardName(msgLoginVerification.getTextMessages().get(1));
+                                c.setCardNumber(String.valueOf(finalCardNumberLong));
                                 runOnUiThread(() -> {
                                     Intent mainMenu = new Intent(loginScreen.this, MenuScreen.class);
                                     startActivity(mainMenu);
                                     finish();
                                 });
                             } else if (msgLoginVerification.flag() == 23) {
-                                //TODO Card is Expired, show Alert, allow new card
+                                //Card is Expired, show Alert, allow new card
                                 runOnUiThread(() -> {
                                     AlertDialog.Builder expiredAlert = new AlertDialog.Builder(loginScreen.this);
                                     expiredAlert.setMessage("Card is expired.");
@@ -143,7 +152,7 @@ public class loginScreen extends AppCompatActivity {
                                     expiredAlert.create().show();
                                 });
                             } else if (msgLoginVerification.flag() == 24) {
-                                //TODO Pin Number invalid, show Alert, only allow changing pin, or cancel
+                                //Pin Number invalid, show Alert, only allow changing pin, or cancel
                                 runOnUiThread(() -> {
                                     AlertDialog.Builder pinAlert = new AlertDialog.Builder(loginScreen.this);
                                     pinAlert.setMessage("PIN Number invalid");

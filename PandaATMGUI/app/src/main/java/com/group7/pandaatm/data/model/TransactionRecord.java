@@ -145,23 +145,6 @@ public class TransactionRecord {
         records.add(r);
 
 
-        int maxLeftAmountSize = 0;
-        int maxRightAmountSize = 0;
-        int maxAccountNameSize = 25;
-        for(int i = 0; i < records.size(); i++) {
-            int size = records.get(i).findLeftSize();
-            if(maxLeftAmountSize < size) {
-                maxLeftAmountSize = size;
-            }
-            size = records.get(i).findRightSize();
-            if(maxRightAmountSize < size) {
-                maxRightAmountSize = size;
-            }
-        }
-        StringBuilder s = new StringBuilder();
-        int width = 60;
-        for(int i = 0; i < records.size(); i++) {
-            s.append(records.get(i).toString(width, maxAccountNameSize, maxLeftAmountSize, maxRightAmountSize));
-        }
+
     }
 }

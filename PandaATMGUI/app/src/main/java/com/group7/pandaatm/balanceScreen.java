@@ -9,12 +9,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.group7.pandaatm.data.SessionController;
 
+import java.io.IOException;
+
 public class balanceScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance_screen);
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         Intent pastIntent = getIntent();
         String accountName = pastIntent.getStringExtra("accountName");
         double amount = pastIntent.getDoubleExtra("amount", -1);

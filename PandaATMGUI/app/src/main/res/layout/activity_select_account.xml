@@ -46,18 +46,6 @@
         app:layout_constraintTop_toBottomOf="@+id/logo12"
         tools:ignore="MissingConstraints" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-    </RadioGroup>
-
     <Button
         android:id="@+id/select"
         android:layout_width="wrap_content"

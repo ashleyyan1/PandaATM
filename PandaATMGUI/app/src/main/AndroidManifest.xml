@@ -9,12 +9,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".receiptScreen"
             android:label="@string/title_activity_receipt_screen"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".transactionSuccessful"
             android:label="@string/title_activity_transfer_successful_screen"
@@ -42,10 +41,6 @@
         <activity
             android:name=".balanceScreen"
             android:label="@string/title_activity_balance_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".receiptConfirmationScreen"
-            android:label="@string/title_activity_receipt_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"

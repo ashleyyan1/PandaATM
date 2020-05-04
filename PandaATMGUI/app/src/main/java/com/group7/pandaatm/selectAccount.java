@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
@@ -27,6 +28,13 @@ public class selectAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_account);
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         accountSpinner = findViewById(R.id.accountSpinner);
         findViewById(R.id.select).setOnClickListener(buttonClickListener);
         findViewById(R.id.previous).setOnClickListener(buttonClickListener);
@@ -34,6 +42,8 @@ public class selectAccount extends AppCompatActivity {
         accountNames = creationIntent.getStringArrayListExtra("accountNames");
         accountInteger = creationIntent.getIntegerArrayListExtra("accountIds");
         nextIntent = creationIntent.getIntExtra("nextIntent", -1);
+        TextView text = findViewById(R.id.textView5);
+        text.setText(creationIntent.getStringExtra("prompt"));
         populateSpinner(accountNames);
     }
 
@@ -124,6 +134,7 @@ public class selectAccount extends AppCompatActivity {
                                                     dep.putExtra("accountNameSource", accountNames.get(value));
                                                     dep.putExtra("accountIDSource", accountID);
                                                     dep.putExtra("amountSource", amount);
+                                                    dep.putExtra("prompt", "Please select a Destination Account");
                                                     if (finalMinRequiredBal >= 0) {
                                                         dep.putExtra("isChecking", true);
                                                         dep.putExtra("min", finalMinRequiredBal);

@@ -26,6 +26,13 @@ public class withdrawAmtTransfer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdraw_amt_transfer_screen);
+        Thread worker30 = new Thread(() -> {
+            try {
+                SessionController.getInstance().setCurrentContext(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         Intent pastIntent = getIntent();
 
         accountNameSrc = pastIntent.getStringExtra("accountNameSrc");

@@ -1,16 +1,22 @@
 package com.group7.pandaatm.controllers;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.group7.pandaatm.data.Message;
 
 public class SessionTimer {
 
 	private volatile boolean sessionThreadActive;
+	private ObjectOutputStream dataOutput;
 	private long sessionTimeOut;
 	private Timer sessionTimer;
 	
-	public SessionTimer(String name, boolean isDaemon, long sTO) {
+	public SessionTimer(String name, ObjectOutputStream dO, boolean isDaemon, long sTO) {
 		this.sessionThreadActive = true;
+		this.dataOutput = dO;
 		this.sessionTimeOut = sTO;
 		this.sessionTimer = new Timer(name, isDaemon);
 	}//Constructor
@@ -21,7 +27,14 @@ public class SessionTimer {
 
 			@Override
 			public void run() {
-				sessionThreadActive = false;				
+				System.out.println("SESSION TIMEOUT ALARM");
+				sessionThreadActive = false;
+				try {
+					dataOutput.writeObject(new Message(1));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}//end run
 			
 		}, this.sessionTimeOut);
@@ -40,7 +53,14 @@ public class SessionTimer {
 
 			@Override
 			public void run() {
-				sessionThreadActive = false;				
+				System.out.println("SESSION TIMEOUT ALARM");
+				sessionThreadActive = false;
+				try {
+					dataOutput.writeObject(new Message(1));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 			}
 			
 		}, this.sessionTimeOut );

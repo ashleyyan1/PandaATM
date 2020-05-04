@@ -115,9 +115,10 @@ public class TransactionHandler {
 							
 							//Checks to make sure ATM has enough bills to dispense for transaction
 							if(atm.getWithdrawalBillsRemaining() >= transactionAmount / 20) {
-								transactionData.insertWithdrawalTransaction(transactionAmount, atmSession.getSessionID(), 
+								int transactionID = transactionData.insertWithdrawalTransaction(transactionAmount, atmSession.getSessionID(), 
 																			 account.getAccountNumber(), false);
 								Message transactionSuccessful = new Message(12);//Transaction Successful
+								transactionSuccessful.addIntegerM(transactionID);
 								transactionSuccessful.addStringM("Transaction Successful. Returning to Main Menu.");
 								dataOutput.writeObject(transactionSuccessful);
 								System.out.println(Thread.currentThread().getName() + ": Withdrawal Successful");
@@ -416,10 +417,11 @@ public class TransactionHandler {
 							db.lock();
 							if(accountData.getAccountInfo(srcAccount.getAccountNumber()).getAccountBal() >= transactionAmount) {
 								
-								transactionData.insertTransferTransaction(transactionAmount, targetAccount.getAccountNumber(), 
+								int transactionID = transactionData.insertTransferTransaction(transactionAmount, targetAccount.getAccountNumber(), 
 																	atmSession.getSessionID(), srcAccount.getAccountNumber(), false);
 								Message transactionSuccessful = new Message(12);//Transaction Successful
 								transactionSuccessful.addStringM("Transaction Successful. Returning to Main Menu.");
+								transactionSuccessful.addIntegerM(transactionID);
 								dataOutput.writeObject(transactionSuccessful);
 								System.out.println(Thread.currentThread().getName() + ": Transaction Successful");
 							}
