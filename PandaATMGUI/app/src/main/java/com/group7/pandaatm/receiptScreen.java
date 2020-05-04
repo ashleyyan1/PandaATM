@@ -1,10 +1,8 @@
 package com.group7.pandaatm;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.se.omapi.Session;
 import android.view.View;
 import android.widget.EditText;
 
@@ -12,12 +10,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.group7.pandaatm.data.SessionController;
-import com.group7.pandaatm.data.model.TransactionRecord;
+import com.group7.pandaatm.data.TransactionRecord;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
