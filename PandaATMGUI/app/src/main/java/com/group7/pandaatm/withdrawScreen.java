@@ -43,7 +43,7 @@ public class withdrawScreen extends AppCompatActivity {
     }
 
     private View.OnClickListener buttonClickListener = v -> {
-        int amount = -1;
+        double amount = -1;
         switch (v.getId()) {
             case R.id.cancelButton1:        //if cancel button is clicked, go to main screen
                 Thread worker11 = new Thread(() -> {
@@ -106,7 +106,7 @@ public class withdrawScreen extends AppCompatActivity {
                         minBal.create().show();
                         // return true/false yes/no if they wish to continue or edit their amount
                         if(true) {
-                            int finalAmount = amount;
+                            double finalAmount = amount;
                             Thread worker12 = new Thread(() -> {
                                 try {
                                     SessionController c = SessionController.getInstance();
@@ -115,6 +115,10 @@ public class withdrawScreen extends AppCompatActivity {
                                     c.sendMessage(msgSendAmount);
                                     runOnUiThread(() -> {
                                         Intent confirmation = new Intent(withdrawScreen.this, ConfirmationScreen.class);
+                                        confirmation.putExtra("accountName", accountName);
+                                        confirmation.putExtra("type", 1);
+                                        confirmation.putExtra("srcOldBalance" , accountMax);
+                                        confirmation.putExtra("amount", finalAmount);
                                         startActivity(confirmation);
                                         finish();
                                     });
@@ -126,7 +130,7 @@ public class withdrawScreen extends AppCompatActivity {
                         }
                     }
                     else {
-                        int finalAmount = amount;
+                        double finalAmount = amount;
                         Thread worker12 = new Thread(() -> {
                             try {
                                 SessionController c = SessionController.getInstance();

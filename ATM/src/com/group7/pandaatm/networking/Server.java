@@ -24,6 +24,7 @@ public class Server {
 	}//end Server
 	
 	public void runServer() {
+		System.out.println("Server Started");
 		try {
 			while(true) {
 				Socket clientConnection = mainSocket.accept();

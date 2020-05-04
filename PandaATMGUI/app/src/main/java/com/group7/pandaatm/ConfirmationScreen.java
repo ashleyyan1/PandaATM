@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.group7.pandaatm.data.Message;
 import com.group7.pandaatm.data.SessionController;
+import com.group7.pandaatm.data.model.TransactionRecord;
 
 import java.io.IOException;
 
@@ -59,6 +60,8 @@ public class ConfirmationScreen extends AppCompatActivity {
                             Message m = c.readMessage();
 
                              if (m.flag() == 12) {//Transaction Successful
+                                TransactionRecord record = readData(getIntent(), m);
+                                c.insertRecord(record);
                                 runOnUiThread(() -> {
                                     Intent dep = new Intent(ConfirmationScreen.this, transactionSuccessful.class);
                                     startActivity(dep);
@@ -85,6 +88,40 @@ public class ConfirmationScreen extends AppCompatActivity {
             }//end switch
         }//end onClick()
     };
+
+    public TransactionRecord readData(Intent caller, Message confirmation) {
+        int type = caller.getIntExtra("type", -1);
+        double amount = caller.getDoubleExtra("amount", -1);
+        int id = confirmation.getIntegerMessages().get(0);
+        switch (type) {
+            case 0://Deposit
+                String accountName1 = caller.getStringExtra("accountName");
+                double tarOldAmount1 = caller.getDoubleExtra("accountAmount", -1);
+                double tarNewAmount1 = tarOldAmount1 + amount;
+                TransactionRecord record1 = new TransactionRecord(type, amount, id);
+                record1.setDeposit(accountName1, tarOldAmount1, tarNewAmount1);
+                return record1;
+            case 1://Withdrawal
+                String accountName2 = caller.getStringExtra("accountName");
+                double srcOldBalance2 = caller.getDoubleExtra("srcOldBalance", -1);
+                double srcNewBalance2 = srcOldBalance2 - amount;
+                TransactionRecord record2 = new TransactionRecord(type, amount, id);
+                record2.setWithdrawal(accountName2, srcOldBalance2, srcNewBalance2);
+                return record2;
+            case 2://Transfer
+                String accountName3A = caller.getStringExtra("srcAccountName");
+                double srcOldBalance3 = caller.getDoubleExtra("srcAccountMax", -1);
+                double srcNewBalance3 = srcOldBalance3 - amount;
+                String accountName3B = caller.getStringExtra("tarAccountName");
+                double tarOldBalance3 = caller.getDoubleExtra("tarAccountMax", -1);
+                double tarNewBalance3 = tarOldBalance3 + amount;
+                TransactionRecord record3 = new TransactionRecord(type, amount, id);
+                record3.setTransfer(accountName3A, accountName3B, srcOldBalance3, srcNewBalance3, tarOldBalance3, tarNewBalance3);
+                return record3;
+            default:
+                throw new IllegalArgumentException("Unexpected Account Type");
+        }
+    }
     @Override
     public void onBackPressed() {}//Disables Android's Back Button
 }//end ConfirmationScreen

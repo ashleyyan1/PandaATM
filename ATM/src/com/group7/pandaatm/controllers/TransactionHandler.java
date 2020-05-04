@@ -259,14 +259,15 @@ public class TransactionHandler {
 					try {
 						db.lock();
 						//Checks to make sure ATM has enough space bills in deposit box
-						if(atm.getDepositBillCount() + billCount < atm.getMaxDepositCapacity()) {
-							transactionData.insertDepositTransaction(transactionAmount, atmSession.getSessionID(), 
+						if(atm.getDepositBillCount() + billCount <= atm.getMaxDepositCapacity()) {
+							int transactionID = transactionData.insertDepositTransaction(transactionAmount, atmSession.getSessionID(), 
 																		 account.getAccountNumber(), false);
 							
 							//Perform an update on ATM to adjust `depositBillCount` to reflect local billCount
 							atmData.updateDepositBillCount(billCount, atm.getMachineID());
 							
 							Message transactionSuccessful = new Message(12);//Transaction Successful
+							transactionSuccessful.addIntegerM(transactionID);
 							transactionSuccessful.addStringM("Transaction Successful. Returning to Main Menu.");
 							dataOutput.writeObject(transactionSuccessful);	
 							System.out.println(Thread.currentThread().getName() + ": Deposit Successful");	

@@ -260,6 +260,7 @@ public class cashDepositScreen extends AppCompatActivity {
                                 confirmTransaction.putExtra("accountName", accountName);
                                 confirmTransaction.putExtra("billCount", totalBills);
                                 confirmTransaction.putExtra("amount", totalAmount);
+                                confirmTransaction.putExtra("accountAmount" , amount);
                                 confirmTransaction.putExtra("type", 0);
                                 startActivity(confirmTransaction);
                                 finish();
